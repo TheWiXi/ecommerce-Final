@@ -1,0 +1,35 @@
+{
+  "name": "ecommerce-final",
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "description": "Este proyecto es una aplicación web de ecommerce enfocada en móviles que implementa la arquitectura hexagonal. La aplicación permite a los usuarios registrarse y loguearse tanto de manera local como mediante Google, Facebook e Instagram. Además, cuenta con una pasarela de pagos simulada, un chat de atención al cliente en tiempo real, y la opción de cambiar entre modo claro y oscuro.",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "npm run dev --workspace=client",
+    "dev:server": "npm run dev --workspace=server",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^2.6.0",
+    "concurrently": "^9.0.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.3",
+    "passport": "^0.7.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
