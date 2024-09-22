@@ -1,52 +1,58 @@
-const Product = require ('../models/productModel');
+const Product = require('../models/productModel');
 
-class ProductRepository{
-    async getProduct(productName) {
+class productRepository {
+    async getById(id) {
         try {
-        const product = new Product();
-        return await product.getProductByName(productName);
+            const product = new Product();
+            return await product.findById(id);
         } catch (error) {
-        throw new Error(JSON.stringify({status: 400, message: 'Error retrieving product'}));
+            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving product'}));
         }
+    }
+
+    async getAll() {
+        try {
+            const product = new Product();
+            return await product.getAllProductos();
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving products'}));
         }
+    }
 
-        async saveProduct(productData) {
-            try {
-                const product = new Product();
-                return await product.postProduct(productData);
-            } catch (error) {
-                console.error('Error saving product:', error); // Registro del error para depuración
-                throw new Error('Error saving product'); // Mensaje de error simplificado
-            }
+    async save(productData) {
+        try {
+            const product = new Product();
+            return await product.insert(productData);
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error saving product'}));
         }
+    }
 
-            async updateProductById(id, updateData) {
-                try {
-                    const product = new Product(); // Asegúrate de que la clase se instancie correctamente
-                    const result = await product.putProduct(id, updateData, true);
-                    return result;
-                } catch (error) {
-                    console.error('Error updating product:', error);
-                    throw new Error(JSON.stringify({ status: 500, message: 'Error updating product' }));
-                }
-            }
+    async updateById(id, updateData) {
+        try {
+            const product = new Product();
+            return await product.findByIdAndUpdate(id, updateData, { upsert: true });
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error updating product'}));
+        }
+    }
 
-            async deleteProductById(id) {
-                try {
-                    const product = new Product();
-                    const result = await product.deleteProduct(id);
-                    if (result.deletedCount === 0) {
-                        throw new Error('Product not found');
-                    }
-                    return result;
-                } catch (error) {
-                    throw new Error(JSON.stringify({ status: 404, message: 'Error deleting product' }));
-                }
-            }
+    async deleteById(id) {
+        try {
+            const product = new Product();
+            return await product.findByIdAndDelete(id);
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 404, message: 'Error deleting product'}));
+        }
+    }
 
+    async searchByName(name) {
+        try {
+            return await Product.find({ name: new RegExp(name, 'i') });
+        } catch (error) {
+            throw new Error('Error searching for products');
+        }
+    }
 }
 
-module.exports = ProductRepository;
-
-
-
+module.exports = productRepository;
