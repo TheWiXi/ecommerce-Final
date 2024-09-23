@@ -22,7 +22,7 @@ class productService {
     }
 
     async createProduct(data) {
-        const product = await this.productRepository.save(data);
+        const product = await this.productService.save(data);
         if(!product){
             throw new Error(JSON.stringify({status: 404, message: 'Error entering product'}));
         }
@@ -30,7 +30,7 @@ class productService {
     }
 
     async updateProduct(id, data) {
-        const updatedProduct = await this.productRepository.updateById(id, data);
+        const updatedProduct = await this.productService.updateById(id, data);
         if (!updatedProduct) {
             throw new Error(JSON.stringify({status: 404, message: 'Product not found or could not be updated'}));
         }
@@ -38,7 +38,7 @@ class productService {
     }
 
     async deleteProduct(id) {
-        const deletedProduct = await this.productRepository.deleteById(id);
+        const deletedProduct = await this.productService.deleteById(id);
         if (!deletedProduct) {
             throw new Error(JSON.stringify({status: 404, message: 'Product not found or could not be deleted'}));
         }        

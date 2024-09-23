@@ -5,14 +5,14 @@ const ConnectToDatabase = require("../../infraestructure/database/mongodb");
 class Product{
     async findById (id) {
         let obj = ConnectToDatabase.instanceConnect;
-        const collection = obj.db.collection('productos');
+        const collection = obj.db.collection('producto');
         const [res] = await collection.find({_id: new ObjectId(id)}).toArray();
         return res;
     }
 
-    async getAllProductos() {
+    async getAllproductos() {
         let obj = ConnectToDatabase.instanceConnect;
-        const collection = obj.db.collection('productos');
+        const collection = obj.db.collection('producto');
         const res = await collection.find({}).toArray();
         return res;
     }
@@ -20,7 +20,7 @@ class Product{
     async insert(productData){
         // Si existe un JSON Schema en la base de datos de MongoDB, es necesario agregar un manejador de errores con try-catch. En el domain/repositories/userRepository.js debe devolver el código de error correspondiente.
         let obj = ConnectToDatabase.instanceConnect;
-        const collection = obj.db.collection('productos');
+        const collection = obj.db.collection('producto');
         const res = await collection.insertMany([productData]);
         return res;
     }
@@ -28,14 +28,14 @@ class Product{
     async findByIdAndUpdate(id, updateData, upsert){
         // Si existe un JSON Schema en la base de datos de MongoDB, es necesario agregar un manejador de errores con try-catch. En el domain/repositories/userRepository.js debe devolver el código de error correspondiente.
         let obj = ConnectToDatabase.instanceConnect;
-        const collection = obj.db.collection('productos');
+        const collection = obj.db.collection('producto');
         const res = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData }, upsert);
         return res;
     }
     
     async findByIdAndDelete(id){
         let obj = ConnectToDatabase.instanceConnect;
-        const collection = obj.db.collection('productos');
+        const collection = obj.db.collection('producto');
         const res = await collection.deleteMany({ _id: new ObjectId(id) });
         return res;
     }

@@ -16,7 +16,7 @@ class ConnectToDatabase{
         ConnectToDatabase.instanceConnect = this;
     }
     async connectOpen(){
-        this.connection = new MongoClient(`${process.env.MONGO_ACCESS}${this.user}:${this.getPassword}@${process.env.MONGO_HOST}`);
+        this.connection = new MongoClient(`${process.env.MONGO_ACCESS}${this.user}:${this.getPassword}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`);
         try {
             await this.connection.connect();
             this.db = this.connection.db(process.env.MONGO_DB_NAME);

@@ -13,7 +13,7 @@ class productRepository {
     async getAll() {
         try {
             const product = new Product();
-            return await product.getAllProductos();
+            return await product.getAllproductos();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving products'}));
         }
