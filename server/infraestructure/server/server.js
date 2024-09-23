@@ -1,4 +1,6 @@
 const express = require('express');
+const productRoutes = require('../../application/routes/productRoute');
+const userRoutes = require('../../application/routes/userRoute');
 const { jsonParseErrorHandler } = require('../middlewares/errorHandling');
 const { limiTotal } = require('../middlewares/rateLimit');
 
@@ -11,6 +13,8 @@ const createServer = () => {
     app.use(jsonParseErrorHandler);
     app.use(limiTotal);
 
+    app.use('/products', productRoutes);
+    app.use('/users', userRoutes);
     return app;
 };
 
