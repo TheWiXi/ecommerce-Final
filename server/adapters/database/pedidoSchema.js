@@ -38,5 +38,5 @@ const PedidoSchema = mongoose.Schema({
     },
   }, { timestamps: true });
   
-  module.exports = mongoose.model('Pedido', PedidoSchema);
+  module.exports = mongoose.model('pedido', PedidoSchema, 'pedido');
   

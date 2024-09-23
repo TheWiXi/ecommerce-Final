@@ -43,5 +43,5 @@ const TallerSchema = mongoose.Schema({
     },
   }, { timestamps: true });
   
-  module.exports = mongoose.model('Taller', TallerSchema);
+  module.exports = mongoose.model('taller', TallerSchema, 'taller');
   
