@@ -41,6 +41,11 @@ const TallerSchema = mongoose.Schema({
       ref: 'Usuario',
       required: true,
     },
+    publico:{
+      type: String,
+      default:'',
+
+    }
   }, { timestamps: true });
   
   module.exports = mongoose.model('taller', TallerSchema, 'taller');
