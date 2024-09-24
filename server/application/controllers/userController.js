@@ -91,7 +91,12 @@ class UserController {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
             const token = await this.userService.getUserByEmailAndPassword(req.body);
-            res.cookie("token", `Bearer ${token}`, {maxAge: process.env.EXPRESS_EXPIRE}).status(201).json({token});
+            res.cookie("token", `Bearer ${token}`, {
+                maxAge: process.env.EXPRESS_EXPIRE,
+                httpOnly: true,
+            })
+            .status(201)
+            .json({ token });
         } catch (error) {
             const errorObj = JSON.parse(error.message);
             res.status(errorObj.status).json({ message: errorObj.message });

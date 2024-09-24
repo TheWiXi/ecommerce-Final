@@ -2,9 +2,7 @@ const ConnectToDatabase = require('./infraestructure/database/mongodb');
 const createServer = require('./infraestructure/server/server');
 require('dotenv').config({ path: '../.env' });
 
-
 const startApp = async () => {
-    
     let connectToDatabase = new ConnectToDatabase();
     await connectToDatabase.open();
 
