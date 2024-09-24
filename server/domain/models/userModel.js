@@ -22,6 +22,9 @@ class User{
         return await user.findByIdAndDelete(id).exec();
     }
     
+    async aggregate(query) {
+        return await user.aggregate(query).exec();
+    }
 }
 
 module.exports = User;
