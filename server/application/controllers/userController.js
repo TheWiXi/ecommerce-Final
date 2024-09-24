@@ -28,8 +28,7 @@ class UserController {
             }
             if (req.body.contraseña) {
                 const hashedPassword = await bcrypt.hash(req.body.contraseña, 10);
-                req.body.passwordHash = hashedPassword;
-                delete req.body.contraseña;  
+                req.body.contraseña = hashedPassword; 
             }
             const user = await this.userService.createUser(req.body);
             res.status(201).json(user);
@@ -92,7 +91,7 @@ class UserController {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
             const token = await this.userService.getUserByEmailAndPassword(req.body);
-            res.cookie("token", `Bearer ${token}`, {maxAge: process.env.EXPRESS_EXPIRE}).status(201).json(token);
+            res.cookie("token", `Bearer ${token}`, {maxAge: process.env.EXPRESS_EXPIRE}).status(201).json({token});
         } catch (error) {
             const errorObj = JSON.parse(error.message);
             res.status(errorObj.status).json({ message: errorObj.message });

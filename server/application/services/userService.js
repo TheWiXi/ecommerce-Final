@@ -20,7 +20,7 @@ class UserService {
     async getUserByEmailAndPassword(body) {
         const [user] = await this.userRepository.getByEmail(body);
         if (!user) throw new Error(JSON.stringify({status: 404, message: 'User not found'}));
-        const token = await this.userRepository.getByPassword(body.password, user);
+        const token = await this.userRepository.getByPassword(body.contraseña, user);
         if (!token)  throw new Error(JSON.stringify({status: 404, message: 'wrong password'}));
         return token;
     }

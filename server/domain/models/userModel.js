@@ -10,8 +10,8 @@ class User{
     }
 
     async insert(productData) {
-        const user = new user(productData);
-        return await user.save(); 
+        const usercreate = new user(productData);
+        return await usercreate.save(); 
     }
 
     async findByIdAndUpdate(id, updateData) {

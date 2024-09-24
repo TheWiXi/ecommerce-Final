@@ -14,7 +14,7 @@ class userRepository {
     async getAll() {
         try {
             const user = new User();
-            return await user.getAllusuarios();
+            return await user.getAllusers();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving users'}));
         }
@@ -80,7 +80,7 @@ class userRepository {
         delete user.contraseña
         const isMatch = await bcrypt.compare(password , pass)
         if(!isMatch) throw new Error(JSON.stringify({status: 401, message: 'unauthorized'}));
-        return jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '1h'})
+        return jwt.sign(user, process.env.KEY_SECRET, { expiresIn: `${process.env.EXPRESS_EXPIRE}ms` })
     }
 }
 
