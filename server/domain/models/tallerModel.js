@@ -15,6 +15,10 @@ class Workshop{
         return await taller.save();
     }
 
+    async deletingAWorkshop(id){
+        return await Taller.findByIdAndDelete(id).exec();
+    }
+
 }
 
 module.exports = Workshop;

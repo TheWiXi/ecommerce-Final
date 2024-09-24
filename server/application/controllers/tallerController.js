@@ -67,6 +67,18 @@ async creatingAWorkshop(req,res){
     }
 }
 
+async deltingWorkshop(req, res){
+    try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({errors:errors.array()});
+        const workshops = await this.workshopService.deletingWorkshop(req.params.id);
+        res.status(204).json(workshops);
+    }catch (error){
+        const errorObj = JSON.parse(error.message);
+        res.status(errorObj.status).json({message: errorObj.message});
+    }
+}
+
 }
 
 module.exports = WorkshopController;
