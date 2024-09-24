@@ -5,6 +5,15 @@ class WorkshopService{
         this.workshopService = new WorkshopRepository()
     }
 
+async getWorkshopId(id){
+    const workshop = await this.workshopService.getWorkshopById(id)
+    if(!workshop){
+        throw new Error(JSON.stringify({status: 404, message: 'Workshop could not be found'}));
+    }
+    return workshop
+}
+
+
     async getWorshops(){
         const workshop = await this.workshopService.getAllW()
         if(!workshop){
@@ -15,3 +24,4 @@ class WorkshopService{
 }
 
 module.exports = WorkshopService
+

@@ -6,6 +6,27 @@ class WorkshopController {
         this.workshopService = new WorkshopService();
     }
 
+    async getAspecificWorkshop(req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    
+            const workshop = await this.workshopService.getWorkshopId(req.params.id);
+            res.status(200).json(workshop); // Cambié `product` a `workshop`
+        } catch (error) {
+            console.error('Error:', error.message);
+            
+            // Si el mensaje de error no es un JSON válido, maneja el error apropiadamente
+            if (error.message.includes('some specific condition')) {
+                return res.status(404).json({ message: 'Taller no encontrado' });
+            }
+            
+            res.status(500).json({ message: 'Ocurrió un error inesperado' });
+        }
+    }
+    
+
+
     async getWorksh(req, res) {
         try {
             const errors = validationResult(req);

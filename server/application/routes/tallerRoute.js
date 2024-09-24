@@ -9,5 +9,6 @@ const workshopValidator = new WorkshopValidator();
 
 router.get('/getAllWorkshops',workshopValidator.validateWorkshopDataEmpty(),(req, res) => workshopController.getWorksh(req, res))
 
+router.get('/:id',workshopValidator.validateAspecificWorkshopDataEmpty(),(req, res)=> workshopController.getAspecificWorkshop(req, res))
 
 module.exports = router;
