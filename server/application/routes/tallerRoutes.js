@@ -6,7 +6,8 @@ const router = express.Router()
 const tallerController = new TallerController();
 const tallerValidator = new TallerValidator();
 
-router.get("/searchAll", tallerValidator.validateTallerDataEmpty (), (req, res) => tallerController.getAllTalleres(req, res))
+router.get("/searchAll", tallerValidator.validateTallerDataEmpty(), (req, res) => tallerController.getAllTalleres(req, res))
+
 
 
 

@@ -1,15 +1,15 @@
-const {ObjectId} = require()
+// const {ObjectId} = require('mongodb')
 const ConnectToDatabase = require('../../infraestructure/database/mongodb');
 
-class Taller{
+class Taller {
 
-    async getAllWorkShops(){
-        let obj = ConnectToDatabase.getWorkshops.instanceConnect;
-        const collection = onj.db.collection('taller');
-        const [res] = await collection.find({}).toArray();
+    async getAllWorkShops() {
+        let obj = ConnectToDatabase.instanceConnect;
+        const collection = obj.db.collection('taller'); 
+        const res = await collection.find({}).toArray();
         return res;
     }
-
 }
+
 
 module.exports = Taller;

@@ -1,18 +1,23 @@
-const TallerRepository = require('../../domain/repositories/tallerRepository')
+const TallerRepository = require('../../domain/repositories/tallerRepository');
 
 class TallerService {
-    constructor(){
-        this.tallerService = new TallerRepository()
+    constructor() {
+        this.tallerRepository = new TallerRepository();
     }
-
-    async getAllTalleres(){
-        const talleres = await this.tallerService.getAllT()
-        if(!talleres){
-            throw new Error(JSON.stringify({status: 404, message: 'Talleres not found'}));
+    
+    async getAllTalleres() {
+        try {
+            const talleres = await this.tallerRepository.getAllT();
+            console.log('Talleres retrieved in service:', talleres);
+            if (!talleres || talleres.length === 0) {
+                throw new Error(JSON.stringify({status: 404, message: 'No talleres found'}));
+            }
+            return talleres;
+        } catch (error) {
+            console.error('Error in TallerService getAllTalleres:', error);
+            throw error;
         }
-        return talleres
     }
-
 }
 
-module.exports = TallerService
+module.exports = TallerService;

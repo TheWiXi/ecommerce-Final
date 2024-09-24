@@ -1,9 +1,7 @@
 const Taller = require('../models/tallerModel');
 
-class tallerRepository{
-
-
-    async  getAllT (){
+class TallerRepository {
+    async getAllT() {
         try {
             const taller = new Taller();
             return await taller.getAllWorkShops();
@@ -13,5 +11,5 @@ class tallerRepository{
     }
 }
 
-module.exports = tallerRepository;
+module.exports = TallerRepository;
 

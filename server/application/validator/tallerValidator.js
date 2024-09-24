@@ -49,7 +49,8 @@ class TallerValidator{
             .notEmpty().withMessage('La imagen es obligatoria')
             .isString().withMessage('La imagen debe ser un string')
             .isURL().withMessage('La imagen debe ser una URL válida'),
-          
+            
+            
         ]
 }
 

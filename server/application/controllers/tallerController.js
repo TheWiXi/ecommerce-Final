@@ -1,9 +1,9 @@
 const {validationResult} = require('express-validator')
-const tallerService = require('../services/tallerServices')
+const TallerService = require('../services/tallerServices')
 
 class TallerController {
-    constructor(){
-        this.tallerService = new tallerService()
+    constructor() {
+        this.tallerService = new TallerService()
     }
 
     async getAllTalleres(req, res) {
