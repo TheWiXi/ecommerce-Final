@@ -11,4 +11,7 @@ router.get('/getAllWorkshops',workshopValidator.validateWorkshopDataEmpty(),(req
 
 router.get('/:id',workshopValidator.validateAspecificWorkshopDataEmpty(),(req, res)=> workshopController.getAspecificWorkshop(req, res))
 
+router.post('/datas',workshopValidator.validatingWorkshopData(), (req, res) => workshopController.creatingAWorkshop(req, res))
+
 module.exports = router;
+

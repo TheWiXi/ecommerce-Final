@@ -18,10 +18,7 @@ const TallerSchema = mongoose.Schema({
       type: Date,
       required: true,
     },
-    fechaFin: {
-      type: Date,
-      required: true,
-    },
+    
     duracion: {
       type: String,
       required: true,

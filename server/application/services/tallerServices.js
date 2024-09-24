@@ -13,11 +13,18 @@ async getWorkshopId(id){
     return workshop
 }
 
-
     async getWorshops(){
         const workshop = await this.workshopService.getAllW()
         if(!workshop){
             throw new Error(JSON.stringify({status: 404, message:'Workshop not found'}));
+        }
+        return workshop
+    }
+
+    async creatingAworkshop(data){
+        const workshop = await this.workshopService.saveAWorkshop(data);
+        if(!workshop){
+            throw new Error(JSON.stringify({status: 404, message: 'Error entering workshop'}));
         }
         return workshop
     }

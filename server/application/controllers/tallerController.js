@@ -52,6 +52,21 @@ class WorkshopController {
             res.status(statusCode).json({ message: errorMessage });
         }
     }
+
+async creatingAWorkshop(req,res){
+    try{
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) return res.status(400).json({
+            errors: errors.array()
+        });
+        const workshops = await this.workshopService.creatingAworkshop(req.body);
+        res.status(201).json(workshops);
+    }catch (error){
+        const errorObj = JSON.parse(error.message);
+        res.status(errorObj.status).json({message: errorObj.message});
+    }
+}
+
 }
 
 module.exports = WorkshopController;
