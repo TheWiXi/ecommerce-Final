@@ -12,6 +12,11 @@ async getAllCoupons(){
     return await Cupon.find({}).exec();
 }
 
+async insertCoupons(productData) {
+    const cupon = new Cupon(productData);
+    return await cupon.save(); 
+}
+
 
 
 }

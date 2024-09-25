@@ -13,7 +13,6 @@ async getCouponService(id){
     return coupon
 }
 
-
 async getAllCouponsService(){
     const coupon = await this.CouponService.getAllCouponRepository()
     if(!coupon){
@@ -21,6 +20,15 @@ async getAllCouponsService(){
     }
     return coupon
 }
+
+async createCouponService(data) {
+    const coupon = await this.CouponService.saveCouponRepository(data);
+    if(!coupon){
+        throw new Error(JSON.stringify({status: 404, message: 'Error entering coupon'}));
+    }
+    return coupon
+}
+
 
 
 }

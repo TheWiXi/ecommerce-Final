@@ -17,9 +17,19 @@ async getAllCouponRepository(){
             return await coupon.getAllCoupons();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving coupons'}));
-        }
-    
+        }   
 }
+
+async saveCouponRepository(productData) {
+    try {
+        const coupon = new Coupon();
+        return await coupon.insertCoupons(productData);
+    } catch (error) {
+        throw new Error(JSON.stringify({status: 500, message: 'Error saving coupon'}));
+    }
+}
+
+
 
 
 }

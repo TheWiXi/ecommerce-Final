@@ -44,6 +44,44 @@ class CouponsValidator{
     };
 
 
+    
+validateCouponData = ()=>{
+    return[
+
+        body('codigo')
+        .notEmpty().withMessage('El código es obligatorio')
+        .isString().withMessage('El código debe ser un string'),
+
+    body('descuento')
+        .notEmpty().withMessage('El descuento es obligatorio')
+        .isDecimal().withMessage('El descuento debe ser un número decimal'),
+
+    body('tipo')
+        .notEmpty().withMessage('El tipo es obligatorio')
+        .isString().withMessage('El tipo debe ser un string')
+        .isIn(['general', 'asignado']).withMessage('El tipo debe ser "general" o "asignado"'),
+
+    body('fechaExpiracion')
+        .notEmpty().withMessage('La fecha de expiración es obligatoria')
+        .isISO8601().withMessage('La fecha de expiración debe estar en formato ISO8601'),
+
+    body('usuarioId')
+        .optional()
+        .custom((value) => {
+            if (!ObjectId.isValid(value)) {
+                throw new Error('El usuarioId debe ser un ObjectId válido');
+            }
+            return true;
+        }),
+
+    body('imagen')
+        .optional()
+        .isString().withMessage('La imagen debe ser una URL válida')
+        .isURL().withMessage('La imagen debe ser una URL válida')
+
+    ]
+
+}
 
 
 }
