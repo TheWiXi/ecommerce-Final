@@ -29,27 +29,21 @@ async getWorkshopId(id){
         return workshop
     }
 
-    async deletingWorkshop(id) {
+    async workshopDeleted(id) {
         try {
-            // Verificar si el ID es válido
-            if (!ObjectId.isValid(id)) {
-                throw new Error(JSON.stringify({ status: 400, message: 'Invalid workshop ID' }));
-            }
-
-            // Eliminar el taller
-            const deletedWorkshop = await Workshop.findByIdAndDelete(id);
+            const deletedWorkshop = await this.workshopService.deltingWorkshop(id);
             
             if (!deletedWorkshop) {
+                console.log(`No workshop found for id ${id}`);
                 throw new Error(JSON.stringify({ status: 404, message: 'Workshop not found or could not be deleted' }));
             }
-
-            return deletedWorkshop; // Regresar el taller eliminado si es necesario
+    
+            return deletedWorkshop;
         } catch (error) {
-            console.error('Error during deletion:', error);
-            throw new Error(JSON.stringify({ status: 500, message: 'Error deleting workshop' }));
+            console.error(`Error deleting workshop with id ${id}:`, error);
+            throw error;
         }
     }
-
 }
 
 module.exports = WorkshopService

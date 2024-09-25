@@ -67,19 +67,37 @@ async creatingAWorkshop(req,res){
     }
 }
 
-async deltingWorkshop(req, res){
-    try{
+async deleteWorkshop(req, res) {
+    try {
         const errors = validationResult(req);
-        if (!errors.isEmpty()) return res.status(400).json({errors:errors.array()});
-        const workshops = await this.workshopService.deletingWorkshop(req.params.id);
-        res.status(204).json(workshops);
-    }catch (error){
-        const errorObj = JSON.parse(error.message);
-        res.status(errorObj.status).json({message: errorObj.message});
+        if (!errors.isEmpty()) {
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        // Attempt to delete the workshop
+        const workshop = await this.workshopService.workshopDeleted(req.params.id);
+        
+        if (!workshop) {
+            console.log(`Workshop with id ${req.params.id} not found or could not be deleted`);
+            return res.status(404).json({ message: 'Workshop not found or could not be deleted' });
+        }
+        return res.status(204).send();  // No content for 204 status
+    } catch (error) {
+        console.log("Error in deleteWorkshop:", error.message);
+        try {
+            const errorObj = JSON.parse(error.message);
+            return res.status(errorObj.status).json({ message: errorObj.message });
+        } catch (jsonError) {
+            // Fallback if JSON parsing fails
+            console.error("Error parsing JSON message:", jsonError);
+            return res.status(500).json({ message: 'An internal server error occurred' });
+        }
     }
 }
-
 }
+
+
 
 module.exports = WorkshopController;
 

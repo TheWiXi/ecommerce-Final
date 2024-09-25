@@ -12,7 +12,7 @@ router.get('/:id',workshopValidator.validateAspecificWorkshopDataEmpty(),(req, r
 router.post('/postingAWorkshop',workshopValidator.validatingWorkshopData(), (req, res) => workshopController.creatingAWorkshop(req, res))
 
 
-router.delete('/:id',workshopValidator.workshopDeleter(),(req,res)=>workshopController.deltingWorkshop(req, res));
+router.delete('/:id',workshopValidator.workshopDeleter(),(req,res)=>workshopController.deleteWorkshop(req, res));
 
 
 module.exports = router;
