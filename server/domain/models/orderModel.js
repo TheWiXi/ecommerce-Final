@@ -1,4 +1,4 @@
-const Order = require('../../adapters/database/cuponSchema')
+const Order = require('../../adapters/database/pedidoSchema')
 
 class Orders{
 
@@ -11,8 +11,11 @@ class Orders{
     async getAllOrders() {
         return await Order.find({}).exec(); 
     }
-    
 
+    async insertNewOrder(orderData) {
+        const order = new Order(orderData);
+        return await order.save(); 
+    }
 
 
 

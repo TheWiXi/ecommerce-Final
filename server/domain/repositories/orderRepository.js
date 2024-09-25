@@ -20,6 +20,16 @@ class OrderRepository{
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving Orders'}));
         }
     }
+    async saveNewOrderRepository(orderData) {
+        try {
+            const orders = new Orders();
+            return await orders.insertNewOrder(orderData);
+        } catch (error) {
+            console.error('Error details:', error); // Log the actual error
+            throw new Error(JSON.stringify({status: 500, message: 'Error saving the Order'}));
+        }
+    }
+    
 
 
 }

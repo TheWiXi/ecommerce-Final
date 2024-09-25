@@ -23,6 +23,14 @@ class OrderService{
         return orders
     }
 
+    async createNewOrderService(data) {
+        const orders = await this.orderService.saveNewOrderRepository(data);
+        if(!orders){
+            throw new Error(JSON.stringify({status: 404, message: 'Error entering product'}));
+        }
+        return orders;
+    }
+
 
 
 
