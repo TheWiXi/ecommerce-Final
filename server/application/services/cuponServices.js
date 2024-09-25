@@ -38,6 +38,9 @@ async deleteCouponService(id) {
 }
 
 async updateCouponService(id, data) {
+    console.log("Updating coupon with ID:", id);
+    console.log("Data to update:", data);
+    
     const updatedCoupon = await this.CouponService.updateCouponById(id, data);
     if (!updatedCoupon) {
         throw new Error(JSON.stringify({status: 404, message: 'Product not found or could not be updated'}));

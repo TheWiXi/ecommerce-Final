@@ -44,6 +44,7 @@ async updateCouponById(id, updateData) {
         const coupon = new Coupon();
         return await coupon.updateCoupons(id, updateData, { upsert: true });
     } catch (error) {
+        console.error("MongoDB error:", error);  // Log the actual MongoDB error
         throw new Error(JSON.stringify({status: 500, message: 'Error updating coupon'}));
     }
 }

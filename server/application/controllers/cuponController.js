@@ -60,12 +60,14 @@ class CouponController{
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            
             const coupons = await this.couponService.updateCouponService(req.params.id, req.body);
             res.status(200).json(coupons);
         } catch (error) {
-            const errorObj = JSON.parse(error.message);
-            res.status(errorObj.status).json({ message: errorObj.message });
+            console.error("Error updating coupon:", error);  // Log the full error
+            res.status(500).json({ message: "Error updating coupon", error: error.message });
         }
+    
     }
 
 }

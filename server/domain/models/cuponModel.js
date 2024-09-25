@@ -22,7 +22,7 @@ async deleteCoupons(id){
 }
 
 async updateCoupons(id, updateData) {
-    return await Producto.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
+    return await Cupon.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
 }
 
 
