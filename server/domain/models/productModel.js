@@ -21,7 +21,6 @@ class Product{
     async findByIdAndDelete(id) {
         return await Producto.findByIdAndDelete(id).exec();
     }
-    
 }
 
 module.exports = Product;
