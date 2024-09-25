@@ -8,7 +8,7 @@ const couponsValidator  = new CouponsValidator();
 
 
 router.get("/getAllCoupons",couponsValidator.validateCouponDataEmpty(), (req, res)=>couponController.getCouponsController(req, res))
-
+router.get("/:id",couponsValidator.validateCouponId(), (req, res)=>couponController.getCouponController(req, res))
 
 
 module.exports = router;

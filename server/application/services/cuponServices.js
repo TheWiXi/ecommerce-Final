@@ -5,6 +5,15 @@ constructor(){
     this.CouponService = new CouponRepository()
 }
 
+async getCouponService(id){
+    const coupon = await this.CouponService.getCouponRepository(id)
+    if(!coupon){
+        throw new Error(JSON.stringify({status: 404, message: 'Coupon not found'}));
+    }
+    return coupon
+}
+
+
 async getAllCouponsService(){
     const coupon = await this.CouponService.getAllCouponRepository()
     if(!coupon){
