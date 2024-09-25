@@ -43,5 +43,43 @@ class MessageValidator{
         ];
     };
 
+    validateMessageData = () => {
+        return [
+            body('remitenteId')
+                .notEmpty().withMessage('El remitenteId es obligatorio')
+                .custom((value) => {
+                    if (!ObjectId.isValid(value)) {
+                        throw new Error('El remitenteId debe ser un ObjectId válido');
+                    }
+                    return true;
+                }),
+
+            body('receptorId')
+                .notEmpty().withMessage('El receptorId es obligatorio')
+                .custom((value) => {
+                    if (!ObjectId.isValid(value)) {
+                        throw new Error('El receptorId debe ser un ObjectId válido');
+                    }
+                    return true;
+                }),
+
+            body('contenido')
+                .notEmpty().withMessage('El contenido es obligatorio')
+                .isString().withMessage('El contenido debe ser un string'),
+
+            body('fecha')
+                .notEmpty().withMessage('La fecha es obligatoria')
+                .isISO8601().withMessage('La fecha debe ser una fecha válida en formato ISO 8601'),
+
+            // Ensure no query params are sent in the URL
+            query().custom((value, { req }) => {
+                if (Object.keys(req.query).length > 0) {
+                    throw new Error('No envíes parámetros en la URL');
+                }
+                return true;
+            }),
+        ];
+    };
+
 }
 module.exports = MessageValidator;

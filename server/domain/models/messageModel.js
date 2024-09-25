@@ -10,6 +10,10 @@ class Message{
         return await Messages.find({}).exec(); 
     }
 
+    async insertANewMessage(productData) {
+        const messages = new Messages(productData);
+        return await messages.save(); 
+    }
 }
 
 module.exports = Message;

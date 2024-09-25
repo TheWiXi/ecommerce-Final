@@ -11,7 +11,7 @@ class MessageService{
         }
         return message
     }
-    
+
     async getAllMessagesService(){
         const message  = await this.MessageService.getAllMessagesRepository()
         if(!message ){
@@ -19,6 +19,14 @@ class MessageService{
         }
         return message
     }  
+
+    async creatingMessages(data) {
+        const message  = await this.MessageService.saveMessagesRepository(data);
+        if(!message ){
+            throw new Error(JSON.stringify({status: 404, message: 'Error entering product'}));
+        }
+        return message 
+    }
 }
 
 module.exports = MessageService

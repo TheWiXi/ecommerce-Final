@@ -20,5 +20,14 @@ class MessageRepository{
         }
     }
 
+    async saveMessagesRepository(productData) {
+        try {
+            const message = new Message();
+            return await message.insertANewMessage(productData);
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error saving the message'}));
+        }
+    }
+
 }
 module.exports = MessageRepository;
