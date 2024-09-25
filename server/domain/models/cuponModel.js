@@ -20,6 +20,12 @@ async insertCoupons(productData) {
 async deleteCoupons(id){
     return await Cupon.findByIdAndDelete(id).exec();
 }
+
+async updateCoupons(id, updateData) {
+    return await Producto.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
+}
+
+
 }
 
 module.exports= Coupon;

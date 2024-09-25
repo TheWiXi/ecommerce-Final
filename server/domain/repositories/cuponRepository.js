@@ -39,6 +39,15 @@ async deleteCouponsById(id) {
 }
 
 
+async updateCouponById(id, updateData) {
+    try {
+        const coupon = new Coupon();
+        return await coupon.updateCoupons(id, updateData, { upsert: true });
+    } catch (error) {
+        throw new Error(JSON.stringify({status: 500, message: 'Error updating coupon'}));
+    }
+}
+
 }
 
 module.exports = CouponRepository;

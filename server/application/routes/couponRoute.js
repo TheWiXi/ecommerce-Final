@@ -12,3 +12,4 @@ router.get("/:id",couponsValidator.validateCouponId(), (req, res)=>couponControl
 router.post("/postingCouponsData", couponsValidator.validateCouponData(), (req, res) => couponController.createCouponController(req, res))
 router.delete('/:id', couponsValidator.validateCompoundtId(), (req, res) => couponController.deleteCouponController(req, res));
 module.exports = router;
+router.put('/:id' ,couponsValidator.validateCoupounUpdateDataByID(), (req, res) => couponController.updateCouponController(req, res));

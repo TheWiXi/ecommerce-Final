@@ -105,6 +105,63 @@ validateCompoundtId = () => {
     ];
 };
 
+validateCoupounUpdateDataByID = () => {
+    return [
+        
+        param('id').custom((value) => {
+            if (!ObjectId.isValid(value)) {
+                throw new Error('El ID debe ser un ObjectId válido');
+            }
+            return true;
+        }),
+
+        
+        body('codigo')
+            .optional()
+            .isString().withMessage('El código debe ser un string')
+            .notEmpty().withMessage('El código no debe estar vacío si se proporciona'),
+
+        
+        body('descuento')
+            .optional()
+            .isDecimal().withMessage('El descuento debe ser un número decimal'),
+
+       
+        body('tipo')
+            .optional()
+            .isString().withMessage('El tipo debe ser un string')
+            .isIn(['general', 'asignado']).withMessage('El tipo debe ser "general" o "asignado"'),
+
+        
+        body('fechaExpiracion')
+            .optional()
+            .isISO8601().withMessage('La fecha de expiración debe ser una fecha válida'),
+
+        
+        body('usuarioId')
+            .optional()
+            .custom((value) => {
+                if (!ObjectId.isValid(value)) {
+                    throw new Error('El usuarioId debe ser un ObjectId válido');
+                }
+                return true;
+            }),
+
+        
+        body('imagen')
+            .optional()
+            .isURL().withMessage('La imagen debe ser un URL válido'),
+
+        
+        query().custom((value, { req }) => {
+            if (Object.keys(req.query).length > 0) {
+                throw new Error('No envíes parámetros en la URL');
+            }
+            return true;
+        }),
+    ];
+};
+
 
 
 }
