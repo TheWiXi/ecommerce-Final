@@ -54,6 +54,7 @@ function Login() {
           required
         />
         <button type="submit" className="btn-submit">Iniciar Sesión</button>
+        <h5><a href='/register'>Registrate</a></h5>
         {/* Mostrar mensajes de éxito o error */}
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
