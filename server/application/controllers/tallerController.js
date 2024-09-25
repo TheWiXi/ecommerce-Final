@@ -12,11 +12,10 @@ class WorkshopController {
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
     
             const workshop = await this.workshopService.getWorkshopId(req.params.id);
-            res.status(200).json(workshop); // Cambié `product` a `workshop`
+            res.status(200).json(workshop); 
         } catch (error) {
             console.error('Error:', error.message);
             
-            // Si el mensaje de error no es un JSON válido, maneja el error apropiadamente
             if (error.message.includes('some specific condition')) {
                 return res.status(404).json({ message: 'Taller no encontrado' });
             }
@@ -75,26 +74,41 @@ async deleteWorkshop(req, res) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        // Attempt to delete the workshop
+        
         const workshop = await this.workshopService.workshopDeleted(req.params.id);
         
         if (!workshop) {
             console.log(`Workshop with id ${req.params.id} not found or could not be deleted`);
             return res.status(404).json({ message: 'Workshop not found or could not be deleted' });
         }
-        return res.status(204).send();  // No content for 204 status
+        return res.status(204).send();  
     } catch (error) {
         console.log("Error in deleteWorkshop:", error.message);
         try {
             const errorObj = JSON.parse(error.message);
             return res.status(errorObj.status).json({ message: errorObj.message });
         } catch (jsonError) {
-            // Fallback if JSON parsing fails
+            
             console.error("Error parsing JSON message:", jsonError);
             return res.status(500).json({ message: 'An internal server error occurred' });
         }
     }
 }
+
+async updatingWorkshops(req, res) {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+        
+        const result = await this.workshopService.updateAWorkshop(req.params.id, req.body);
+        res.status(200).json(result);  // Send the success message and updated workshop as response
+    } catch (error) {
+        const errorObj = JSON.parse(error.message);
+        res.status(errorObj.status).json({ message: errorObj.message });
+    }
+}
+
+
 }
 
 

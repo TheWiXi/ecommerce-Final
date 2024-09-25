@@ -1,5 +1,5 @@
 const Workshop = require('../models/tallerModel');
-
+const {ObjectId} = require('mongodb')
 class WorkshopRepository{
 
     async getWorkshopById(id){
@@ -44,7 +44,18 @@ async deltingWorkshop(id) {
         throw new Error(JSON.stringify({status: 404, message: 'Error deleting workshop'}));
     }
 }
+
+async WorkshopUpdated(id, updateData){
+    try{
+        const workshop = new Workshop();
+        return await workshop.updatingWorkshops(id, updateData);
+    } catch (error){
+        throw new Error(JSON.stringify({status: 500, message:'Error upsating workshops'}));
+    }
 }
+
+}
+
 
 module.exports = WorkshopRepository;
 

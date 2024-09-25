@@ -44,6 +44,15 @@ async getWorkshopId(id){
             throw error;
         }
     }
+
+    async updateAWorkshop(id, data) {
+        const updatedWorkshop = await this.workshopService.WorkshopUpdated(id, data);
+        if (!updatedWorkshop) {
+            throw new Error(JSON.stringify({ status: 404, message: 'Workshop not found or could not be updated' }));
+        }
+        return { message: 'Workshop updated successfully', updatedWorkshop };  // Return a success message
+    }
+    
 }
 
 module.exports = WorkshopService

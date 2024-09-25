@@ -13,6 +13,11 @@ router.post('/postingAWorkshop',workshopValidator.validatingWorkshopData(), (req
 
 
 router.delete('/:id',workshopValidator.workshopDeleter(),(req,res)=>workshopController.deleteWorkshop(req, res));
+router.put('/:id',workshopValidator.validateUpdateWorkshopsById(),(req,res)=>workshopController.updatingWorkshops(req,res));
+
+
+
+
 
 
 module.exports = router;
