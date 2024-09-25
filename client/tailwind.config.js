@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         bellota: ['Bellota', 'cursive'],
       },
+      colors : {
+        graySearch: "#3D3D3D"
+      }
     },
   },
   plugins: [],
