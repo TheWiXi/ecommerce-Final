@@ -3,6 +3,7 @@ const productRoutes = require('../../application/routes/productRoute');
 const userRoutes = require('../../application/routes/userRoute');
 const couponRoute = require('../../application/routes/couponRoute');
 const messageRoute = require('../../application/routes/messageRoute')
+const orderRoute = require('../../application/routes/orderRoute')
 const { jsonParseErrorHandler } = require('../middlewares/errorHandling');
 const { limiTotal } = require('../middlewares/rateLimit');
 const tallerRoute = require('../../application/routes/tallerRoute')
@@ -20,6 +21,7 @@ const createServer = () => {
     app.use('/workshops',tallerRoute)
     app.use('/coupons', couponRoute)
     app.use('/messages',messageRoute)
+    app.use('/orders', orderRoute);
     return app;
 };
 
