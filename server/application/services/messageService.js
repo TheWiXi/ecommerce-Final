@@ -35,6 +35,14 @@ class MessageService{
         }        
         return deletedMessage;
     }
+
+    async updateMessagesService(id, data) {
+        const updatedMessage = await this.MessageService.updateMessagesById(id, data);
+        if (!updatedMessage) {
+            throw new Error(JSON.stringify({status: 404, message: 'Message not found or could not be updated'}));
+        }
+        return updatedMessage;
+    }
 }
 
 module.exports = MessageService

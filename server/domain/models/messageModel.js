@@ -19,6 +19,10 @@ class Message{
         return await Messages.findByIdAndDelete(id).exec();
     }
 
+    async UpdateMessages(id, updateData) {
+        return await Messages.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
+    }
+
 }
 
 module.exports = Message;
