@@ -14,6 +14,11 @@ class Message{
         const messages = new Messages(productData);
         return await messages.save(); 
     }
+
+    async deleteMessages(id) {
+        return await Messages.findByIdAndDelete(id).exec();
+    }
+
 }
 
 module.exports = Message;

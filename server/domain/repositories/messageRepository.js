@@ -29,5 +29,14 @@ class MessageRepository{
         }
     }
 
+    async deleteMessagesRepository(id) {
+        try {
+            const message = new Message();
+            return await message.deleteMessages(id);
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 404, message: 'Error deleting product'}));
+        }
+    }
+
 }
 module.exports = MessageRepository;

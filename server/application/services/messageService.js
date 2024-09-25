@@ -27,6 +27,14 @@ class MessageService{
         }
         return message 
     }
+
+    async deleteMessagesRepository(id) {
+        const deletedMessage = await this.MessageService.deleteMessagesRepository(id);
+        if (!deletedMessage) {
+            throw new Error(JSON.stringify({status: 404, message: 'Product not found or could not be deleted'}));
+        }        
+        return deletedMessage;
+    }
 }
 
 module.exports = MessageService

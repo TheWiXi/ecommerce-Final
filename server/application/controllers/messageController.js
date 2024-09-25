@@ -40,6 +40,18 @@ class MessageController{
             res.status(errorObj.status).json({ message: errorObj.message });
         }
     }
+
+    async deleteMessageController(req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            const message = await this.messageService.deleteMessagesRepository(req.params.id);
+            res.status(204).json(message);
+        } catch (error) {
+            const errorObj = JSON.parse(error.message);
+            res.status(errorObj.status).json({ message: errorObj.message });
+        }
+    }
 }
 
 module.exports = MessageController
