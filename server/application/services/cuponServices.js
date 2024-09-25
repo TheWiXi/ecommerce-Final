@@ -29,6 +29,14 @@ async createCouponService(data) {
     return coupon
 }
 
+async deleteCouponService(id) {
+    const deletedCoupon = await this.CouponService.deleteCouponsById(id);
+    if (!deletedCoupon ) {
+        throw new Error(JSON.stringify({status: 404, message: 'Coupon not found or could not be deleted'}));
+    }        
+    return deletedCoupon;
+}
+
 
 
 }

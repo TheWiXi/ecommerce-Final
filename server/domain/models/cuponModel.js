@@ -17,8 +17,9 @@ async insertCoupons(productData) {
     return await cupon.save(); 
 }
 
-
-
+async deleteCoupons(id){
+    return await Cupon.findByIdAndDelete(id).exec();
+}
 }
 
 module.exports= Coupon;

@@ -10,5 +10,5 @@ const couponsValidator  = new CouponsValidator();
 router.get("/getAllCoupons",couponsValidator.validateCouponDataEmpty(), (req, res)=>couponController.getCouponsController(req, res))
 router.get("/:id",couponsValidator.validateCouponId(), (req, res)=>couponController.getCouponController(req, res))
 router.post("/postingCouponsData", couponsValidator.validateCouponData(), (req, res) => couponController.createCouponController(req, res))
-
+router.delete('/:id', couponsValidator.validateCompoundtId(), (req, res) => couponController.deleteCouponController(req, res));
 module.exports = router;

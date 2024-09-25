@@ -29,7 +29,14 @@ async saveCouponRepository(productData) {
     }
 }
 
-
+async deleteCouponsById(id) {
+    try {
+        const coupon = new Coupon();
+        return await coupon.deleteCoupons(id);
+    } catch (error) {
+        throw new Error(JSON.stringify({status: 404, message: 'Error deleting coupon'}));
+    }
+}
 
 
 }
