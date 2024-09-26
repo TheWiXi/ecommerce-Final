@@ -1,34 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Start from "./pages/Start"
+import init_register from "./pages/init_register"
+import init_login from "./pages/init_login"
+import login from './pages/Login'
+import register from './pages/Register'
+import Home from "./pages/Home"
+import ProtectedRoute from './token/ProtectedRoute';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' Component={Start}/>
+        <Route path='/init-register' Component={init_register}/>
+        <Route path='/init-login' Component={init_login}/>
+        <Route path='/register' Component={register}/>
+        <Route path='/login' Component={login}/>
+        <Route path='/home'element={<ProtectedRoute><Home /></ProtectedRoute>}/>
+      </Routes>
+    </Router>
   )
 }
 

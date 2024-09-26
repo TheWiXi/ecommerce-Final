@@ -27,7 +27,7 @@ const ProductoSchema =  mongoose.Schema({
   },
   artesanoId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario',
+    ref: 'usuario',
     required: true,
   },
 }, { timestamps: true });

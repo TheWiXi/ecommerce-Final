@@ -1,7 +1,5 @@
 // Implementa la lógica de negocio y coordina las interacciones entre el dominio y la infraestructura.
 const UserRepository = require('../../domain/repositories/userRepository');
-
-
 class UserService {
     constructor() {
         this.userRepository = new UserRepository();
@@ -19,10 +17,16 @@ class UserService {
         return await this.userRepository.save(data);
     }
 
-    async getUserByNickAndPassword(body) {
-        const [user] = await this.userRepository.getByNick(body);
+    async getUserByEmail(body){
+        const [user] = await this.userRepository.getByEmail(body);
         if (!user) throw new Error(JSON.stringify({status: 404, message: 'User not found'}));
-        const token = await this.userRepository.getByPassword(body.password, user);
+        return user
+    }
+
+    async getUserByEmailAndPassword(body) {
+        const [user] = await this.userRepository.getByEmail(body);
+        if (!user) throw new Error(JSON.stringify({status: 404, message: 'User not found'}));
+        const token = await this.userRepository.getByPassword(body.contraseña, user);
         if (!token)  throw new Error(JSON.stringify({status: 404, message: 'wrong password'}));
         return token;
     }

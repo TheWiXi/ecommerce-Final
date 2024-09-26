@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
-
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 class userRepository {
     async getById(id) {
         try {
@@ -13,7 +14,7 @@ class userRepository {
     async getAll() {
         try {
             const user = new User();
-            return await user.getAllusuarios();
+            return await user.getAllusers();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving users'}));
         }
@@ -53,6 +54,33 @@ class userRepository {
         } catch (error) {
             throw new Error('Error searching for users');
         }
+    }
+    
+    async getByEmail(body) {
+        try {
+            const user = new User();
+            let {correo} = body
+            const query = [
+                {
+                    $match: { correo }
+                },
+                {
+                    $project: { _id: 0 }
+                }
+            ];
+            const result = await user.aggregate(query);
+            return result;
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving user / el error aqui en email'}));
+        }
+    }
+
+    async getByPassword(password, user) {
+        let {contraseña:pass} = user
+        delete user.contraseña
+        const isMatch = await bcrypt.compare(password , pass)
+        if(!isMatch) throw new Error(JSON.stringify({status: 401, message: 'unauthorized'}));
+        return jwt.sign(user, process.env.KEY_SECRET, { expiresIn: `${process.env.EXPRESS_EXPIRE}ms` })
     }
 }
 

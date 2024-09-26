@@ -34,19 +34,19 @@ const UsuarioSchema = mongoose.Schema({
       },
       favoritos: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Producto',
+        ref: 'producto',
       }],
       compras: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pedido',
+        ref: 'pedido',
       }],
       talleresInscritos: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Taller',
+        ref: 'taller',
       }],
       cupones: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Cupon',
+        ref: 'cupon',
       }],
     }, { timestamps: true });
 

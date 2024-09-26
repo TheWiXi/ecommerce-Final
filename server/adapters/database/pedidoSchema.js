@@ -4,13 +4,13 @@ const mongoose = require("mongoose");
 const PedidoSchema = mongoose.Schema({
     usuarioId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario',
+      ref: 'usuario',
       required: true,
     },
     productos: [{
       productoId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Producto',
+        ref: 'producto',
         required: true,
       },
       cantidad: {
