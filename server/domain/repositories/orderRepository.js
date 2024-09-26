@@ -29,6 +29,17 @@ class OrderRepository{
             throw new Error(JSON.stringify({status: 500, message: 'Error saving the Order'}));
         }
     }
+
+    async deleteOrderByIdRepository(id) {
+        try {
+            const orders = new Orders();
+            return await orders.findAnOrderByIdAndDelete(id);
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 404, message: 'Error deleting Order'}));
+        }
+    }
+
+
     
 
 

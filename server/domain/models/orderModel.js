@@ -2,7 +2,6 @@ const Order = require('../../adapters/database/pedidoSchema')
 
 class Orders{
 
-
     async getOrdersById(id) {
         return await Order.findById(id).exec(); 
     }
@@ -17,6 +16,9 @@ class Orders{
         return await order.save(); 
     }
 
+    async findAnOrderByIdAndDelete(id) {
+        return await Order.findByIdAndDelete(id).exec();
+    }
 
 
 }

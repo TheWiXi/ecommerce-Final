@@ -31,8 +31,13 @@ class OrderService{
         return orders;
     }
 
-
-
+    async deleteOrderByIdRepository(id) {
+        const deletedOrder = await this.orderService.deleteOrderByIdRepository(id);
+        if (!deletedOrder) {
+            throw new Error(JSON.stringify({status: 404, message: 'Order not found or could not be deleted'}));
+        }        
+        return deletedOrder;
+    }
 
 }
 
