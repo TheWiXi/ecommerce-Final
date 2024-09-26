@@ -1,13 +1,16 @@
 import React from 'react';
-
+import Header from '../components/Header'
 const Home = () => {
     return (
         <div>
-            <section className='bg-black flex flex-row p-4 justify-between gap-x-4'>
-                <img src="/searchbar/menu.svg" alt="svg" className='w-10'/>
-                <div className='bg-graySearch flex w-[100%] px-2 py-1 gap-x-3 items-center'>
-                    <img src="/searchbar/search.svg" alt="svg" className='w-4'/>
-                    <p className='text-white text-opacity-50 text-xs'>Buscar producto o tienda...</p>
+            <Header />
+            <section className='m-4 flex flex-col gap-y-4'>
+                <div className='bg-grayUbi flex justify-between px-2 py-1 gap-x-3 rounded items-center'>
+                    <img src="/searchbar/ubi.svg" alt="" className='w-4' />
+                    <input type="text"className="text-black text-opacity-40 text-xs bg-transparent  placeholder:text-opacity-40 w-[100%]" placeholder="Ubicación de entrega actual"/>
+                </div>
+                <div>
+                    <p className='font-black'>Categorías</p>
                 </div>
             </section>
         </div>

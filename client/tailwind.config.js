@@ -10,7 +10,8 @@ export default {
         bellota: ['Bellota', 'cursive'],
       },
       colors : {
-        graySearch: "#3D3D3D"
+        graySearch: "#3D3D3D",
+        grayUbi: "#D9D9D9",
       }
     },
   },
