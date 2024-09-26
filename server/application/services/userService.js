@@ -17,6 +17,12 @@ class UserService {
         return await this.userRepository.save(data);
     }
 
+    async getUserByEmail(body){
+        const [user] = await this.userRepository.getByEmail(body);
+        if (!user) throw new Error(JSON.stringify({status: 404, message: 'User not found'}));
+        return user
+    }
+
     async getUserByEmailAndPassword(body) {
         const [user] = await this.userRepository.getByEmail(body);
         if (!user) throw new Error(JSON.stringify({status: 404, message: 'User not found'}));

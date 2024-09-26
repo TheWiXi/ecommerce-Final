@@ -10,7 +10,7 @@ const init_login = () => {
                 <div className='flex flex-col gap-y-4 w-[100%]'>
                     <Svglogin svgUrl="/services/facebook.svg" text="Facebook" />
                     <Svglogin svgUrl="/services/instagram.svg" text="Instagram" />
-                    <Svglogin svgUrl="/services/gmail.svg" text="Gmail" />
+                    <a href='http://localhost:3000/users/auth/google'><Svglogin svgUrl="/services/gmail.svg" text="Gmail" /></a>
                     <a href='/login'><Svglogin svgUrl="/services/user.svg" text="tu cuenta de Ruraq Maki" /></a>
                 </div>
             </div>

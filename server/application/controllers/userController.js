@@ -52,6 +52,18 @@ class UserController {
         }
     }
 
+    async verifyUserForEmail(req, res){
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            const user = await this.userService.getUserByEmail(req.body);
+            res.json(user);
+        } catch (error){
+            const errorObj = JSON.parse(error.message);
+            res.status(errorObj.status).json({ message: errorObj.message });
+        }
+    }
+
 
     async updateUser(req, res) {
         try {
