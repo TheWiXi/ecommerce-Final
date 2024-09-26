@@ -12,7 +12,6 @@ const createServer = () => {
     const app = express();
 
     app.use(express.json());
-
     app.use(jsonParseErrorHandler);
     app.use(limiTotal);
 

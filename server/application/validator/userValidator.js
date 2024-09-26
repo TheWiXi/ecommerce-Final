@@ -6,7 +6,7 @@ class UserValidator {
     validateUserLogin = () => {
         return [
             body('correo').notEmpty().isEmail().withMessage('Send the email you will have in the system'),
-            body('password').notEmpty().isString().isLength( {min: 8} ).withMessage('must be greater than 8'),
+            body('contraseña').notEmpty().isString().isLength( {min: 8} ).withMessage('must be greater than 8'),
             
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {

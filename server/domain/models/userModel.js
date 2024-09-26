@@ -10,8 +10,8 @@ class User{
     }
 
     async insert(productData) {
-        const user = new user(productData);
-        return await user.save(); 
+        const usercreate = new user(productData);
+        return await usercreate.save(); 
     }
 
     async findByIdAndUpdate(id, updateData) {
@@ -22,6 +22,9 @@ class User{
         return await user.findByIdAndDelete(id).exec();
     }
     
+    async aggregate(query) {
+        return await user.aggregate(query).exec();
+    }
 }
 
 module.exports = User;
