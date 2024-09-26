@@ -20,6 +20,12 @@ class Orders{
         return await Order.findByIdAndDelete(id).exec();
     }
 
+    async findOrderByIdAndUpdate(id, updateData) {
+        return await Order.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
+    }
+
+    
 
 }
+
 module.exports = Orders

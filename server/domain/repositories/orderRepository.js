@@ -39,8 +39,14 @@ class OrderRepository{
         }
     }
 
-
-    
+    async updateOrderByIdRepository(id, updateData) {
+        try {
+            const orders = new Orders();
+            return await orders.findOrderByIdAndUpdate(id, updateData, { upsert: true });
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error updating Order'}));
+        }
+    }
 
 
 }

@@ -39,6 +39,15 @@ class OrderService{
         return deletedOrder;
     }
 
+    async updateOrderUserRepository(id, data) {
+        const updatedOrder = await this.orderService.updateOrderByIdRepository(id, data);
+        if (!updatedOrder) {
+            throw new Error(JSON.stringify({status: 404, message: 'Order not found or could not be updated'}));
+        }
+        return updatedOrder;
+    }
+
+
 }
 
 

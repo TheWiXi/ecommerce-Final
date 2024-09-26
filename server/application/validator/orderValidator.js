@@ -112,6 +112,72 @@ class OrderValidator{
             })
         ];
     };
+
+    validateOrderDataUpdate = () => {
+        return [
+            // Validación de usuarioId
+            body('usuarioId')
+                .notEmpty().withMessage('El usuarioId es obligatorio')
+                .isString().withMessage('El usuarioId debe ser un string')
+                .custom((value) => {
+                    // Validar si el ID tiene el formato correcto de ObjectId (24 caracteres hexadecimales)
+                    const objectIdRegex = /^[a-f\d]{24}$/i;
+                    if (!objectIdRegex.test(value)) {
+                        throw new Error('El usuarioId debe ser un ObjectId válido');
+                    }
+                    return true;
+                }),
+    
+            // Validación de productos
+            body('productos').isArray({ min: 1 }).withMessage('Debe proporcionar al menos un producto'),
+    
+            // Validación de productoId dentro de productos
+            body('productos.*.productoId')
+                .notEmpty().withMessage('El productoId es obligatorio')
+                .isString().withMessage('El productoId debe ser un string')
+                .custom((value) => {
+                    const objectIdRegex = /^[a-f\d]{24}$/i;
+                    if (!objectIdRegex.test(value)) {
+                        throw new Error('El productoId debe ser un ObjectId válido');
+                    }
+                    return true;
+                }),
+    
+            // Validación de cantidad dentro de productos
+            body('productos.*.cantidad')
+                .notEmpty().withMessage('La cantidad es obligatoria')
+                .isInt({ min: 1 }).withMessage('La cantidad debe ser un número entero mayor o igual a 1'),
+    
+            // Validación de precio dentro de productos
+            body('productos.*.precio')
+                .notEmpty().withMessage('El precio es obligatorio')
+                .isFloat({ min: 0 }).withMessage('El precio debe ser un número decimal válido mayor o igual a 0'),
+    
+            // Validación de total
+            body('total')
+                .notEmpty().withMessage('El total es obligatorio')
+                .isFloat({ min: 0 }).withMessage('El total debe ser un número decimal válido mayor o igual a 0'),
+    
+            // Validación de fecha (opcional)
+            body('fecha')
+                .optional()
+                .isISO8601().withMessage('La fecha debe ser una fecha válida'),
+    
+            // Validación de estado
+            body('estado')
+                .optional()
+                .isString().withMessage('El estado debe ser un string')
+                .isIn(['pendiente', 'enviado', 'entregado']).withMessage('El estado debe ser uno de los valores permitidos: pendiente, enviado, entregado'),
+    
+            // Validación de que no se envíen parámetros en la URL
+            query().custom((value, { req }) => {
+                if (Object.keys(req.query).length > 0) {
+                    throw new Error('No envíes parámetros en la URL');
+                }
+                return true;
+            }),
+        ];
+    };
     
 }
 
