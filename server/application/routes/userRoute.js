@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
+const generateToken = require('../middlewares/token'); // Ajusta la ruta según sea necesario
 const {auth} = require('../middlewares/authenticateToken')
 const UserController = require("../controllers/userController")
 const UserValidator = require("../validator/userValidator")
@@ -18,16 +19,23 @@ router.get('/auth/google/callback', (req, res, next) => {
             return next(err); // Maneja el error
         }
         if (!user) {
-            return res.redirect('/init-register'); // Redirige si el usuario no está registrado
+            return res.redirect('http://localhost:5173/init-register'); 
         }
         req.logIn(user, (err) => {
             if (err) {
                 return next(err); // Maneja el error
             }
-            return res.redirect('/init-login'); // Redirige al login si el usuario está registrado
+            const token = generateToken(user); // Asegúrate de que esta función está bien definida
+
+            // Establecer el token en una cookie
+            console.log("Generated Token:", token); // Agrega esta línea para depurar
+            res.cookie('token', token, {maxAge: 30 * 60 * 1000 }); // 30 minutos
+            
+            return res.redirect('http://localhost:5173/home'); 
         });
     })(req, res, next);
 });
+
 router.post("/", userValidator.validateUserData(), (req, res) => userController.createUser(req, res))
 router.post('/verifyEmail', userValidator.validateUserEmail(), (req, res) => userController.verifyUserForEmail(req, res))
 router.post('/login', cookieParser(), userValidator.validateUserLogin(), (req, res) => userController.verifyUserCookies(req, res))
