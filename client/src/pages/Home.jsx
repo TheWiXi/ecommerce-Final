@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import Categoria from '../components/Category';
+import Category from '../components/Category';
 import Footer from '../components/Footer'
 
 const Home = () => {
@@ -20,16 +20,16 @@ const Home = () => {
                 <div className='mx-3 flex flex-col items-center justify-center gap-y-1'>
                     <p className='font-black self-start'>Categorías</p>
                     <div className='my-2 flex items-start gap-x-5 gap-y-2 flex-wrap'>
-                        <Categoria svgUrl="/categorias/textileria.svg" text="Textileria" className="w-[70%]" />
-                        <Categoria svgUrl="/categorias/ceramica.svg" text="Ceramica" className="w-[70%]" />
-                        <Categoria svgUrl="/categorias/orfebreria.svg" text="Orfebreria" className="w-[70%]" />
-                        <Categoria svgUrl="/categorias/tallaenpiedra.svg" text="Talla en piedra" className="w-[70%]" />
-                        <Categoria svgUrl="/categorias/tallamadera.svg" text="Talla en madera" className="w-[50%]" />
-                        <Categoria svgUrl="/categorias/bordado.svg" text="Bordado" className="w-[50%]" />
-                        <Categoria svgUrl="/categorias/joyeria.svg" text="Joyeria" className="w-[50%]" />
-                        <Categoria svgUrl="/categorias/hojalateria.svg" text="Hojalateria" className="w-[50%]" />
-                        <Categoria svgUrl="/categorias/estampado.svg" text="Estampado" className="w-[50%]" />
-                        <Categoria svgUrl="/categorias/pintura.svg" text="Pintura tradicional" className="w-[50%]" />
+                        <Category svgUrl="/categorias/textileria.svg" text="Textileria" className="w-[70%]" />
+                        <Category svgUrl="/categorias/ceramica.svg" text="Ceramica" className="w-[70%]" />
+                        <Category svgUrl="/categorias/orfebreria.svg" text="Orfebreria" className="w-[70%]" />
+                        <Category svgUrl="/categorias/tallaenpiedra.svg" text="Talla en piedra" className="w-[70%]" />
+                        <Category svgUrl="/categorias/tallamadera.svg" text="Talla en madera" className="w-[50%]" />
+                        <Category svgUrl="/categorias/bordado.svg" text="Bordado" className="w-[50%]" />
+                        <Category svgUrl="/categorias/joyeria.svg" text="Joyeria" className="w-[50%]" />
+                        <Category svgUrl="/categorias/hojalateria.svg" text="Hojalateria" className="w-[50%]" />
+                        <Category svgUrl="/categorias/estampado.svg" text="Estampado" className="w-[50%]" />
+                        <Category svgUrl="/categorias/pintura.svg" text="Pintura tradicional" className="w-[50%]" />
                     </div>
                     <div className='flex gap-x-5 underline text-lg'>
                         <img src="/home/rombos.svg" alt="svg" className='w-20' />
