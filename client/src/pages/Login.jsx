@@ -1,22 +1,81 @@
-import React from 'react';
-import Svglogin from "../components/Svglogin"
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import leftSVG from '../../public/left-arrow.svg'
 
-const Login = () => {
+function Login() {
+  // Estados para manejar los datos del formulario
+  const [correo, setCorreo] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch('http://localhost:3000/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ correo, contraseña }),
+        });
 
-    return (
-        <div className="bg-[url('/fondologin.svg')] bg-cover bg-center h-screen flex justify-center items-center ">
-            <div className="flex flex-col w-[70%] gap-y-8 justify-center items-center">
-                <p className="text-2xl w-[80%] text-center">Inicia sesión y continúa viendo <span className="font-semibold">tus artesanías favoritas</span></p>
-                <div className='flex flex-col gap-y-4 w-[100%]'>
-                    <Svglogin svgUrl="/services/facebook.svg" text="Facebook" />
-                    <Svglogin svgUrl="/services/instagram.svg" text="Instagram" />
-                    <Svglogin svgUrl="/services/gmail.svg" text="Gmail" />
-                    <Svglogin svgUrl="/services/user.svg" text="tu cuenta de Ruraq Maki" />
-                </div>
-            </div>
-        </div>
-    );
+        if (response.ok) {
+            const data = await response.json();
+            document.cookie = `token=${data.token}; path=/`; // Almacena el token en las cookies
+            navigate('/home'); // Redirige a la página de inicio
+        } else {
+            // Manejar errores de autenticación
+            const errorData = await response.json();
+            console.error('Error:', errorData.message);
+        }
+    } catch (error) {
+        console.error('Error al hacer login:', error);
+    }
 };
+
+  return (
+    <> 
+    <div class="left fixed top-0 left-0">
+        <a href="/" class="flex items-center">
+            <img src={leftSVG} alt="Left Arrow" class="w-10 h-19"/>
+        </a>
+    </div>
+    <div className="min-h-screen flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-80 p-6 bg-white rounded-lg">
+        <label htmlFor="email" className="text-sm font-medium">Correo</label>
+        <input 
+          type="email" 
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+          id="email"
+          name="email"
+          required
+          className="w-full h-10 px-3 bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <label htmlFor="password" className="text-sm font-medium">Contraseña</label>
+        <input 
+          type="password"
+          value={contraseña}
+          onChange={(e) => setContraseña(e.target.value)}
+          id="password"
+          name="password"
+          required
+          className="w-full h-10 px-3 bg-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button type="submit" className="text-black underline mt-10">Iniciar Sesión</button>
+        <h5 className="text-center text-black underline">
+          <a href='#'>¿Olvidaste tu contraseña?</a>
+        </h5>
+        {/* Mostrar mensajes de éxito o error */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {success && <p className="text-green-500 text-sm">{success}</p>}
+      </form>
+    </div>
+  </>
+  );
+}
 
 export default Login;
