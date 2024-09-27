@@ -1,50 +1,39 @@
-const {ObjectId}= require("mongodb");
-
-const ConnectToDatabase = require("../../infrastructure/database/mongodb")
+const Producto = require("../../adapters/database/productSchema");
 
 class Product{
-    async getProductByName(productName) {
-    let obj = ConnectToDatabase.instanceConnect;
-    const collection = obj.db.collection('productos');
-    //logica para obtener producto por el nombre
-    return res;
+    async findById(id) {
+        return await Producto.findById(id).exec(); 
     }
 
-    async postProduct(data) {
-      const obj = ConnectToDatabase.instanceConnect; 
-      console.log('Product Data:', productData); // Depuración: Verifica la estructura
-    
-      const collection = obj.db.collection('productos');
-      const res = await collection.insertOne(productData);
-    
-      return res;
+    async getAllproductos() {
+        return await Producto.find({}).exec(); 
     }
-    
 
-    async putProduct(id, updateData, upsert) {
-      let obj = ConnectToDatabase.instanceConnect;
-      const collection = obj.db.collection('productos');
-      const res = await collection.updateOne(
-          { _id: new ObjectId(id) },
-          { $set: updateData },
-          { upsert: upsert }
-      );
-      return res;
-  }
+    async insert(productData) {
+        const producto = new Producto(productData);
+        return await producto.save(); 
+    }
 
-  
+    async findByIdAndUpdate(id, updateData) {
+        return await Producto.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
+    }
 
-  async deleteProduct(id) {
-    let obj = ConnectToDatabase.instanceConnect;
-    const collection = obj.db.collection('productos');
-    const res = await collection.deleteOne({ _id: new ObjectId(id) }); // Usar deleteOne en lugar de deleteMany
-    return res;
+    async findByIdAndDelete(id) {
+        return await Producto.findByIdAndDelete(id).exec();
+    }
+
+    async aggregate(query) {
+        try {
+            const result = await Producto.aggregate(query).exec();
+            return result;
+        } catch (error) {
+            // Manejo de errores
+            throw new Error(JSON.stringify({ status: 500, message: "Error al ejecutar la agregación", error: error.message }));
+        }
+    }
 }
-    }
 
-
-module.exports = Product
-
+module.exports = Product;
 
       
 

@@ -12,7 +12,7 @@ const Start = () => {
 
 
     const navigateTimer = setTimeout(() => {
-      navigate('/register'); 
+      navigate('/init-register'); 
     }, 2000); 
 
     return () => {

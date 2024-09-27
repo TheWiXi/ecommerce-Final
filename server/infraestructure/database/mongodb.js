@@ -1,38 +1,50 @@
-// Configuración y conexión a MongoDB.
-const { MongoClient } = require("mongodb");
-class ConnectToDatabase{
-    static instanceConnect;
-    db;
-    connection;
-    user;
-    #password;
-    constructor({user, pwd} = {user: process.env.MONGO_USER, pwd: process.env.MONGO_PWD}){
-        if(ConnectToDatabase.instanceConnect && this.connection){
-            return ConnectToDatabase.instanceConnect;
+const mongoose = require('mongoose');
+
+module.exports = class connect {
+    static instance;
+    #user;
+    #port;
+    #pass;
+    #host;
+    #cluster;
+    #dbName;
+    #connection;
+    uri;
+    constructor() {
+        if (typeof connect.instance === 'object') {
+            return connect.instance;
         }
-        this.user = user;
-        this.setPassword = pwd;
-        // this.open();
-        ConnectToDatabase.instanceConnect = this;
+        this.#user = process.env.MONGO_USER;
+        this.#port = process.env.MONGO_PORT;
+        this.#pass = process.env.MONGO_PWD;
+        this.#host = process.env.MONGO_ACCESS;
+        this.#cluster = process.env.MONGO_HOST;
+        this.#dbName = process.env.MONGO_DB_NAME;
+        this.uri =`${this.#host}${this.#user}:${this.#pass}@${this.#cluster}/${this.#dbName}`
+        connect.instance = this;
+        return this;
     }
-    async connectOpen(){
-        this.connection = new MongoClient(`${process.env.MONGO_ACCESS}${this.user}:${this.getPassword}@${process.env.MONGO_HOST}`);
-        try {
-            await this.connection.connect();
-            this.db = this.connection.db(process.env.MONGO_DB_NAME);
-        } catch (error) {
-            this.connection = undefined;
-            throw new Error('Error connecting');
+
+    async open() {
+        try{
+            await mongoose
+            .connect(this.uri)
+            .then(() => console.log("MongoDB connection established successfully",this.uri))
         }
+        catch(error) {
+            console.error("MongoDB connection failed", error);
+            await this.reconnect();
+        }
+    }   
+
+    async reconnect() {
+        console.log('Reconnecting to MongoDB...');
+        await this.open();
     }
-    async connectClose(){
-        this.connection.close();
-    }
-    get getPassword(){
-        return this.#password;
-    }
-    set setPassword(pwd){
-        this.#password = pwd;
+
+    async close() {
+        mongoose.disconnect()
+        .then(() => console.log('MongoDB connection closed'))
+        .catch(err => console.error('Error to close MongoDB connection:', err));
     }
 }
-module.exports = ConnectToDatabase;
