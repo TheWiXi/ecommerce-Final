@@ -45,6 +45,77 @@ const Categories = () => {
                     ))}
                 </div>
             </section>
+            <section className="m-6">
+                <div className="flex gap-x-2">
+                    <div className="flex bg-grayUbi w-[100%] rounded gap-3 p-2">
+                        <img src="/category/search.svg" alt="" className="w-4"/>
+                        <input type="text" placeholder="Buscar producto o palabra clave..." className="bg-transparent w-[100%] text-sm" />
+                    </div>
+                    <img src="/category/filter.svg" alt="" className="w-5" />
+                </div>
+                <div className="flex flex-wrap justify-between">
+                    <div className="w-[45%] rounded-lg overflow-hidden mt-4">
+                        <div>
+                            <img src="/test/imagen1.svg" alt="" />
+                        </div>
+                        <div className="bg-black text-xs p-2 overflow-hidden">
+                            <p className="text-white">Tapiz Chumpi Andino III</p>
+                            <p className="text-white">S/.600</p>
+                            <p className="text-white">Taller Awaq Ayllus</p>
+                        </div>
+                    </div>
+                    <div className="w-[45%] rounded-lg overflow-hidden mt-4">
+                        <div>
+                            <img src="/test/imagen1.svg" alt="" />
+                        </div>
+                        <div className="bg-black text-xs p-2 overflow-hidden">
+                            <p className="text-white">Tapiz Chumpi Andino III</p>
+                            <p className="text-white">S/.600</p>
+                            <p className="text-white">Taller Awaq Ayllus</p>
+                        </div>
+                    </div>
+                    <div className="w-[45%] rounded-lg overflow-hidden mt-4">
+                        <div>
+                            <img src="/test/imagen1.svg" alt="" />
+                        </div>
+                        <div className="bg-black text-xs p-2 overflow-hidden">
+                            <p className="text-white">Tapiz Chumpi Andino III</p>
+                            <p className="text-white">S/.600</p>
+                            <p className="text-white">Taller Awaq Ayllus</p>
+                        </div>
+                    </div>
+                    <div className="w-[45%] rounded-lg overflow-hidden mt-4">
+                        <div>
+                            <img src="/test/imagen1.svg" alt="" />
+                        </div>
+                        <div className="bg-black text-xs p-2 overflow-hidden">
+                            <p className="text-white">Tapiz Chumpi Andino III</p>
+                            <p className="text-white">S/.600</p>
+                            <p className="text-white">Taller Awaq Ayllus</p>
+                        </div>
+                    </div>
+                    <div className="w-[45%] rounded-lg overflow-hidden mt-4">
+                        <div>
+                            <img src="/test/imagen1.svg" alt="" />
+                        </div>
+                        <div className="bg-black text-xs p-2 overflow-hidden">
+                            <p className="text-white">Tapiz Chumpi Andino III</p>
+                            <p className="text-white">S/.600</p>
+                            <p className="text-white">Taller Awaq Ayllus</p>
+                        </div>
+                    </div>
+                    <div className="w-[45%] rounded-lg overflow-hidden mt-4">
+                        <div>
+                            <img src="/test/imagen1.svg" alt="" />
+                        </div>
+                        <div className="bg-black text-xs p-2 overflow-hidden">
+                            <p className="text-white">Tapiz Chumpi Andino III</p>
+                            <p className="text-white">S/.600</p>
+                            <p className="text-white">Taller Awaq Ayllus</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }
