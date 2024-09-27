@@ -53,7 +53,7 @@ class UserValidator {
                 .isString().withMessage('La dirección debe ser un string'),
 
             body('telefono')
-                .notEmpty().withMessage('La telefono es obligatoria')
+                .optional()
                 .isString().withMessage('El teléfono debe ser un string'),
     
             body('tipo', 'El tipo de usuario es obligatorio')
