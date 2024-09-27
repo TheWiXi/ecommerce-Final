@@ -13,7 +13,7 @@ const Register = () => {
         <div className="flex flex-col w-[70%] gap-y-8">
             <p className="text-2xl">Regístrate ahora y obtén las mejores promociones en <span className="font-semibold">artesanías peruanas</span></p>
             <div className='flex flex-col gap-y-4'>
-                <Svgregistro svgUrl="/services/facebook.svg" text="Facebook"/>
+                <a href='http://localhost:3000/users/auth/github'><Svgregistro svgUrl="/services/github.svg" text="Github"/></a>
                 <Svgregistro svgUrl="/services/instagram.svg" text="Instagram"/>
                 <a href='http://localhost:3000/users/auth/google'><Svgregistro svgUrl="/services/gmail.svg" text="Gmail"/></a>
                 <a href='/register'><Svgregistro svgUrl="/services/email.svg" text="correo"/></a>

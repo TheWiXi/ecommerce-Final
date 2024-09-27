@@ -12,9 +12,31 @@ const userValidator = new UserValidator();
 
 
 router.get("/:id", auth, userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
+
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback', (req, res, next) => {
     passport.authenticate('google', { session: false }, (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.redirect('http://localhost:5173/init-register'); 
+        }
+
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err); 
+            }
+            const token = generateToken(user); 
+            res.cookie('token', token, {maxAge: 30 * 60 * 1000 });
+            return res.redirect('http://localhost:5173/home'); 
+        });
+    })(req, res, next);
+});
+
+router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
+router.get('/auth/github/callback', (req, res, next) => {
+    passport.authenticate('github', { session: false }, (err, user, info) => {
         if (err) {
             return next(err);
         }
