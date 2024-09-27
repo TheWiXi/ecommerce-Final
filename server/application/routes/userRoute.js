@@ -16,21 +16,18 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 router.get('/auth/google/callback', (req, res, next) => {
     passport.authenticate('google', { session: false }, (err, user, info) => {
         if (err) {
-            return next(err); // Maneja el error
+            return next(err);
         }
         if (!user) {
             return res.redirect('http://localhost:5173/init-register'); 
         }
+
         req.logIn(user, (err) => {
             if (err) {
-                return next(err); // Maneja el error
+                return next(err); 
             }
-            const token = generateToken(user); // Asegúrate de que esta función está bien definida
-
-            // Establecer el token en una cookie
-            console.log("Generated Token:", token); // Agrega esta línea para depurar
-            res.cookie('token', token, {maxAge: 30 * 60 * 1000 }); // 30 minutos
-            
+            const token = generateToken(user); 
+            res.cookie('token', token, {maxAge: 30 * 60 * 1000 });
             return res.redirect('http://localhost:5173/home'); 
         });
     })(req, res, next);

@@ -15,7 +15,7 @@ const Register = () => {
             <div className='flex flex-col gap-y-4'>
                 <Svgregistro svgUrl="/services/facebook.svg" text="Facebook"/>
                 <Svgregistro svgUrl="/services/instagram.svg" text="Instagram"/>
-                <Svgregistro svgUrl="/services/gmail.svg" text="Gmail"/>
+                <a href='http://localhost:3000/users/auth/google'><Svgregistro svgUrl="/services/gmail.svg" text="Gmail"/></a>
                 <a href='/register'><Svgregistro svgUrl="/services/email.svg" text="correo"/></a>
                 <Svgregistro svgUrl="/services/phone.svg" text="celular"/>
             </div>

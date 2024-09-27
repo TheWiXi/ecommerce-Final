@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { config } = require('dotenv');
-
+const { generateToken } = require('./token');
 config(); 
 
 passport.use(
@@ -13,10 +13,9 @@ passport.use(
       scope: ['profile', 'email']
     },
     async function (accessToken, refreshToken, profile, done) {
-        console.log("Perfil recibido de Google:", profile);
         try {
             const email = profile.emails[0].value;
-    
+            
             const response = await fetch('http://localhost:3000/users/verifyEmail', {
               method: 'POST',
               headers: {
@@ -27,9 +26,30 @@ passport.use(
     
             const data = await response.json(); 
             if (data && data.correo) {
-              return done(null, data);
+              return done(null, profile);
             } else {
-              return done(null, false, { message: 'El correo no está registrado.' });
+              const newUser = {
+                nombre: profile.displayName,
+                correo: email,
+                contraseña: process.env.KEY_SECRET,
+                fotoPerfil: profile.photos[0].value,
+                tipo: 'comprador'
+              };
+
+              const createResponse = await fetch('http://localhost:3000/users/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+              });
+
+              const createdUser = await createResponse.json();
+              if (createResponse.ok) {
+                return done(null, profile);
+              } else {
+                return done(null, false, { message: 'Error al crear el usuario.' });
+              }
             }
         } catch (error) {
             return done(error);
@@ -37,7 +57,6 @@ passport.use(
     }
   )
 );
-
 // Serializa el usuario para la sesión
 passport.serializeUser((user, done) => {
     done(null, user);
