@@ -58,6 +58,18 @@ class ProductValidator {
         ];
     };
 
+    validateProductCategory = () => {
+        return [
+            body('categoria').notEmpty().isString().withMessage('Envia la categoria'),      
+            query().custom((value, { req }) => {
+                if (Object.keys(req.query).length > 0) {
+                    throw new Error(`Don't send anything in the url`);
+                }
+                return true;
+            })
+        ];
+    };
+
     validateProductDataEmpty = () => {
         return [
             body().custom((value, { req }) => {

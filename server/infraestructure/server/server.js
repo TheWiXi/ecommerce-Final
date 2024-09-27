@@ -7,6 +7,7 @@ const userRoutes = require('../../application/routes/userRoute');
 const { jsonParseErrorHandler } = require('../middlewares/errorHandling');
 const { limiTotal } = require('../middlewares/rateLimit');
 const tallerRoute = require('../../application/routes/tallerRoute')
+
 const createServer = () => {
     const app = express();
 
@@ -16,6 +17,7 @@ const createServer = () => {
     }));
 
     app.use(express.json());
+    app.use(cookieParser());
     app.use(jsonParseErrorHandler);
     app.use(limiTotal);
 
@@ -23,11 +25,14 @@ const createServer = () => {
         secret: 'tu_secreto_aqui', 
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: false }
+        cookie: { 
+            secure: false, 
+            httpOnly: true, 
+        }
     }));
 
-    app.use(passport.initialize()); // Inicializa Passport
-    app.use(passport.session()); // Maneja la sesión
+    app.use(passport.initialize()); 
+    app.use(passport.session());
 
     app.use('/products', productRoutes);
     app.use('/users', userRoutes);

@@ -71,7 +71,7 @@ class userRepository {
             const result = await user.aggregate(query);
             return result;
         } catch (error) {
-            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving user / el error aqui en email'}));
+            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving user for email'}));
         }
     }
 

@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "http://localhost:3000/users/auth/google/callback",
       scope: ['profile', 'email']
     },
     async function (accessToken, refreshToken, profile, done) {
@@ -26,8 +26,8 @@ passport.use(
             });
     
             const data = await response.json(); 
-            if (data.isEmailRegistered) {
-              return done(null, profile);
+            if (data && data.correo) {
+              return done(null, data);
             } else {
               return done(null, false, { message: 'El correo no está registrado.' });
             }

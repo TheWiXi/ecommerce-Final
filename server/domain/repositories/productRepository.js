@@ -46,6 +46,26 @@ class productRepository {
         }
     }
 
+    async getByCategory(body) {
+        try {
+            const product = new Product();
+            let {categoria} = body
+            const query = [
+                {
+                    $match: { categoria: { $regex: new RegExp(categoria, 'i') } }
+                },
+                {
+                    $project: { _id: 0 }
+                }
+            ];
+            const result = await product.aggregate(query);
+            return result;
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving category'}));
+        }
+    }
+
+
     async searchByName(name) {
         try {
             return await Product.find({ name: new RegExp(name, 'i') });
