@@ -19,8 +19,7 @@ class UserValidator {
 
     validateUserEmail = () => {
         return [
-            body('correo').notEmpty().isEmail().withMessage('Send the email you will have in the system'),
-          
+            body('correo').notEmpty().isEmail().withMessage('Send the email you will have in the system'),      
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {
                     throw new Error(`Don't send anything in the url`);
