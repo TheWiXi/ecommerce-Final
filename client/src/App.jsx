@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Start from "./pages/Start"
-import init_register from "./pages/init_register"
-import init_login from "./pages/init_login"
-import login from './pages/Login'
+import Init_register from "./pages/Init_register"
+import Init_login from "./pages/Init_login"
+import Login from './pages/Login'
 import register from './pages/Register'
 import Home from "./pages/Home"
-import ProtectedRoute from './token/ProtectedRoute';
 import Categories from './pages/Categories'
 
 function App() {
@@ -13,11 +12,11 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' Component={Start}/>
-        <Route path='/init-register' Component={init_register}/>
-        <Route path='/init-login' Component={init_login}/>
+        <Route path='/init-register' Component={Init_register}/>
+        <Route path='/init-login' Component={Init_login}/>
         <Route path='/register' Component={register}/>
-        <Route path='/login' Component={login}/>
-        <Route path='/home'element={<ProtectedRoute><Home /></ProtectedRoute>}/>
+        <Route path='/login' Component={Login}/>
+        <Route path='/home' Component={Home}/>
         <Route path='/categories' Component={Categories}/>
       </Routes>
     </Router>

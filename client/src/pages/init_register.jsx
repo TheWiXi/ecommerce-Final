@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Svgregistro from "../components/Svgregistro";
 
-const Register = () => {
+const Init_register = () => {
   const navigate = useNavigate();
   const eventoCambiarVista = () => {
     navigate("/init-login")
@@ -28,4 +28,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Init_register;

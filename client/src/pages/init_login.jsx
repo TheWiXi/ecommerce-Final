@@ -1,7 +1,7 @@
 import React from 'react';
 import Svglogin from "../components/Svglogin"
 
-const init_login = () => {
+const Init_login = () => {
 
     return (
         <div className="bg-[url('/fondologin.svg')] bg-cover bg-center h-screen flex justify-center items-center ">
@@ -18,4 +18,4 @@ const init_login = () => {
     );
 };
 
-export default init_login;
+export default Init_login;
