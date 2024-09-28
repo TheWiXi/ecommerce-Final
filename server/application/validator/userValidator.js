@@ -29,6 +29,42 @@ class UserValidator {
         ];
     };
 
+    validateUserName = () => {
+        return [
+            param('id').custom((value) => {
+                if (!ObjectId.isValid(value)) {
+                    throw new Error('Envía un ID válido');
+                }
+                return true;
+            }),
+            body('nombre').notEmpty().isString().withMessage('Send the name you want to have'),
+            query().custom((value, { req }) => {
+                if (Object.keys(req.query).length > 0) {
+                    throw new Error("Don't send anything in the url");
+                }
+                return true;
+            })
+        ];
+    };
+
+    validateUserPhone = () => {
+        return [
+            param('id').custom((value) => {
+                if (!ObjectId.isValid(value)) {
+                    throw new Error('Envía un ID válido');
+                }
+                return true;
+            }),
+            body('telefono').notEmpty().isString().withMessage('Send the number phone'),
+            query().custom((value, { req }) => {
+                if (Object.keys(req.query).length > 0) {
+                    throw new Error("Don't send anything in the url");
+                }
+                return true;
+            })
+        ];
+    };
+
     validateUserData = () => {
         return [  
             body('nombre')
