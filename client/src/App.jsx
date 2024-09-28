@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import register from './pages/Register'
 import Home from "./pages/Home"
 import Categories from './pages/Categories'
+import Workshops from './pages/Workshops'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/login' Component={Login}/>
         <Route path='/home' Component={Home}/>
         <Route path='/categories' Component={Categories}/>
+        <Route path='/workshops' Component={Workshops}/>
       </Routes>
     </Router>
   )
