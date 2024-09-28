@@ -20,7 +20,7 @@ module.exports = class connect {
         this.#host = process.env.MONGO_ACCESS;
         this.#cluster = process.env.MONGO_HOST;
         this.#dbName = process.env.MONGO_DB_NAME;
-        this.uri =`${this.#host}${this.#user}:${this.#pass}@${this.#cluster}/${this.#dbName}`
+        this.uri =`${this.#host}${this.#user}:${this.#pass}@${this.#cluster}:${this.#port}/${this.#dbName}`
         connect.instance = this;
         return this;
     }
