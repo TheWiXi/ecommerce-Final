@@ -1,12 +1,13 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const passport = require('../../application/middlewares/authenticateGoogle'); // Asegúrate de la ruta correcta
+const passport = require('../../application/middlewares/authenticateGoogle'); 
 const productRoutes = require('../../application/routes/productRoute');
 const userRoutes = require('../../application/routes/userRoute');
 const { jsonParseErrorHandler } = require('../middlewares/errorHandling');
 const { limiTotal } = require('../middlewares/rateLimit');
 const tallerRoute = require('../../application/routes/tallerRoute')
+const cookieParser = require('cookie-parser')
 
 const createServer = () => {
     const app = express();
