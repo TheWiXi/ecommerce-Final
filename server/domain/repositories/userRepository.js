@@ -63,9 +63,6 @@ class userRepository {
             const query = [
                 {
                     $match: { correo }
-                },
-                {
-                    $project: { _id: 0 }
                 }
             ];
             const result = await user.aggregate(query);

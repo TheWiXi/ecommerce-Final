@@ -25,7 +25,7 @@ passport.use(
     
             const data = await response.json(); 
             if (data && data.correo) {
-              return done(null, profile);
+              return done(null, data);
             } else {
               const newUser = {
                 nombre: profile.displayName,
@@ -45,7 +45,7 @@ passport.use(
 
               const createdUser = await createResponse.json();
               if (createResponse.ok) {
-                return done(null, profile);
+                return done(null, createdUser);
               } else {
                 return done(null, false, { message: 'Error al crear el usuario.' });
               }

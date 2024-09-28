@@ -39,7 +39,7 @@ function Login() {
   return (
     <> 
     <div class="left fixed top-0 left-0">
-        <a href="/" class="flex items-center">
+        <a href="/init-register" class="flex items-center">
             <img src={leftSVG} alt="Left Arrow" class="w-10 h-19"/>
         </a>
     </div>

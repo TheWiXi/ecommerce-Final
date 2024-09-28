@@ -47,7 +47,7 @@ passport.use(
 
           const createdUser = await createResponse.json();
           if (createResponse.ok) {
-            return done(null, profile);
+            return done(null, createdUser);
           } else {
             return done(null, false, { message: 'Error al crear el usuario.' });
           }
