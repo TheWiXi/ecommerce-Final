@@ -37,7 +37,7 @@ const Home = () => {
                         <img src="/home/rombos.svg" alt="svg" className='w-20' />
                     </div>
                     <p className='text-sm text-opacity-50 text-black'>¡Aprende como hacerlos en estos talleres educativos!</p>
-                    <img src="/home/image.svg" alt="" className='w-52 mt-4' />
+                    <a href='/workshops'><img src="/home/image.svg" alt="" className='w-52 mt-4' /></a>
                 </div>
             </section>
             <Footer />

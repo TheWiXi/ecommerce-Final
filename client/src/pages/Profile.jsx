@@ -82,7 +82,7 @@ const Profile = () => {
     };
 
     return (
-<div className='relative'>
+<div className=''>
     <Header />
     <section className='flex flex-col h-screen p-4 bg-white'>
         <div className="flex flex-col items-center justify-center">
