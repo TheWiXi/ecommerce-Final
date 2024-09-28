@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const passport = require('../../application/middlewares/authenticateGoogle'); 
+const googleStrategy = require('../../application/middlewares/authenticateGoogle');
+const gitHubStrategy = require('../../application/middlewares/authenticateGit');
 const productRoutes = require('../../application/routes/productRoute');
 const userRoutes = require('../../application/routes/userRoute');
 const { jsonParseErrorHandler } = require('../middlewares/errorHandling');
@@ -32,8 +33,11 @@ const createServer = () => {
         }
     }));
 
-    app.use(passport.initialize()); 
-    app.use(passport.session());
+    app.use(googleStrategy.initialize());
+    app.use(googleStrategy.session());
+
+    app.use(gitHubStrategy.initialize()); 
+    app.use(gitHubStrategy.session());
 
     app.use('/products', productRoutes);
     app.use('/users', userRoutes);
