@@ -9,6 +9,7 @@ import Home from "./pages/Home"
 import Categories from './pages/Categories'
 import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
+import Carrito from './pages/Carrito'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path='/categories' element={<ProtectedRoute><Categories /></ProtectedRoute>} />
+        <Route path='/Carrito' element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
         <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute>} />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Routes>

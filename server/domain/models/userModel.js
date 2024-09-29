@@ -18,6 +18,10 @@ class User{
         return await user.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
     }
 
+    async findByIdAndUpdateCarrito(id, updateData) {
+        return await user.findByIdAndUpdate(id,{ $push: {compras: updateData.compras}}, { new: true, useFindAndModify: false}).exec(); 
+    }
+
     async findByIdAndDelete(id) {
         return await user.findByIdAndDelete(id).exec();
     }

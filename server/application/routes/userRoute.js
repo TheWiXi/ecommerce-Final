@@ -58,6 +58,7 @@ router.get('/auth/github/callback', (req, res, next) => {
 router.post("/", userValidator.validateUserData(), (req, res) => userController.createUser(req, res))
 router.post('/verifyEmail', userValidator.validateUserEmail(), (req, res) => userController.verifyUserForEmail(req, res))
 router.post('/login', cookieParser(), userValidator.validateUserLogin(), (req, res) => userController.verifyUserCookies(req, res))
+router.post('/carrito/:id',  userValidator.validateUserUpdateDataById(), (req, res) => userController.updateCarritoUser(req, res))
 router.put('/:id', userValidator.validateUserUpdateDataById(), (req, res) => userController.updateUser(req, res));
 router.delete('/:id', userValidator.validateUserId(), (req, res) => userController.deleteUser(req, res));
 
