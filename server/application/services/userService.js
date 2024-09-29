@@ -13,6 +13,13 @@ class UserService {
         return user;
     }
 
+    async getAllUsersService(){
+        const user = await this.userRepository.getAll()
+        if(!user){
+            throw new Error(JSON.stringify({status: 404, message: 'Users were not found'}))
+        }
+        return user
+    }
 
     async createUser(data) {
         return await this.userRepository.save(data);

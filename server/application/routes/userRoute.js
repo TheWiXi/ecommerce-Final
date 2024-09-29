@@ -9,6 +9,7 @@ const router  = express.Router()
 const userController = new UserController();
 const userValidator = new UserValidator();
 
+router.get("/getAllUsersTypeArtesano", userValidator.validateUserDataEmpty(), (req, res) => userController.getAllUsersController(req, res))
 router.get("/:id", auth, userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
 router.post("/", userValidator.validateUserData(), (req, res) => userController.createUser(req, res))
 router.post('/login', cookieParser(), userValidator.validateUserLogin(), (req, res) => userController.verifyUserCookies(req, res))
