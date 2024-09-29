@@ -52,9 +52,16 @@ validateCouponData = ()=>{
         .notEmpty().withMessage('El código es obligatorio')
         .isString().withMessage('El código debe ser un string'),
 
-    body('descuento')
-        .notEmpty().withMessage('El descuento es obligatorio')
-        .isDecimal().withMessage('El descuento debe ser un número decimal'),
+        body('descuento')
+        .optional()
+        .custom(value => {
+            // Permitir que el valor sea un número o una cadena
+            if (typeof value === 'number' || typeof value === 'string') {
+                return true; // Es válido
+            }
+            throw new Error('El descuento debe ser un número o una cadena si se proporciona');
+        }),
+
 
     body('tipo')
         .notEmpty().withMessage('El tipo es obligatorio')
@@ -63,7 +70,7 @@ validateCouponData = ()=>{
 
     body('fechaExpiracion')
         .notEmpty().withMessage('La fecha de expiración es obligatoria')
-        .isISO8601().withMessage('La fecha de expiración debe estar en formato ISO8601'),
+        .isString().withMessage('El tipo debe ser un string'),
 
     body('usuarioId')
         .optional()
@@ -122,9 +129,16 @@ validateCoupounUpdateDataByID = () => {
             .notEmpty().withMessage('El código no debe estar vacío si se proporciona'),
 
         
-        body('descuento')
+            body('descuento')
             .optional()
-            .isDecimal().withMessage('El descuento debe ser un número decimal'),
+            .custom(value => {
+                // Permitir que el valor sea un número o una cadena
+                if (typeof value === 'number' || typeof value === 'string') {
+                    return true; // Es válido
+                }
+                throw new Error('El descuento debe ser un número o una cadena si se proporciona');
+            }),
+
 
        
         body('tipo')
@@ -135,7 +149,7 @@ validateCoupounUpdateDataByID = () => {
         
         body('fechaExpiracion')
             .optional()
-            .isISO8601().withMessage('La fecha de expiración debe ser una fecha válida'),
+            .isString().withMessage('El tipo debe ser un string'),
 
         
         body('usuarioId')

@@ -33,6 +33,10 @@ const TallerSchema = mongoose.Schema({
       type: String,
       default: '',
     },
+   imagen: {
+      type: String,
+      default: '',
+    },
     artesanoId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'usuario',

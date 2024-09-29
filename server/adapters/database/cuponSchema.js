@@ -6,17 +6,18 @@ const CuponSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  descuento: {
-    type: mongoose.Types.Decimal128,
-    required: true,
-  },
+  descuento: { 
+    type: Number,
+    required: false, 
+    min: 0, 
+},
   tipo: {
     type: String,
     enum: ['general', 'asignado'],
     required: true,
   },
   fechaExpiracion: {
-    type: Date,
+    type: String,
     required: true,
   },
   usuarioId: {
@@ -24,8 +25,8 @@ const CuponSchema = mongoose.Schema({
     ref: 'usuario',
   },
   imagen: {
-    type: String,  // Agrega el campo imagen como String
-    required: false,  // Si no es obligatorio, puedes poner 'required: false'
+    type: String,  
+    required: false, 
   },
 }, { timestamps: true });
   
