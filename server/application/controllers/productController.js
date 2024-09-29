@@ -66,6 +66,32 @@ class productController{
         }
     }
 
+    async getProductGroupedController(req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+    
+            const product = await this.productService.getProductGropedService(req.params.artesanoId);
+            return res.status(200).json(product);
+        } catch (error) {
+            console.error('Error details:', error);
+    
+            let errorResponse;
+            try {
+                errorResponse = JSON.parse(error.message);
+            } catch {
+                errorResponse = {
+                    status: 500,
+                    message: "An unexpected error occurred."
+                };
+            }
+    
+            return res.status(errorResponse.status || 500).json({ message: errorResponse.message || "An unexpected error occurred." });
+        }
+    }
+    
 }
 
 module.exports = productController

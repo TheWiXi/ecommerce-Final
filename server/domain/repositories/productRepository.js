@@ -53,6 +53,20 @@ class productRepository {
             throw new Error('Error searching for products');
         }
     }
-}
+    async getProductGroupId(artesanoId) {
+        try {
+            return await Product.getProductsGroupedByArtesanoWithNames(artesanoId);
+        } catch (error) {
+            // Log the original error for debugging
+            console.error('Database error:', error);
+    
+            // Throw a more informative error
+            throw new Error(JSON.stringify({
+                status: 500,
+                message: `Error searching for product grouped by artesanoId: ${error.message}`
+            }));
+        }
+    }
+}      
 
 module.exports = productRepository;

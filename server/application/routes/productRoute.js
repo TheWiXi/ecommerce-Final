@@ -11,5 +11,5 @@ router.get("/searchAll",  productValidator.validateProductDataEmpty(), (req, res
 router.post("/",  productValidator.validateProductData(), (req, res) => productController.createProduct(req, res))
 router.put('/:id',  productValidator.validateProductUpdateDataByID(), (req, res) => productController.updateProduct(req, res));
 router.delete('/:id', productValidator.validateProductId(), (req, res) => productController.deleteProduct(req, res));
-
+router.get("/:artesanoId", productValidator.validateProductGroupedIdValidator(), (req,res)=>productController.getProductGroupedController(req,res));
 module.exports = router;

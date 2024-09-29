@@ -13,6 +13,7 @@ class UserService {
         return user;
     }
 
+
     async createUser(data) {
         return await this.userRepository.save(data);
     }
