@@ -1,5 +1,6 @@
 const { body, query, param } = require('express-validator');
-const { ObjectId } = require('mongodb');
+//const { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongoose').Types;
 
 class ProductValidator {
     validateProductData = () => {
@@ -153,28 +154,49 @@ class ProductValidator {
     };
 
 
-    validateProductGroupedIdValidator = () => {
-        return [
-            param('artesanoId').custom((value, { req }) => {
-                if (!ObjectId.isValid(value)) {
-                    throw new Error('Submit a valid ID');
-                }
-                return true;
-            }),
-            query().custom((value, { req }) => {
-                if (Object.keys(req.query).length > 0) {
-                    throw new Error(`Don't send anything in the url`);
-                }
-                return true;
-            }),
-            body().custom((value, { req }) => {
-                if (Object.keys(req.body).length > 0) {
-                    throw new Error('Do not send anything in the body');
-                }
-                return true;
-            })
-        ];
-    };
+  validateProductGroupedIdValidator = () => {
+    return [
+        param('artesanoId').custom((value) => {
+            if (!ObjectId.isValid(value)) {
+                throw new Error('Submit a valid artesano ID');
+            }
+            return true;
+        }),
+        param('searchTerm').custom((value) => {
+            if (typeof value !== 'string' || value.trim() === '') {
+                throw new Error('Submit a valid search term');
+            }
+            return true;
+        }),
+        query().custom((value, { req }) => {
+            if (Object.keys(req.query).length > 0) {
+                throw new Error(`Don't send anything in the URL`);
+            }
+            return true;
+        }),
+        body().custom((value, { req }) => {
+            if (Object.keys(req.body).length > 0) {
+                throw new Error('Do not send anything in the body');
+            }
+            return true;
+        })
+    ];
+};
+
+
+validateProductGroupedIdToFindByNameValidator = () => {
+    return [
+        param('artesanoId').custom((value) => {
+            if (!ObjectId.isValid(value)) {
+                throw new Error('Submit a valid artesano ID');
+            }
+            return true;
+        }),
+        query('searchTerm').optional().isString().withMessage('Submit a valid search term'),
+    ];
+};
+
+
 
 }
 

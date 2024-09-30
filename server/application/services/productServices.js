@@ -52,6 +52,16 @@ class productService {
         return product
     }
 
+    async getProductsGroupedByArtesanoWithNamesService(artesanoId, searchTerm) {
+        const product = await this.productService.getProductNamesGroupByArtesanoId(artesanoId, searchTerm);
+        if (!product) {
+            throw new Error(JSON.stringify({ status: 404, message: 'Product name not found' }));
+        }
+        return product;
+    }
+    
+    
+    
 }
 
 module.exports = productService

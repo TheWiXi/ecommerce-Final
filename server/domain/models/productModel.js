@@ -1,5 +1,6 @@
 const Producto = require("../../adapters/database/productSchema");
 const mongoose = require('mongoose');
+
 class Product{
     async findById(id) {
         return await Producto.findById(id).exec(); 
@@ -61,8 +62,53 @@ class Product{
             }
         ]);
     }
-}
+    
 
+    static async getProductsGroupedByArtesanoWithNames(artesanoId, searchTerm) {
+        return await Producto.aggregate([
+            {
+                $match: {
+                    artesanoId: new mongoose.Types.ObjectId(artesanoId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "usuario",
+                    localField: "artesanoId",
+                    foreignField: "_id",
+                    as: "usuarioInfo"
+                }
+            },
+            {
+                $unwind: "$usuarioInfo"
+            },
+            {
+                $match: {
+                    nombre: { $regex: searchTerm, $options: "i" } // Case insensitive search
+                }
+            },
+            {
+                $group: {
+                    _id: "$artesanoId",
+                    artesanoNombre: { $first: "$usuarioInfo.nombre" },
+                    fotoPerfil: { $first: "$usuarioInfo.fotoPerfil" },
+                    productos: {
+                        $push: {
+                            nombre: "$nombre",
+                            categoria: "$categoria",
+                            descripcion: "$descripcion",
+                            precio: "$precio",
+                            dimensiones: "$dimensiones",
+                            foto: "$foto",
+                            stock: "$stock",
+                            descuento: "$descuento"
+                        }
+                    }
+                }
+            }
+        ]);
+    }
+}    
 
 
 module.exports = Product;

@@ -67,6 +67,20 @@ class productRepository {
             }));
         }
     }
+
+    async getProductNamesGroupByArtesanoId(artesanoId, searchTerm) {
+        try {
+            return await Product.getProductsGroupedByArtesanoWithNames(artesanoId, searchTerm);
+        } catch (error) {
+            console.error('Database error:', error);
+            throw new Error(JSON.stringify({
+                status: 500,
+                message: `Error searching for name product grouped by artesanoId: ${error.message}`
+            }));
+        }
+    }
+    
+    
 }      
 
 module.exports = productRepository;
