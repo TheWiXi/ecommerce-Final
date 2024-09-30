@@ -8,7 +8,7 @@ const Workshops = () => {
             <section className="flex flex-col gap-y-2">
                 <div className="flex relative items-center justify-center w-full py-5">
                     <img src="/category/back.svg" alt="svg" className="w-4 absolute left-1" />
-                    <p className="font-bold w-20 text-center border">Talleres Educativos</p>
+                    <p className="font-bold w-20 text-center">Talleres Educativos</p>
                     <img src="/category/rectangle.svg" alt="" className="w-14 absolute z-[-1]" />
                     <img src="/home/rectangle.svg" alt="" className="w-8 absolute left-0 z-[-1]" />
                 </div>
