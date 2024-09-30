@@ -82,6 +82,7 @@ class productRepository {
                         descripcion: 1,
                         foto: 1,
                         stock: 1,
+                        descuento: 1,
                     }
                 }
             ];
