@@ -19,22 +19,22 @@ class WorkshopValidator {
     ];
   };
 
-  validateWorkshopDataEmpty = () => {
-    return [
-      body().custom((value, { req }) => {
-        if (Object.keys(req.body).length > 0) {
-          throw new Error("Do not send anything in the body");
-        }
-        return true;
-      }),
-      query().custom((value, { req }) => {
-        if (Object.keys(req.query).length > 0) {
-          throw new Error(`Don't send anything in the url`);
-        }
-        return true;
-      }),
-    ];
-  };
+  // validateWorkshopDataEmpty = () => {
+  //   return [
+  //     body().custom((value, { req }) => {
+  //       if (Object.keys(req.body).length > 0) {
+  //         throw new Error("Do not send anything in the body");
+  //       }
+  //       return true;
+  //     }),
+  //     query().custom((value, { req }) => {
+  //       if (Object.keys(req.query).length > 0) {
+  //         throw new Error(`Don't send anything in the url`);
+  //       }
+  //       return true;
+  //     }),
+  //   ];
+  // };
 
   validatingWorkshopData = () => {
     return [
@@ -261,9 +261,18 @@ class WorkshopValidator {
       .isString()
       .withMessage("El público debe ser un string")
     ]
-
-
   }
+
+  getWAllWorkshopsWithTeacherNameControllerValidator = () => {
+    return [
+       query().custom((value, { req }) => {
+            if (Object.keys(req.query).length > 0) {
+                throw new Error(`Don't send anything in the url`);
+            }
+            return true;
+        })
+    ]
+};
 }
 
 

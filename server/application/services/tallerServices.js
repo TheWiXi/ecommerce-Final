@@ -13,13 +13,13 @@ async getWorkshopId(id){
     return workshop
 }
 
-    async getWorshops(){
-        const workshop = await this.workshopService.getAllW()
-        if(!workshop){
-            throw new Error(JSON.stringify({status: 404, message:'Workshop not found'}));
-        }
-        return workshop
-    }
+    // async getWorshops(){
+    //     const workshop = await this.workshopService.getAllW()
+    //     if(!workshop){
+    //         throw new Error(JSON.stringify({status: 404, message:'Workshop not found'}));
+    //     }
+    //     return workshop
+    // }
 
     async creatingAworkshop(data){
         const workshop = await this.workshopService.saveAWorkshop(data);
@@ -52,7 +52,17 @@ async getWorkshopId(id){
         }
         return { message: 'Workshop updated successfully', updatedWorkshop };  // Return a success message
     }
-    
+
+
+
+    async getWAllWorkshopsWithTeacherNameService(){
+        const workshop = await this.workshopService.getWAllWorkshopsWithTeacherNameRepository()
+        if(!workshop){
+            throw new Error(JSON.stringify({status: 404, message: 'workshop not found'}));
+    }
+    return workshop
+  }
+  
 }
 
 module.exports = WorkshopService

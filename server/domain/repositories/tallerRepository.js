@@ -12,15 +12,15 @@ class WorkshopRepository{
     };
 
 
-async getAllW(){
-    try{
-        const workshop = new Workshop();
-        return await workshop.getAllWorkshops(); 
-    } catch(error){
-        throw new Error(JSON.stringify({status: 400,
-            message: 'Error retrieving workshops'}));
-    }
-};
+// async getAllW(){
+//     try{
+//         const workshop = new Workshop();
+//         return await workshop.getAllWorkshops(); 
+//     } catch(error){
+//         throw new Error(JSON.stringify({status: 400,
+//             message: 'Error retrieving workshops'}));
+//     }
+// };
 
 async saveAWorkshop(workshopData) {
     try {
@@ -53,6 +53,16 @@ async WorkshopUpdated(id, updateData){
         throw new Error(JSON.stringify({status: 500, message:'Error upsating workshops'}));
     }
 }
+
+async getWAllWorkshopsWithTeacherNameRepository(){
+    try {
+        const workshop = new Workshop();
+        return await workshop.getWAllWorkshopsWithTeacherNameModel();
+    } catch (error) {
+        throw new Error(JSON.stringify({status: 400, message: 'Error retrieving Wokshops with teachers names'}));
+    }
+}
+
 
 }
 
