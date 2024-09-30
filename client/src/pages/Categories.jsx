@@ -54,7 +54,7 @@ const Categories = () => {
         <div>
             <section className="flex flex-col border-black border-b-2">
                 <div className="flex relative items-center justify-center w-full py-5">
-                    <div className="left fixed top-0 left-0">
+                    <div className="left absolute top-0 left-0">
                         <a href="/home" className="flex items-center">
                             <img src={leftSVG} alt="Left Arrow" className="w-10 h-19" />
                         </a>
@@ -85,19 +85,18 @@ const Categories = () => {
                     <img src="/category/filter.svg" alt="" className="w-5" />
                 </div>
                 
-                {/* Mostrar productos obtenidos */}
                 <div className="flex flex-wrap justify-between">
                     {products.length > 0 ? (
                         products.map((product, index) => (
                             <div key={index} className="w-[45%] rounded-lg overflow-hidden mt-4">
-                                <div>
-                                    <img src={product.foto} alt={product.nombre} />
+                                <div className="w-[100%]">
+                                    <img src={product.foto} alt={product.nombre} className="w-[100%] min-h-[130px] max-h-[130px]"/>
                                 </div>
                                 <div className="bg-black text-white flex flex-col justify-between">
                                     <div className="m-2">
-                                        <p className="font-bold text-md text-start ml-2">{product.nombre}</p>
+                                        <p className="font-bold text-md text-start ml-2 truncate">{product.nombre}</p>
                                         <p className="text-lg font-bold text-start ml-2">${product.precio?.$numberDecimal || product.precio}</p>
-                                        <p className="text-sm text-start ml-2">{product.nombreArtesano}</p>
+                                        <p className="text-sm text-start ml-2 truncate">{product.nombreArtesano}</p>
                                     </div>
                                 </div>
                             </div>
