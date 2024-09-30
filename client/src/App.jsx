@@ -4,7 +4,7 @@ import Start from "./pages/Start"
 import Init_register from "./pages/init_register"
 import Init_login from "./pages/init_login"
 import Login from './pages/Login'
-import Register from './pages/register'
+import Register from './pages/Register'
 import Home from "./pages/Home"
 import Categories from './pages/Categories'
 import Workshops from './pages/Workshops'
