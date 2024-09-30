@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ProtectedRoute from './token/ProtectedRoute';
 import Start from "./pages/Start"
-import Init_register from "./pages/init_register"
-import Init_login from "./pages/init_login"
+import Init_register from "./pages/Init_register"
+import Init_login from "./pages/Init_login"
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from "./pages/Home"
