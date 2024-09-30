@@ -3,10 +3,21 @@ import {jwtDecode} from 'jwt-decode';
 import Icons from './Icons'
 import separadorSvg from '../../public/aside/separador.svg'
 import Campuslands from '../../public/aside/campuslands.png'
+
+import { useNavigate } from 'react-router-dom';
+
+
 const Header = () => {
     const [open, setOpen] = useState(false)
     const sidebarRef = useRef(null);
     const [userData, setUserData] = useState(null);
+
+    const navigate = useNavigate();
+
+    // Función que redirige al chat cuando se hace clic
+    const handleNavigateToChat = () => {
+        navigate('/Chat');
+    };
 
     const getCookieValue = (cookieName) => {
         const cookies = document.cookie.split('; ');
@@ -110,7 +121,7 @@ const Header = () => {
                             <div className='m-4'>
                                 <div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/settings.svg" className="w-[60%]"/>Ajustes</div>
                                 <div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/comments.svg" className="w-[60%]"/>Comentarios </div>
-                                <div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/atention.svg" className="w-[60%]"/>Atención al cliente</div>
+                                <div onClick={handleNavigateToChat}  className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/atention.svg" className="w-[60%]"/>Atención al cliente</div>
                              </div>
                              <div className='w-full h-10'>
                                 <img className='w-full h-full object-contain' src={Campuslands}></img>

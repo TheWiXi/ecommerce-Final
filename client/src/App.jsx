@@ -11,7 +11,7 @@ import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 
-// import Chat from './pages/ChatComponent'
+import ChatComponent from './pages/ChatComponent'
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
         <Route path='/Carrito' element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
         <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute>} />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        {/* <Route path='/Chat' element={<ProtectedRoute><Chat /></ProtectedRoute>} /> */}
+        <Route path='/Chat' element={<ProtectedRoute><ChatComponent /></ProtectedRoute>} />
       </Routes>
     </Router>
   )

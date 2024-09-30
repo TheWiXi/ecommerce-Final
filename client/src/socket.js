@@ -1,5 +1,12 @@
 import { io } from 'socket.io-client';
 
-const socket = io(`http://${process.env.EXPRESS_HOST}:${process.env.EXPRESS_PORT}` || 'http://localhost:5000');
+// Utilizando import.meta.env en lugar de process.env
+const host = "localhost";
+const port = 3000;
+
+console.log(`http://${host}:${port}`);
+
+
+const socket = io(`http://${host}:${port}`);
 
 export default socket;
