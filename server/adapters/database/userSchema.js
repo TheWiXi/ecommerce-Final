@@ -26,6 +26,7 @@ const UsuarioSchema = mongoose.Schema({
       telefono: {
         type: String,
         default: '',
+        unique: true, 
       },
       tipo: {
         type: String,
@@ -39,14 +40,17 @@ const UsuarioSchema = mongoose.Schema({
       compras: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'pedido',
+        unique: true, 
       }],
       talleresInscritos: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'taller',
+        unique: true, 
       }],
       cupones: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'cupon',
+        unique: true, 
       }],
     }, { timestamps: true });
 

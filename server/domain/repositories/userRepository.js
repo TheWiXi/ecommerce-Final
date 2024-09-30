@@ -38,6 +38,15 @@ class userRepository {
         }
     }
 
+    async updateUserCarritoById(id, updateData) {
+        try {
+            const user = new User();
+            return await user.findByIdAndUpdateCarrito(id, updateData, { upsert: true });
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error updating user'}));
+        }
+    }
+
     async deleteById(id) {
         try {
             const user = new User();
@@ -63,9 +72,6 @@ class userRepository {
             const query = [
                 {
                     $match: { correo }
-                },
-                {
-                    $project: { _id: 0 }
                 }
             ];
             const result = await user.aggregate(query);

@@ -1,9 +1,28 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import Category from '../components/Category';
-import Footer from '../components/Footer'
+import Categoria from '../components/Category'; // Asegúrate de usar el nombre correcto
+import Footer from '../components/Footer';
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const categories = [
+        { svgUrl: "/categorias/textileria.svg", text: "Textileria" },
+        { svgUrl: "/categorias/ceramica.svg", text: "Ceramica" },
+        { svgUrl: "/categorias/orfebreria.svg", text: "Orfebreria" },
+        { svgUrl: "/categorias/tallaenpiedra.svg", text: "Talla en piedra" },
+        { svgUrl: "/categorias/tallamadera.svg", text: "Talla en madera" },
+        { svgUrl: "/categorias/bordado.svg", text: "Bordado" },
+        { svgUrl: "/categorias/joyeria.svg", text: "Joyeria" },
+        { svgUrl: "/categorias/hojalateria.svg", text: "Hojalateria" },
+        { svgUrl: "/categorias/estampado.svg", text: "Estampado" },
+        { svgUrl: "/categorias/pintura.svg", text: "Pintura tradicional" },
+    ];
+
+    const handleCategoryClick = (category) => {
+        navigate('/categories', { state: { category } });
+    };
     return (
         <div className='relative'>
             <Header />
@@ -20,16 +39,15 @@ const Home = () => {
                 <div className='mx-3 flex flex-col items-center justify-center gap-y-1'>
                     <p className='font-black self-start'>Categorías</p>
                     <div className='my-2 flex items-start gap-x-5 gap-y-2 flex-wrap'>
-                        <Category svgUrl="/categorias/textileria.svg" text="Textileria" className="w-[70%]" />
-                        <Category svgUrl="/categorias/ceramica.svg" text="Ceramica" className="w-[70%]" />
-                        <Category svgUrl="/categorias/orfebreria.svg" text="Orfebreria" className="w-[70%]" />
-                        <Category svgUrl="/categorias/tallaenpiedra.svg" text="Talla en piedra" className="w-[70%]" />
-                        <Category svgUrl="/categorias/tallamadera.svg" text="Talla en madera" className="w-[50%]" />
-                        <Category svgUrl="/categorias/bordado.svg" text="Bordado" className="w-[50%]" />
-                        <Category svgUrl="/categorias/joyeria.svg" text="Joyeria" className="w-[50%]" />
-                        <Category svgUrl="/categorias/hojalateria.svg" text="Hojalateria" className="w-[50%]" />
-                        <Category svgUrl="/categorias/estampado.svg" text="Estampado" className="w-[50%]" />
-                        <Category svgUrl="/categorias/pintura.svg" text="Pintura tradicional" className="w-[50%]" />
+                        {categories.map((category) => (
+                            <Categoria
+                                key={category.text}
+                                svgUrl={category.svgUrl}
+                                text={category.text}
+                                className="w-[70%]"
+                                onClick={() => handleCategoryClick(category.text)} // Asignando el evento onClick
+                            />
+                        ))}
                     </div>
                     <div className='flex gap-x-5 underline text-lg'>
                         <img src="/home/rombos.svg" alt="svg" className='w-20' />
@@ -37,7 +55,7 @@ const Home = () => {
                         <img src="/home/rombos.svg" alt="svg" className='w-20' />
                     </div>
                     <p className='text-sm text-opacity-50 text-black'>¡Aprende como hacerlos en estos talleres educativos!</p>
-                    <img src="/home/image.svg" alt="" className='w-52 mt-4' />
+                    <a href='/workshops'><img src="/home/image.svg" alt="" className='w-52 mt-4' /></a>
                 </div>
             </section>
             <Footer />

@@ -1,25 +1,30 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import ProtectedRoute from './token/ProtectedRoute';
 import Start from "./pages/Start"
-import Init_register from "./pages/Init_register"
-import Init_login from "./pages/Init_login"
+import Init_register from "./pages/init_register"
+import Init_login from "./pages/init_login"
 import Login from './pages/Login'
-import register from './pages/Register'
+import Register from './pages/Register'
 import Home from "./pages/Home"
 import Categories from './pages/Categories'
 import Workshops from './pages/Workshops'
+import Profile from './pages/Profile'
+import Carrito from './pages/Carrito'
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path='/' Component={Start}/>
-        <Route path='/init-register' Component={Init_register}/>
-        <Route path='/init-login' Component={Init_login}/>
-        <Route path='/register' Component={register}/>
-        <Route path='/login' Component={Login}/>
-        <Route path='/home' Component={Home}/>
-        <Route path='/categories' Component={Categories}/>
-        <Route path='/workshops' Component={Workshops}/>
+<Routes>
+        <Route path='/' element={<Start />} />
+        <Route path='/init-register' element={<Init_register />} />
+        <Route path='/init-login' element={<Init_login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path='/categories' element={<ProtectedRoute><Categories /></ProtectedRoute>} />
+        <Route path='/Carrito' element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
+        <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute>} />
+        <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Routes>
     </Router>
   )

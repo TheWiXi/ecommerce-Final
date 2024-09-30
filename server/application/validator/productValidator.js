@@ -7,27 +7,43 @@ class ProductValidator {
             body('nombre')
                 .notEmpty().withMessage('El nombre es obligatorio')
                 .isString().withMessage('El nombre debe ser un string'),
-
+    
             body('descripcion')
                 .notEmpty().withMessage('La descripción es obligatoria')
                 .isString().withMessage('La descripción debe ser un string'),
-
+    
             body('precio')
                 .notEmpty().withMessage('El precio es obligatorio')
-                .isDecimal().withMessage('El precio debe ser un número decimal'),
-
+                .isNumeric().withMessage('El precio debe ser un número')
+                .custom((value) => {
+                    if (value <= 0) {
+                        throw new Error('El precio debe ser un número mayor que cero');
+                    }
+                    return true;
+                }),
+    
+            body('dimensiones')
+                .notEmpty().withMessage('Las dimensiones son obligatorias')
+                .isString().withMessage('Las dimensiones deben ser un string'),
+    
+            body('foto')
+                .notEmpty().withMessage('La foto es obligatoria')
+                .isURL().withMessage('La foto debe ser una URL válida'),
+    
             body('stock')
                 .notEmpty().withMessage('El stock es obligatorio')
-                .isInt().withMessage('El stock debe ser un número entero'),
-
-            body('categoria')
-                .notEmpty().withMessage('La categoría es obligatoria')
-                .isString().withMessage('La categoría debe ser un string'),
-
+                .isInt({ min: 0 }).withMessage('El stock debe ser un número entero y mayor o igual a cero'),
+    
             body('descuento')
                 .optional()
-                .isNumeric().withMessage('El descuento debe ser un número si se proporciona'),
-
+                .isNumeric().withMessage('El descuento debe ser un número si se proporciona')
+                .custom((value) => {
+                    if (value < 0) {
+                        throw new Error('El descuento no puede ser negativo');
+                    }
+                    return true;
+                }),
+    
             body('artesanoId')
                 .notEmpty().withMessage('El artesanoId es obligatorio')
                 .custom((value) => {
@@ -36,19 +52,7 @@ class ProductValidator {
                     }
                     return true;
                 }),
-
-            body('fotos')
-                .optional()
-                .isArray().withMessage('Las fotos deben ser un array')
-                .custom((fotos) => {
-                    fotos.forEach((foto) => {
-                        if (typeof foto !== 'string') {
-                            throw new Error('Cada foto debe ser una cadena de texto');
-                        }
-                    });
-                    return true;
-                }),
-
+    
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {
                     throw new Error('No envíes parámetros en la URL');
@@ -158,6 +162,8 @@ class ProductValidator {
             })
         ];
     };
+
+    
 
 }
 
