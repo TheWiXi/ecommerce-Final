@@ -10,8 +10,18 @@ const { limiTotal } = require('../middlewares/rateLimit');
 const tallerRoute = require('../../application/routes/tallerRoute')
 const cookieParser = require('cookie-parser')
 
+const http = require('http');
+const { Server } = require('socket.io');
+const chatController = require('../../application/controllers/chatController');
+
 const createServer = () => {
     const app = express();
+
+    const server = http.createServer(app);
+    const io = new Server(server);
+
+    // Configurar Socket.io
+    require('..//socket/socketServer')(io);
 
     app.use(cors({
         origin: 'http://localhost:5173',
@@ -42,6 +52,9 @@ const createServer = () => {
     app.use('/products', productRoutes);
     app.use('/users', userRoutes);
     app.use('/workshops',tallerRoute)
+
+    app.use('/chat', chatController);
+
     return app;
 };
 
