@@ -1,14 +1,31 @@
-const Chat = require('../../adapters/database/mensajeSchema');
+const MensajeSchema = require('../../adapters/database/mensajeSchema');
 
-class MongoChatRepository {
-  async save(chat) {
-    const newChat = new Chat(chat);
-    return await newChat.save();
-  }
+class ChatRepository {
+    async saveMessage(message) {
+        try {
+            const newMessage = new MensajeSchema({
+                username: message.username,
+                text: message.text,
+                timestamp: message.timestamp
+            });
+            return await newMessage.save();
+        } catch (error) {
+            console.error('Error en ChatRepository.saveMessage:', error);
+            throw error;
+        }
+    }
 
-  async getAll() {
-    return await Chat.find({});
-  }
+    async getRecentMessages(limit) {
+        try {
+            return await MensajeSchema.find()
+                .sort({ timestamp: -1 })
+                .limit(limit)
+                .exec();
+        } catch (error) {
+            console.error('Error en ChatRepository.getRecentMessages:', error);
+            throw error;
+        }
+    }
 }
 
-module.exports = new MongoChatRepository();
+module.exports = ChatRepository;

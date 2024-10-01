@@ -2,15 +2,11 @@ const ConnectToDatabase = require('./infraestructure/database/mongodb');
 const createServer = require('./infraestructure/server/server');
 require('dotenv').config({ path: '../.env' });
 
-const http = require('http');
-const { Server } = require('socket.io');
-
 const startApp = async () => {
     let connectToDatabase = new ConnectToDatabase();
     await connectToDatabase.open();
 
-    const app = createServer();
-    const server = http.createServer(app);
+    const server = createServer();
     
 
     server.listen({ port: process.env.EXPRESS_PORT, host: process.env.EXPRESS_HOST }, () => {

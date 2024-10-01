@@ -12,20 +12,30 @@ const cookieParser = require('cookie-parser')
 
 const http = require('http');
 const { Server } = require('socket.io');
-const chatController = require('../../application/controllers/chatController');
+const socketSetup = require('../socket/socketServer');
+
 
 const createServer = () => {
     const app = express();
 
     const server = http.createServer(app);
-    const io = new Server(server);
+    // Configurar Socket.IO
+    const io = new Server(server, {
+        cors: {
+            origin: ["http://127.0.0.1:5500", "http://localhost:5173"],
+            methods: ["GET", "POST"],
+            credentials: true
+        }
+    });
 
     // Configurar Socket.io
-    require('..//socket/socketServer')(io);
+    // require('../socket/socketServer')(io);
+    socketSetup(io);
 
+    // Configurar CORS
     app.use(cors({
-        origin: 'http://localhost:5173',
-        credentials: true  
+        origin: ["http://127.0.0.1:5500", "http://localhost:5173"], // Añade aquí tus orígenes permitidos
+        credentials: true
     }));
 
     app.use(express.json());
@@ -53,9 +63,9 @@ const createServer = () => {
     app.use('/users', userRoutes);
     app.use('/workshops',tallerRoute)
 
-    app.use('/chat', chatController);
+    // app.use('/chat', chatController);
 
-    return app;
+    return server;
 };
 
 module.exports = createServer;
