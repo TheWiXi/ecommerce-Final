@@ -47,6 +47,15 @@ class userRepository {
         }
     }
 
+    async updateUserFavoriteById(id, updateData) {
+        try {
+            const user = new User();
+            return await user.findByIdAndUpdateFavorite(id, updateData, { upsert: true });
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error updating user'}));
+        }
+    }
+
     async deleteById(id) {
         try {
             const user = new User();

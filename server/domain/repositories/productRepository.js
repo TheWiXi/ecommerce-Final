@@ -70,7 +70,7 @@ class productRepository {
                 },
                 {
                     $project: {
-                        _id: 0, 
+                        _id: 1  , 
                         categoria: 1, 
                         nombreArtesano: '$artesano.nombre', 
                         correo: '$artesano.correo', 
@@ -83,6 +83,7 @@ class productRepository {
                         foto: 1,
                         stock: 1,
                         descuento: 1,
+                        dimensiones: 1
                     }
                 }
             ];
