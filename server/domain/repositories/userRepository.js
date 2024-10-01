@@ -14,7 +14,7 @@ class userRepository {
     async getAll() {
         try {
             const user = new User();
-            return await user.getAllusers();
+            return await user.getAllUsers();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving users'}));
         }
