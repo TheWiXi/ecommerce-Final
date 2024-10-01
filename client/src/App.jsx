@@ -13,6 +13,7 @@ import Carrito from './pages/Carrito'
 import Product from './pages/Product'
 import Ajustes from './pages/Ajustes';
 import ComentariosDeLaApp from './pages/ComentariosDeLaApp'
+import AtencionAlCliente from './pages/AtencionAlCliente'
 function App() {
   return (
     <Router>
@@ -30,7 +31,7 @@ function App() {
         <Route path='/Product' element={<ProtectedRoute><Product /></ProtectedRoute>} />
         <Route path='/Ajustes' element={<ProtectedRoute><Ajustes /></ProtectedRoute>} />
         <Route path='/Comentarios' element={<ProtectedRoute><ComentariosDeLaApp /></ProtectedRoute>} />
-
+        <Route path='/Atencion' element={<ProtectedRoute><AtencionAlCliente /></ProtectedRoute>} />
       </Routes>
     </Router>
   )

@@ -7,7 +7,7 @@ const Ajustes = () => {
     <>
       <Header2 />
       <div className='w-[100vw]'>
-        <p className='mt-10 mx-5'>Global</p>
+        <p className='mt-5 mx-5'>Global</p>
         <div className='bg-gray-200 h-[125px] rounded-md p-2 mx-5 mb-7'>
           <div className='flex flex-row justify-beetwen space-x-[119px] pt-[10px]'><p className='text-xs'>Cambiar país y región</p> <p className='text-xs text-gray-500'>Canadá Toronto</p></div>
           <div className='flex flex-row justify-beetwen space-x-[195px] pt-[20px]'><p className='text-xs'>Cambiar idioma</p> <p className='text-xs text-gray-500'>Español</p></div>

@@ -6,7 +6,7 @@ return(
     <>
     <Header3/>
     <div className='w-[100vw]'>
-    <p className='mt-10 mx-5'>Problemas frecuentes</p>
+    <p className='mt-5 mx-5'>Problemas frecuentes</p>
     <div className='bg-gray-200 h-[40px] rounded-md p-2 mx-5 mb-4 flex items-center'>
     <p className='text-sm'>La aplicación no carga de manera correcta</p>
 </div>
@@ -31,7 +31,7 @@ return(
 </div>
 
     <p className='mt-4 mx-5'>Otro</p>
-    <div className='bg-gray-200 h-[108px] rounded-md p-2 mx-5 mb-4'>
+    <div className='bg-gray-200 h-[115px] rounded-md p-2 mx-5 mb-4'>
     <div className='flex flex-row justify-beetwen space-x-[119px] pt-[10px]'><p className='text-sm text-gray-500'>Describe aquí tu problema...</p> </div>
     </div>
 <div className="flex justify-between p-4w">
