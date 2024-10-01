@@ -1,48 +1,48 @@
 {
-  "name": "ecommerce-final",
-  "version": "1.0.0",
-  "workspaces": [
-    "client",
-    "server"
-  ],
-  "description": "Este proyecto es una aplicación web de ecommerce enfocada en móviles que implementa la arquitectura hexagonal. La aplicación permite a los usuarios registrarse y loguearse tanto de manera local como mediante Google, Facebook e Instagram. Además, cuenta con una pasarela de pagos simulada, un chat de atención al cliente en tiempo real, y la opción de cambiar entre modo claro y oscuro.",
-  "main": "index.js",
-  "scripts": {
-    "dev:client": "npm run dev --workspace=client",
-    "dev:server": "npm run dev --workspace=server",
-    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "concurrently": "^9.0.1",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
-    "vite": "^5.4.7"
-  },
-  "dependencies": {
-    "@jridgewell/gen-mapping": "^0.3.5",
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "express-rate-limit": "^7.4.0",
-    "express-session": "^1.18.0",
-    "express-validator": "^7.2.0",
-    "js-tokens": "^9.0.0",
-    "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0",
-    "mongoose": "^8.6.3",
-    "passport": "^0.7.0",
-    "passport-github2": "^0.1.12",
-    "passport-google-oauth20": "^2.0.0",
-    "path": "^0.12.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2",
-    "safe-buffer": "^5.2.1"
-  }
+    "name": "ecommerce-final",
+    "version": "1.0.0",
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "description": "Este proyecto es una aplicación web de ecommerce enfocada en móviles que implementa la arquitectura hexagonal. La aplicación permite a los usuarios registrarse y loguearse tanto de manera local como mediante Google, Facebook e Instagram. Además, cuenta con una pasarela de pagos simulada, un chat de atención al cliente en tiempo real, y la opción de cambiar entre modo claro y oscuro.",
+    "main": "index.js",
+    "scripts": {
+        "dev:client": "npm run dev --workspace=client",
+        "dev:server": "npm run dev --workspace=server",
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "autoprefixer": "^10.4.20",
+        "concurrently": "^9.0.1",
+        "postcss": "^8.4.47",
+        "tailwindcss": "^3.4.13",
+        "vite": "^5.4.7"
+    },
+    "dependencies": {
+        "@jridgewell/gen-mapping": "^0.3.5",
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "express-rate-limit": "^7.4.0",
+        "express-session": "^1.18.0",
+        "express-validator": "^7.2.0",
+        "js-tokens": "^9.0.0",
+        "jsonwebtoken": "^9.0.2",
+        "jwt-decode": "^4.0.0",
+        "mongoose": "^8.6.3",
+        "passport": "^0.7.0",
+        "passport-github2": "^0.1.12",
+        "passport-google-oauth20": "^2.0.0",
+        "path": "^0.12.7",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.26.2",
+        "safe-buffer": "^5.2.1"
+    }
 }
