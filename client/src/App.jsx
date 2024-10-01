@@ -11,6 +11,7 @@ import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 import Product from './pages/Product'
+import Ajustes from './components/Header2';
 function App() {
   return (
     <Router>
@@ -26,6 +27,8 @@ function App() {
         <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute>} />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/Product' element={<ProtectedRoute><Product /></ProtectedRoute>} />
+        <Route path='/Ajustes' element={<ProtectedRoute><Ajustes /></ProtectedRoute>} />
+
       </Routes>
     </Router>
   )
