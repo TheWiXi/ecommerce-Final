@@ -11,7 +11,7 @@ import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 import Product from './pages/Product'
-import Ajustes from './components/Header2';
+import Ajustes from './pages/Ajustes';
 function App() {
   return (
     <Router>
