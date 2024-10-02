@@ -70,7 +70,7 @@ class productRepository {
                 },
                 {
                     $project: {
-                        _id: 0, 
+                        _id: 1  , 
                         categoria: 1, 
                         nombreArtesano: '$artesano.nombre', 
                         correo: '$artesano.correo', 
@@ -83,6 +83,7 @@ class productRepository {
                         foto: 1,
                         stock: 1,
                         descuento: 1,
+                        dimensiones: 1
                     }
                 }
             ];
@@ -101,6 +102,34 @@ class productRepository {
             throw new Error('Error searching for products');
         }
     }
-}
+    async getProductGroupId(artesanoId) {
+        try {
+            return await Product.getProductsGroupedByArtesanoWithNames(artesanoId);
+        } catch (error) {
+            // Log the original error for debugging
+            console.error('Database error:', error);
+    
+            // Throw a more informative error
+            throw new Error(JSON.stringify({
+                status: 500,
+                message: `Error searching for product grouped by artesanoId: ${error.message}`
+            }));
+        }
+    }
+
+    async getProductNamesGroupByArtesanoId(artesanoId, searchTerm) {
+        try {
+            return await Product.getProductsGroupedByArtesanoWithNames(artesanoId, searchTerm);
+        } catch (error) {
+            console.error('Database error:', error);
+            throw new Error(JSON.stringify({
+                status: 500,
+                message: `Error searching for name product grouped by artesanoId: ${error.message}`
+            }));
+        }
+    }
+    
+    
+}      
 
 module.exports = productRepository;

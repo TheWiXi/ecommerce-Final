@@ -15,7 +15,7 @@ const TallerSchema = mongoose.Schema({
       required: true,
     },
     fechaInicio: {
-      type: Date,
+      type: String,
       required: true,
     },
     
@@ -30,6 +30,10 @@ const TallerSchema = mongoose.Schema({
       type: String,
     }],
     documental: {
+      type: String,
+      default: '',
+    },
+   imagen: {
       type: String,
       default: '',
     },

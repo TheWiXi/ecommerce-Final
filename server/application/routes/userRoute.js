@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-const generateToken = require('../middlewares/token'); // Ajusta la ruta según sea necesario
+const generateToken = require('../middlewares/token'); 
 const {auth} = require('../middlewares/authenticateToken')
 const UserController = require("../controllers/userController")
 const UserValidator = require("../validator/userValidator")
@@ -11,7 +11,8 @@ const userController = new UserController();
 const userValidator = new UserValidator();
 
 
-router.get("/:id", userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
+router.get("/getAllUsersTypeArtesano", userValidator.validateUserDataEmpty(), (req, res) => userController.getAllUsersController(req, res))
+router.get("/:id", auth, userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback', (req, res, next) => {
@@ -59,6 +60,7 @@ router.post("/", userValidator.validateUserData(), (req, res) => userController.
 router.post('/verifyEmail', userValidator.validateUserEmail(), (req, res) => userController.verifyUserForEmail(req, res))
 router.post('/login', cookieParser(), userValidator.validateUserLogin(), (req, res) => userController.verifyUserCookies(req, res))
 router.post('/carrito/:id',  userValidator.validateUserUpdateDataById(), (req, res) => userController.updateCarritoUser(req, res))
+router.post('/favorite/:id',  userValidator.validateUserUpdateDataById(), (req, res) => userController.updateFavoireteUser(req, res))
 router.put('/:id', userValidator.validateUserUpdateDataById(), (req, res) => userController.updateUser(req, res));
 router.delete('/:id', userValidator.validateUserId(), (req, res) => userController.deleteUser(req, res));
 

@@ -13,13 +13,13 @@ async getWorkshopId(id){
     return workshop
 }
 
-    async getWorshops(){
-        const workshop = await this.workshopService.getAllW()
-        if(!workshop){
-            throw new Error(JSON.stringify({status: 404, message:'Workshop not found'}));
-        }
-        return workshop
-    }
+    // async getWorshops(){
+    //     const workshop = await this.workshopService.getAllW()
+    //     if(!workshop){
+    //         throw new Error(JSON.stringify({status: 404, message:'Workshop not found'}));
+    //     }
+    //     return workshop
+    // }
 
     async creatingAworkshop(data){
         const workshop = await this.workshopService.saveAWorkshop(data);
@@ -29,27 +29,40 @@ async getWorkshopId(id){
         return workshop
     }
 
-    async deletingWorkshop(id) {
+    async workshopDeleted(id) {
         try {
-            // Verificar si el ID es válido
-            if (!ObjectId.isValid(id)) {
-                throw new Error(JSON.stringify({ status: 400, message: 'Invalid workshop ID' }));
-            }
-
-            // Eliminar el taller
-            const deletedWorkshop = await Workshop.findByIdAndDelete(id);
+            const deletedWorkshop = await this.workshopService.deltingWorkshop(id);
             
             if (!deletedWorkshop) {
+                console.log(`No workshop found for id ${id}`);
                 throw new Error(JSON.stringify({ status: 404, message: 'Workshop not found or could not be deleted' }));
             }
-
-            return deletedWorkshop; // Regresar el taller eliminado si es necesario
+    
+            return deletedWorkshop;
         } catch (error) {
-            console.error('Error during deletion:', error);
-            throw new Error(JSON.stringify({ status: 500, message: 'Error deleting workshop' }));
+            console.error(`Error deleting workshop with id ${id}:`, error);
+            throw error;
         }
     }
 
+    async updateAWorkshop(id, data) {
+        const updatedWorkshop = await this.workshopService.WorkshopUpdated(id, data);
+        if (!updatedWorkshop) {
+            throw new Error(JSON.stringify({ status: 404, message: 'Workshop not found or could not be updated' }));
+        }
+        return { message: 'Workshop updated successfully', updatedWorkshop };  // Return a success message
+    }
+
+
+
+    async getWAllWorkshopsWithTeacherNameService(){
+        const workshop = await this.workshopService.getWAllWorkshopsWithTeacherNameRepository()
+        if(!workshop){
+            throw new Error(JSON.stringify({status: 404, message: 'workshop not found'}));
+    }
+    return workshop
+  }
+  
 }
 
 module.exports = WorkshopService

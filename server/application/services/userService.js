@@ -13,6 +13,14 @@ class UserService {
         return user;
     }
 
+    async getAllUsersService(){
+        const user = await this.userRepository.getAll()
+        if(!user){
+            throw new Error(JSON.stringify({status: 404, message: 'Users were not found'}))
+        }
+        return user
+    }
+
     async createUser(data) {
         return await this.userRepository.save(data);
     }
@@ -46,6 +54,15 @@ class UserService {
         }
         return updatedUser;
     }
+
+    async updateFavoireteById(id, data) {
+        const updatedUser = await this.userRepository.updateUserFavoriteById(id, data);
+        if (!updatedUser) {
+            throw new Error(JSON.stringify({status: 404, message: 'User not found or could not be updated'}));
+        }
+        return updatedUser;
+    }
+
 
     async deleteUser(id) {
         const deletedUser = await this.userRepository.deleteById(id);

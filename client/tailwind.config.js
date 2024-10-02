@@ -12,7 +12,10 @@ export default {
       colors : {
         graySearch: "#3D3D3D",
         grayUbi: "#D9D9D9",
-      }
+      },
+      fontSize: {
+        'xxs': '0.625rem',
+      },
     },
   },
   plugins: [],

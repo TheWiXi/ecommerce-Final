@@ -14,7 +14,7 @@ class userRepository {
     async getAll() {
         try {
             const user = new User();
-            return await user.getAllusers();
+            return await user.getAllUsers();
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving users'}));
         }
@@ -42,6 +42,15 @@ class userRepository {
         try {
             const user = new User();
             return await user.findByIdAndUpdateCarrito(id, updateData, { upsert: true });
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error updating user'}));
+        }
+    }
+
+    async updateUserFavoriteById(id, updateData) {
+        try {
+            const user = new User();
+            return await user.findByIdAndUpdateFavorite(id, updateData, { upsert: true });
         } catch (error) {
             throw new Error(JSON.stringify({status: 500, message: 'Error updating user'}));
         }

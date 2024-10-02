@@ -5,8 +5,8 @@ class User{
         return await user.findById(id).exec(); 
     }
 
-    async getAllusers() {
-        return await user.find({}).exec(); 
+    async getAllUsers() {
+        return await user.find({ tipo: "artesano" }).exec(); 
     }
 
     async insert(productData) {
@@ -19,7 +19,11 @@ class User{
     }
 
     async findByIdAndUpdateCarrito(id, updateData) {
-        return await user.findByIdAndUpdate(id,{ $push: {compras: updateData.compras}}, { new: true, useFindAndModify: false}).exec(); 
+        return await user.findByIdAndUpdate(id,{ $addToSet: {compras: updateData.compras}}, { new: true, useFindAndModify: false}).exec(); 
+    }
+
+    async findByIdAndUpdateFavorite(id, updateData) {
+        return await user.findByIdAndUpdate(id,{ $addToSet: {favoritos: updateData.favoritos}}, { new: true, useFindAndModify: false}).exec(); 
     }
 
     async findByIdAndDelete(id) {
