@@ -19,7 +19,11 @@ class User{
     }
 
     async findByIdAndUpdateCarrito(id, updateData) {
-        return await user.findByIdAndUpdate(id,{ $push: {compras: updateData.compras}}, { new: true, useFindAndModify: false}).exec(); 
+        return await user.findByIdAndUpdate(id,{ $addToSet: {compras: updateData.compras}}, { new: true, useFindAndModify: false}).exec(); 
+    }
+
+    async findByIdAndUpdateFavorite(id, updateData) {
+        return await user.findByIdAndUpdate(id,{ $addToSet: {favoritos: updateData.favoritos}}, { new: true, useFindAndModify: false}).exec(); 
     }
 
     async findByIdAndDelete(id) {

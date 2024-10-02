@@ -5,11 +5,13 @@ import Init_register from "./pages/init_register"
 import Init_login from "./pages/init_login"
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Register from './pages/Register'
 import Home from "./pages/Home"
 import Categories from './pages/Categories'
 import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
+import Product from './pages/Product'
 
 import ChatComponent from './pages/ChatComponent'
 
@@ -27,6 +29,7 @@ function App() {
         <Route path='/Carrito' element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
         <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute>} />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path='/Product' element={<ProtectedRoute><Product /></ProtectedRoute>} />
         <Route path='/Chat' element={<ProtectedRoute><ChatComponent /></ProtectedRoute>} />
       </Routes>
     </Router>
