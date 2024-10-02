@@ -6,13 +6,14 @@ import discountSvg from '../../public/discount.svg';
 import leftSVG from '../../public/left-arrow.svg';
 import triangleSVG from '../../public/triangle.svg';
 import cartBlackSVG from '../../public/navbar/cart-black.svg';
-import favoriteSiSVG from '../../public/buttons/favorite-si.svg'
-import favoriteNoSVG from '../../public/buttons/favorite-no.svg'
+import favoriteSiSVG from '../../public/buttons/favorite-si.svg';
+import favoriteNoSVG from '../../public/buttons/favorite-no.svg';
 
 const Product = () => {
     const location = useLocation();
     const { product } = location.state || {};
     const [userData, setUserData] = useState(null);
+    const [isFavorite, setIsFavorite] = useState(false); // Estado para manejar el favorito
 
     const precioOriginal = product?.precio?.$numberDecimal || product?.precio;
     const precioConDescuento = product?.descuento
@@ -96,8 +97,9 @@ const Product = () => {
             if (response.ok) {
                 const data = await response.json();
                 setUserData(data); 
+                setIsFavorite(!isFavorite); // Cambia el estado de favorito
             } else {
-                console.error('Error al actualizar el carrito del usuario');
+                console.error('Error al actualizar los favoritos del usuario');
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
@@ -157,8 +159,8 @@ const Product = () => {
                             </p>
                             <div className='flex justify-between items-center'>
                             <p className='font-bold'>{product.nombreArtesano}</p>
-                            <button  onClick={handleAddToFavorite}>
-                                <img src={favoriteNoSVG} className='h-10 w-10 mr-10' alt="Carrito" />
+                            <button onClick={handleAddToFavorite}>
+                                <img src={isFavorite ? favoriteSiSVG : favoriteNoSVG} className='h-10 w-10 mr-10' alt="Favorito" />
                             </button>
                             </div>
                             <p><span className='font-bold'>Dimensiones</span>: {product.dimensiones}</p>
