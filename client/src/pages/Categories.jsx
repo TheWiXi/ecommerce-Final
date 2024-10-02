@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom"; 
+import { useLocation, useNavigate } from "react-router-dom"; 
 import Category from '../components/Category';
 import leftSVG from '../../public/left-arrow.svg';
 
 const Categories = () => {
+    const navigate = useNavigate();
     const location = useLocation(); 
     const { category } = location.state || {}; 
 
@@ -88,7 +89,7 @@ const Categories = () => {
                 <div className="flex flex-wrap justify-between">
                     {products.length > 0 ? (
                         products.map((product, index) => (
-                            <div key={index} className="w-[45%] rounded-lg overflow-hidden mt-4">
+                            <div key={index} className="w-[45%] rounded-lg overflow-hidden mt-4" onClick={() => navigate('/product', { state: { product } })}>
                                 <div className="w-[100%]">
                                     <img src={product.foto} alt={product.nombre} className="w-[100%] min-h-[130px] max-h-[130px]"/>
                                 </div>

@@ -10,7 +10,7 @@ import Categories from './pages/Categories'
 import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
-
+import Product from './pages/Product'
 function App() {
   return (
     <Router>
@@ -25,6 +25,7 @@ function App() {
         <Route path='/Carrito' element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
         <Route path='/workshops' element={<Workshops />} />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path='/Product' element={<ProtectedRoute><Product /></ProtectedRoute>} />
       </Routes>
     </Router>
   )
