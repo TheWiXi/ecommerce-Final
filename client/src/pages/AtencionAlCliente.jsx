@@ -1,6 +1,6 @@
 import React from 'react';
 import Header4 from '../components/Header4';
-import Globe from './../../public/customerAtention/globe.svg';
+
 const AtencionAlCliente = () =>{
 return(
     <>
