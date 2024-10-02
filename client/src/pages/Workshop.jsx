@@ -34,7 +34,7 @@ const Workshop = () => {
                     </div>
                 </div>
             </section>
-            <section className="mx-6 border">
+            <section className="mx-6">
                 <div className="flex flex-wrap justify-between my-4 items-center gap-y-4">
                     <div className="w-[45%] rounded-lg overflow-hidden ">
                         <div className="w-[100%] h-[130px]">
