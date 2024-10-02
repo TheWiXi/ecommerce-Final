@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-const generateToken = require('../middlewares/token'); // Ajusta la ruta según sea necesario
+const generateToken = require('../middlewares/token'); 
 const {auth} = require('../middlewares/authenticateToken')
 const UserController = require("../controllers/userController")
 const UserValidator = require("../validator/userValidator")
@@ -11,7 +11,8 @@ const userController = new UserController();
 const userValidator = new UserValidator();
 
 
-router.get("/:id", userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
+router.get("/getAllUsersTypeArtesano", userValidator.validateUserDataEmpty(), (req, res) => userController.getAllUsersController(req, res))
+router.get("/:id", auth, userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback', (req, res, next) => {

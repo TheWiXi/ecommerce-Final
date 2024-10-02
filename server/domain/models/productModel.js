@@ -1,4 +1,5 @@
 const Producto = require("../../adapters/database/productSchema");
+const mongoose = require('mongoose');
 
 class Product{
     async findById(id) {
@@ -22,16 +23,93 @@ class Product{
         return await Producto.findByIdAndDelete(id).exec();
     }
 
-    async aggregate(query) {
-        try {
-            const result = await Producto.aggregate(query).exec();
-            return result;
-        } catch (error) {
-            // Manejo de errores
-            throw new Error(JSON.stringify({ status: 500, message: "Error al ejecutar la agregación", error: error.message }));
-        }
+    static async getProductsGroupedByArtesanoWithNames(artesanoId) {
+        return await Producto.aggregate([
+            {
+                $match: {
+                    artesanoId: new mongoose.Types.ObjectId(artesanoId) 
+                }
+            },
+            {
+                $lookup: {
+                    from: "usuario",
+                    localField: "artesanoId",
+                    foreignField: "_id",
+                    as: "usuarioInfo"
+                }
+            },
+            {
+                $unwind: "$usuarioInfo"
+            },
+            {
+                $group: {
+                    _id: "$artesanoId",
+                    artesanoNombre: { $first: "$usuarioInfo.nombre" },
+                    fotoPerfil: { $first: "$usuarioInfo.fotoPerfil" }, // Incluye fotoPerfil 
+                    productos: {
+                        $push: {
+                            nombre: "$nombre",
+                            categoria: "$categoria",
+                            descripcion: "$descripcion",
+                            precio: "$precio",
+                            dimensiones: "$dimensiones",
+                            foto: "$foto",
+                            stock: "$stock",
+                            descuento: "$descuento"
+                        }
+                    }
+                }
+            }
+        ]);
     }
-}
+    
+
+    static async getProductsGroupedByArtesanoWithNames(artesanoId, searchTerm) {
+        return await Producto.aggregate([
+            {
+                $match: {
+                    artesanoId: new mongoose.Types.ObjectId(artesanoId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "usuario",
+                    localField: "artesanoId",
+                    foreignField: "_id",
+                    as: "usuarioInfo"
+                }
+            },
+            {
+                $unwind: "$usuarioInfo"
+            },
+            {
+                $match: {
+                    nombre: { $regex: searchTerm, $options: "i" } // Case insensitive search
+                }
+            },
+            {
+                $group: {
+                    _id: "$artesanoId",
+                    artesanoNombre: { $first: "$usuarioInfo.nombre" },
+                    fotoPerfil: { $first: "$usuarioInfo.fotoPerfil" },
+                    productos: {
+                        $push: {
+                            nombre: "$nombre",
+                            categoria: "$categoria",
+                            descripcion: "$descripcion",
+                            precio: "$precio",
+                            dimensiones: "$dimensiones",
+                            foto: "$foto",
+                            stock: "$stock",
+                            descuento: "$descuento"
+                        }
+                    }
+                }
+            }
+        ]);
+    }
+}    
+
 
 module.exports = Product;
 
