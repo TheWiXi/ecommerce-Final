@@ -11,6 +11,7 @@ import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 import Workshop from './pages/Workshop';
+import InfoWorkshops from './pages/InfoWorkshops';
 
 function App() {
   return (
@@ -24,9 +25,10 @@ function App() {
         <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path='/categories' element={<ProtectedRoute><Categories /></ProtectedRoute>} />
         <Route path='/Carrito' element={<ProtectedRoute><Carrito /></ProtectedRoute>} />
-        <Route path='/workshops' element={<Workshops />} />
+        <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute> } />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path='/workshop' element={<Workshop />}/>
+        <Route path='/workshop' element={<ProtectedRoute><Workshop /></ProtectedRoute>}/>
+        <Route path='/infoworkshops' element={<InfoWorkshops />}/>
       </Routes>
     </Router>
   )
