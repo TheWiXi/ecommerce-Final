@@ -201,13 +201,14 @@ validateProductGroupedIdToFindByNameValidator = () => {
 
 getAllProductsWithDescuentoValidator  = () => {
     return [
-    query().custom((value, { req }) => {
-        if (Object.keys(req.query).length > 0) {
-            throw new Error(`Don't send anything in the url`);
-        }
-        return true;
-    })
-];
+        body('categoria').notEmpty().isString().withMessage('Envia la categoria'),      
+        query().custom((value, { req }) => {
+            if (Object.keys(req.query).length > 0) {
+                throw new Error(`Don't send anything in the url`);
+            }
+            return true;
+        })
+    ];
 
 };
 

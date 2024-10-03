@@ -61,8 +61,8 @@ class productService {
     }
     
 
-    async getAllProductsWithDescuentoService(){
-        const product = await this.productService.getAllProductsWithDescuentoRepository()
+    async getAllProductsWithDescuentoService(id){
+        const product = await this.productService.getAllProductsWithDescuentoRepository(id)
         if(!product){
             throw new Error(JSON.stringify({status:404, message:'Coupons not found'}))
         }

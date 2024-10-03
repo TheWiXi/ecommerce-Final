@@ -81,13 +81,40 @@ class productRepository {
     }
     
 
-    async getAllProductsWithDescuentoRepository() {
+    async getAllProductsWithDescuentoRepository(body) {
         try {
             const product = new Product();
+            let{categoria}=body
             const query = [
                 {
                     $match: {
                         descuento: { $ne: "" } 
+                    }
+                },
+                {
+                    $match: {
+                        categoria: { $regex: new RegExp(categoria, 'i') } 
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "usuarios", 
+                        localField: "artesanoId", 
+                        foreignField: "_id", 
+                        as: "usuarioInfo" 
+                    }
+                },
+                {
+                    $unwind: "$usuarioInfo" 
+                },
+                {
+                    $project: {
+                        _id: 1, 
+                        nombre: 1, 
+                        categoria: 1, 
+                        descuento: 1, 
+                        "usuarioNombre": "$usuarioInfo.nombre", 
+                        "productoFoto": "$foto" 
                     }
                 }
             ];

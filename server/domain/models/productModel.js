@@ -69,12 +69,7 @@ class Product{
         ]);
     }
 
-
-
-
-
-
-    
+ 
     async getAllproductsWithDescuento(query){
         return await Producto.aggregate(query).exec();
     }
