@@ -12,6 +12,7 @@ import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 import Workshop from './pages/Workshop';
 import InfoWorkshops from './pages/InfoWorkshops';
+import Redeem from './pages/Redeem';
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
         <Route path='/workshops' element={<ProtectedRoute><Workshops /></ProtectedRoute> } />
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/workshop' element={<ProtectedRoute><Workshop /></ProtectedRoute>}/>
-        <Route path='/infoworkshops' element={<InfoWorkshops />}/>
+        <Route path='/infoworkshops' element={<ProtectedRoute><InfoWorkshops /></ProtectedRoute>}/>
+        <Route path='/redeem' element={<Redeem />}/>
       </Routes>
     </Router>
   )
