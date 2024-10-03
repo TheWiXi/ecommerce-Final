@@ -12,6 +12,9 @@ import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 import Workshop from './pages/Workshop';
 import InfoWorkshops from './pages/InfoWorkshops';
+import Redeem from './pages/Redeem';
+import Register_workshop from './pages/Register_workshop';
+import Discounts from './pages/Discounts';
 import Product from './pages/Product'
 import Ajustes from './pages/Ajustes';
 import ComentariosDeLaApp from './pages/ComentariosDeLaApp'
