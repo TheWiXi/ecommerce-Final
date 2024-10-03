@@ -15,6 +15,8 @@ import InfoWorkshops from './pages/InfoWorkshops';
 import Redeem from './pages/Redeem';
 import Register_workshop from './pages/Register_workshop';
 import Discounts from './pages/Discounts';
+import Favorites from './pages/Favorites';
+import Purchases from './pages/Purchases';
 
 function App() {
   return (
@@ -34,7 +36,9 @@ function App() {
         <Route path='/infoworkshops' element={<ProtectedRoute><InfoWorkshops /></ProtectedRoute>}/>
         <Route path='/redeem' element={<ProtectedRoute> <Redeem /> </ProtectedRoute>}/>
         <Route path='/register-workshop' element={<ProtectedRoute><Register_workshop /></ProtectedRoute>}/>
-        <Route path='/discounts' element={<Discounts />}/>
+        <Route path='/discounts' element={<ProtectedRoute><Discounts /></ProtectedRoute>}/>
+        <Route path='/favorites' element={<ProtectedRoute><Favorites /></ProtectedRoute>}/>
+        <Route path='/purchases' element={<Purchases />}/>
       </Routes>
     </Router>
   )
