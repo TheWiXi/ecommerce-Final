@@ -24,7 +24,7 @@ const Favorites = () => {
         <div>
             <section className="flex flex-col border-black border-b-2 gap-y-2">
                 <div className="flex relative items-center justify-center w-full py-5">
-                    <img src="/category/back.svg" alt="svg" className="w-4 absolute left-1" />
+                    <a href="/home"><img src="/category/back.svg" alt="svg" className="w-4 absolute left-1 top-9" /></a>
                     <p className="font-bold w-[120px] text-center">Tus artesanías favoritas</p>
                     <img src="/category/rectangle.svg" alt="" className="w-16 absolute z-[-1]" />
                     <img src="/home/rectangle.svg" alt="" className="w-8 absolute left-0 z-[-1]" />

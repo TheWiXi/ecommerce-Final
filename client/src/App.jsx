@@ -10,6 +10,13 @@ import Categories from './pages/Categories'
 import Workshops from './pages/Workshops'
 import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
+import Product from './pages/Product'
+import Ajustes from './pages/Ajustes'
+import ComentariosDeLaApp from './pages/ComentariosDeLaApp'
+import AtencionAlCliente from './pages/AtencionAlCliente'
+import CompraRealizada from './pages/CompraRealizada'
+import Tiendas from './pages/Tiendas'
+import Coupons from './pages/Coupons'
 import Workshop from './pages/Workshop';
 import InfoWorkshops from './pages/InfoWorkshops';
 import Register_workshop from './pages/Register_workshop';
@@ -38,13 +45,11 @@ function App() {
         <Route path='/Atencion' element={<ProtectedRoute><AtencionAlCliente /></ProtectedRoute>} />
         <Route path='/Comprado' element={<ProtectedRoute><CompraRealizada  /></ProtectedRoute>} />
         <Route path='/Tiendas' element={<ProtectedRoute><Tiendas/></ProtectedRoute>} />
-        <Route path='/Favorites' element={<ProtectedRoute><Favorites/></ProtectedRoute>} />
         <Route path='/Redeem' element={<ProtectedRoute><Coupons/></ProtectedRoute>} />
         <Route path='/Register_workshop' element={<ProtectedRoute><Register_workshop/></ProtectedRoute>} />
         <Route path='/Discounts' element={<ProtectedRoute><Discounts/></ProtectedRoute>} />
-        <Route path='/discounts' element={<ProtectedRoute><Discounts /></ProtectedRoute>}/>
-        <Route path='/favorites' element={<ProtectedRoute><Favorites /></ProtectedRoute>}/>
-        <Route path='/purchases' element={<Purchases />}/>
+        <Route path='/Favorites' element={<ProtectedRoute><Favorites /></ProtectedRoute>}/>
+        <Route path='/Purchases' element={<Purchases />}/>
       </Routes>
     </Router>
   )
