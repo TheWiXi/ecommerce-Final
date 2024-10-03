@@ -1,6 +1,11 @@
 import React from "react";
-
+import { useNavigate } from 'react-router-dom';
 const CompraRealizada = () => {
+
+  const navigate = useNavigate();
+  const eventoCambiarVista = () => {
+    navigate("/home")
+  }
   return (
     <>
       <div className="w-[100vw]">
@@ -56,7 +61,7 @@ const CompraRealizada = () => {
 </div>
 
 <div><div className="flex justify-center mt-4">
-    <button className="bg-[#3D3D3D] text-white font-bold py-1.5 px-3 rounded mx-5 text-base">
+    <button className="bg-[#3D3D3D] text-white font-bold py-1.5 px-3 rounded mx-5 text-base " onClick={eventoCambiarVista}>
         Regresar al inicio 
     </button>
 </div></div>
