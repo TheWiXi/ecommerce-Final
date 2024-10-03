@@ -1,6 +1,7 @@
 const {validationResult} = require("express-validator")
 const productService  = require("../services/productServices")
 
+
 class productController{
     constructor(){
         this.productService = new productService ()
@@ -78,6 +79,19 @@ class productController{
         }
     }
 
+    async getProductsGroupedByArtesanoWithName(req, res) {  
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            const product = await this.productService.getProductsGroupedByArtesanoWithNames(req.params.id);
+            res.status(200).json(product);
+        } catch (error) {
+            const errorObj = JSON.parse(error.message);
+            res.status(errorObj.status).json({ message: errorObj.message });
+        }
+    }
+    
 }
+
 
 module.exports = productController

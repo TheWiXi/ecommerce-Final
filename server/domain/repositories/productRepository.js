@@ -1,5 +1,5 @@
 const Product = require('../models/productModel');
-
+const {ObjectId} = require('mongodb')
 class productRepository {
     async getById(id) {
         try {
@@ -94,14 +94,53 @@ class productRepository {
         }
     }
 
-
-    async searchByName(name) {
+    async getProductNamesGroupByArtesanoId(artesanoId) {
         try {
-            return await Product.find({ name: new RegExp(name, 'i') });
+            const product = new Product();
+            const id = artesanoId
+            const query = [
+                {
+                    $match: {
+                        artesanoId: new ObjectId(id)
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "usuario",
+                        localField: "artesanoId",
+                        foreignField: "_id",
+                        as: "usuarioInfo"
+                    }
+                },
+                {
+                    $unwind: "$usuarioInfo"
+                },
+                {
+                    $group: {
+                        _id: "$artesanoId",
+                        artesanoNombre: { $first: "$usuarioInfo.nombre" },
+                        fotoPerfil: { $first: "$usuarioInfo.fotoPerfil" },
+                        productos: {
+                            $push: {
+                                nombre: "$nombre",
+                                categoria: "$categoria",
+                                descripcion: "$descripcion",
+                                precio: "$precio",
+                                dimensiones: "$dimensiones",
+                                foto: "$foto",
+                                stock: "$stock",
+                                descuento: "$descuento"
+                            }
+                        }
+                    }
+                }
+            ]
+            const result = await product.aggregate(query);
+            return result
         } catch (error) {
-            throw new Error('Error searching for products');
+            throw new Error(JSON.stringify({status: 400, message: 'Error query'}));
         }
-    }
-}
+    }    
+}      
 
 module.exports = productRepository;

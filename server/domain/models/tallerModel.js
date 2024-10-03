@@ -19,7 +19,15 @@ class Workshop{
         return await Taller.findByIdAndDelete(id).exec();
     }
 
+    async updatingWorkshops(id, updateData) {
+        return await Taller.findByIdAndUpdate(id, updateData, { new: true }).exec();  // Use findByIdAndUpdate to update the document
+    }
+
+    async aggregate(query) {
+      return await Taller.aggregate(query).exec();
+  }
 }
+
 
 module.exports = Workshop;
 

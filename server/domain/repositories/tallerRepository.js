@@ -1,5 +1,5 @@
 const Workshop = require('../models/tallerModel');
-
+const {ObjectId} = require('mongodb')
 class WorkshopRepository{
 
     async getWorkshopById(id){
@@ -12,15 +12,15 @@ class WorkshopRepository{
     };
 
 
-async getAllW(){
-    try{
-        const workshop = new Workshop();
-        return await workshop.getAllWorkshops(); 
-    } catch(error){
-        throw new Error(JSON.stringify({status: 400,
-            message: 'Error retrieving workshops'}));
-    }
-};
+// async getAllW(){
+//     try{
+//         const workshop = new Workshop();
+//         return await workshop.getAllWorkshops(); 
+//     } catch(error){
+//         throw new Error(JSON.stringify({status: 400,
+//             message: 'Error retrieving workshops'}));
+//     }
+// };
 
 async saveAWorkshop(workshopData) {
     try {
@@ -36,30 +36,64 @@ async saveAWorkshop(workshopData) {
     }
     
 }
-async deltingWorkshop(req, res) {
+async deltingWorkshop(id) {
+    try{
+        const workshop = new Workshop();
+        return await workshop.deletingAWorkshop(id);
+    } catch(error){
+        throw new Error(JSON.stringify({status: 404, message: 'Error deleting workshop'}));
+    }
+}
+
+async WorkshopUpdated(id, updateData){
+    try{
+        const workshop = new Workshop();
+        return await workshop.updatingWorkshops(id, updateData);
+    } catch (error){
+        throw new Error(JSON.stringify({status: 500, message:'Error upsating workshops'}));
+    }
+}
+
+async getWAllWorkshopsWithTeacherNameRepository(){
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        // Obtener el ID del taller de los parámetros
-        const id = req.params.id;
-
-        // Llamar al servicio para eliminar el taller
-        const deletedWorkshop = await this.workshopService.deletingWorkshop(id);
-
-        // Responder con un estado 204 si se eliminó correctamente
-        res.status(204).json(deletedWorkshop);
+        const workshop = new Workshop();
+        const query = [
+            {
+              $lookup: {
+                from: "usuario",
+                localField: "artesanoId",
+                foreignField: "_id",
+                as: "artesanoInfo"
+              }
+            },
+            {
+              $unwind: "$artesanoInfo"
+            },
+            {
+              $project: {
+                nombre: 1,
+                descripcion: 1,
+                modalidad: 1,
+                fechaInicio: 1,
+                duracion: 1,
+                materialesProporcionados: 1,
+                materialesRequeridos: 1,
+                documental: 1,
+                imagen: 1,
+                "artesanoNombre": "$artesanoInfo.nombre",
+                publico: 1
+              }
+            }
+          ]
+        return await workshop.aggregate(query);
     } catch (error) {
-        const errorObj = JSON.parse(error.message);
-        res.status(errorObj.status).json({ message: errorObj.message });
+        throw new Error(JSON.stringify({status: 400, message: 'Error retrieving Wokshops with teachers names'}));
     }
 }
 
 
-
 }
+
 
 module.exports = WorkshopRepository;
 

@@ -1,23 +1,23 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import Categoria from '../components/Category'; // Asegúrate de usar el nombre correcto
+import Categoria from '../components/Category'; 
 import Footer from '../components/Footer';
 
 const Home = () => {
     const navigate = useNavigate();
 
     const categories = [
-        { svgUrl: "/categorias/textileria.svg", text: "Textileria" },
-        { svgUrl: "/categorias/ceramica.svg", text: "Ceramica" },
-        { svgUrl: "/categorias/orfebreria.svg", text: "Orfebreria" },
-        { svgUrl: "/categorias/tallaenpiedra.svg", text: "Talla en piedra" },
-        { svgUrl: "/categorias/tallamadera.svg", text: "Talla en madera" },
-        { svgUrl: "/categorias/bordado.svg", text: "Bordado" },
-        { svgUrl: "/categorias/joyeria.svg", text: "Joyeria" },
-        { svgUrl: "/categorias/hojalateria.svg", text: "Hojalateria" },
-        { svgUrl: "/categorias/estampado.svg", text: "Estampado" },
-        { svgUrl: "/categorias/pintura.svg", text: "Pintura tradicional" },
+        { svgUrl: "/categorias/textileria.svg", text: "Textileria", className : "w-[70%]" },
+        { svgUrl: "/categorias/ceramica.svg", text: "Ceramica", className : "w-[60%]" },
+        { svgUrl: "/categorias/orfebreria.svg", text: "Orfebreria", className : "w-[70%]" },
+        { svgUrl: "/categorias/tallaenpiedra.svg", text: "Talla en piedra", className : "w-[70%]" },
+        { svgUrl: "/categorias/tallamadera.svg", text: "Talla en madera", className : "w-[50%]" },
+        { svgUrl: "/categorias/bordado.svg", text: "Bordado", className : "w-[50%]" },
+        { svgUrl: "/categorias/joyeria.svg", text: "Joyeria", className : "w-[50%]" },
+        { svgUrl: "/categorias/hojalateria.svg", text: "Hojalateria", className : "w-[50%]" },
+        { svgUrl: "/categorias/estampado.svg", text: "Estampado", className : "w-[50%]" },
+        { svgUrl: "/categorias/pintura.svg", text: "Pintura tradicional", className : "w-[50%]" },
     ];
 
     const handleCategoryClick = (category) => {
@@ -44,8 +44,8 @@ const Home = () => {
                                 key={category.text}
                                 svgUrl={category.svgUrl}
                                 text={category.text}
-                                className="w-[70%]"
-                                onClick={() => handleCategoryClick(category.text)} // Asignando el evento onClick
+                                className={category.className}
+                                onClick={() => handleCategoryClick(category.text)} 
                             />
                         ))}
                     </div>

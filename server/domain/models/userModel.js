@@ -5,8 +5,8 @@ class User{
         return await user.findById(id).exec(); 
     }
 
-    async getAllusers() {
-        return await user.find({}).exec(); 
+    async getAllUsers() {
+        return await user.find({ tipo: "artesano" }).exec(); 
     }
 
     async insert(productData) {
