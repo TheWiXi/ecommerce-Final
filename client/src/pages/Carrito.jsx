@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import triangleSVG from '../../public/triangle.svg';
-
+import deleteSVG from '../../public/delete.svg'
 const Carrito = () => {
     const [userData, setUserData] = useState(null);
     const [productos, setProductos] = useState([]);
@@ -94,6 +94,33 @@ const Carrito = () => {
         );
     };
 
+    const eliminarProducto = async (id) => {
+        if (!userData) return; // Asegúrate de que userData esté disponible
+
+        const compraData = {
+            compras: [id],
+        };
+
+        try {
+            const response = await fetch(`http://localhost:3000/users/deleteCarrito/${userData._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(compraData),
+            });
+
+            if (response.ok) {
+                // Actualiza el estado para eliminar el producto de la lista
+                setProductos(prevProductos => prevProductos.filter(producto => producto._id !== id));
+            } else {
+                console.error('Error al eliminar el producto del carrito');
+            }
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+        }
+    };
+
     const calcularSubtotal = () => {
         return productos.reduce((total, producto) => {
             const precioConDescuento = producto.descuento
@@ -154,8 +181,16 @@ const Carrito = () => {
                                     <div className="min-w-[120px] max-w-[120px] m-2">
                                         <img src={producto.foto} alt={producto.nombre} className="shadow rounded" />
                                     </div>
-                                    <div className="flex-grow">
-                                        <h2 className="text-sm">{producto.nombre}</h2>
+                                    <div className="flex-grow relative">
+                                        <div className="flex justify-between items-start">
+                                            <h2 className="text-sm">{producto.nombre}</h2>
+                                            <button
+                                                onClick={() => eliminarProducto(producto._id)}
+                                                className="p-1 ml-4"
+                                            >
+                                                <img src={deleteSVG} className="w-5 h-5" alt="Eliminar" />
+                                            </button>
+                                        </div>
                                         <p className="text-sm">${producto.precio}</p>
                                         <p className="text-sm max-w-[120px] truncate">${producto.dimensiones}</p>
                                         {producto.descuento && <p>Descuento: {producto.descuento}%</p>}
@@ -201,7 +236,7 @@ const Carrito = () => {
                         <p>${total.toFixed(2)}</p>
                     </div>
                 </div>
-                <div className="flex justify-start  ml-5">
+                <div className="flex justify-start ml-5">
                     <button
                         onClick={realizarCompra}
                         className="p-2 bg-neutral-700 text-white rounded"

@@ -1,4 +1,5 @@
 const user = require("../../adapters/database/userSchema");
+const mongoose = require('mongoose');
 
 class User{
     async findById(id) {
@@ -28,6 +29,10 @@ class User{
 
     async findByIdAndDeleteCarrito(id) {
         return await user.findByIdAndUpdate(id,{ $set: {compras: []}}, { new: true, useFindAndModify: false}).exec(); 
+    }
+
+    async findByIdAndDeleteProductCarrito(id, updateData) {
+        return await user.findByIdAndUpdate(id, { $pull: { compras: {$in: updateData.compras} } },{ new: true, useFindAndModify: false }).exec();
     }
 
     async findByIdAndDelete(id) {

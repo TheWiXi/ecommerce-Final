@@ -63,6 +63,7 @@ router.post('/carrito/:id',  userValidator.validateUserUpdateDataById(), (req, r
 router.post('/favorite/:id',  userValidator.validateUserUpdateDataById(), (req, res) => userController.updateFavoireteUser(req, res))
 router.put('/:id', userValidator.validateUserUpdateDataById(), (req, res) => userController.updateUser(req, res));
 router.put('/carrito/:id',  userValidator.validateUserUpdateDataById(), (req, res) => userController.deleteCarritoUser(req, res))
+router.put('/deleteCarrito/:id',  userValidator.validateUserUpdateDataById(), (req, res) => userController.deleteProductCarritoUser(req, res))
 router.delete('/:id', userValidator.validateUserId(), (req, res) => userController.deleteUser(req, res));
 
 module.exports = router;        

@@ -71,6 +71,14 @@ class UserService {
         return updatedUser;
     }
 
+    async deleteProductCarritoById(id, data) {
+        const updatedUser = await this.userRepository.deleteProductUserCarritoById(id, data);
+        if (!updatedUser) {
+            throw new Error(JSON.stringify({status: 404, message: 'User not found or could not be updated'}));
+        }
+        return updatedUser;
+    }
+
     async deleteUser(id) {
         const deletedUser = await this.userRepository.deleteById(id);
         if (!deletedUser) {
