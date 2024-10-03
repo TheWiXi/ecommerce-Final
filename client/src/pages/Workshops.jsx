@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import leftSVG from '../../public/left-arrow.svg'
+import leftSVG from '../../public/left-arrow.svg';
+import { useNavigate } from "react-router-dom";
 
 const Workshops = () => {
     const [workshops, setWorkshops] = useState([]);
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         fetch('http://localhost:3000/workshops/getWorkshopWithArtesanoName')
@@ -11,13 +13,17 @@ const Workshops = () => {
             .catch(error => console.error('Error fetching workshops:', error));
     }, []);
 
+    const handleWorkshopClick = (workshop) => {
+        navigate('/Register_workshop', { state: { workshop } });
+    };
+
     return (
         <div className="flex flex-col gap-y-6">
             <section className="flex flex-col gap-y-2">
                 <div className="flex relative items-center justify-center w-full py-5">
-                    <div class="left absolute top-0 left-0">
-                        <a href="/home" class="flex items-center">
-                            <img src={leftSVG} alt="Left Arrow" class="w-10 h-19" />
+                    <div className="left absolute top-0 left-0">
+                        <a href="/home" className="flex items-center">
+                            <img src={leftSVG} alt="Left Arrow" className="w-10 h-19" />
                         </a>
                     </div>
                     <p className="font-bold w-20 text-center">Talleres Educativos</p>
@@ -31,7 +37,7 @@ const Workshops = () => {
                 </div>
             </section>
             <section className="mx-4 flex flex-col gap-y-4">
-            {workshops.length > 0 ? (
+                {workshops.length > 0 ? (
                     workshops.map((workshop) => (
                         <div key={workshop._id} className="flex w-[100%] bg-grayUbi rounded-lg">
                             <div className="w-48 border-black border rounded-lg overflow-hidden">
@@ -44,9 +50,12 @@ const Workshops = () => {
                                     <p className="text-sm font-bold leading-none">Artesano: {workshop.artesanoNombre}</p>
                                 </div>
                                 <div className="items-start bg-graySearch rounded px-2 py-1">
-                                    <a href={workshop.documental} target="_blank" rel="noopener noreferrer" className="text-xs text-white underline">
+                                    <button 
+                                        onClick={() => handleWorkshopClick(workshop)} // Manejar clic en el botón
+                                        className="text-xs text-white underline"
+                                    >
                                         Entérate más sobre el taller aquí
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
