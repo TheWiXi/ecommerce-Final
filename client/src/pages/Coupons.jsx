@@ -41,24 +41,29 @@ const Coupons = () => {
         </div>
       </section>
       <section className="mx-6 my-4">
-        <div className="flex flex-col gap-y-4">
-          {coupons.map((cupon) => (
-            <div key={cupon._id} className="flex bg-grayUbi rounded-md overflow-hidden ">
-              <div className="w-[250px] h-[110px] overflow-hidden">
-                <img src={cupon.imagen || "/test/imagen4.svg"} alt="" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex flex-col m-2">
-                <div className="flex flex-col gap-y-2">
-                <p className="text-sm leading-none">
-  {cupon.descuento}% {cupon.codigo} <span className="font-bold">{cupon.nombreUsuario}</span>
-</p>
-
-                  <p className="text-sm"><span className="font-bold">Fecha de vencimiento:</span> {cupon.fechaExpiracion}</p>
-                </div>
-                <button className="text-xs self-start text-white bg-graySearch py-1 px-2 rounded-md">Usar cupón</button>
-              </div>
-            </div>
-          ))}
+  <div className="flex flex-col gap-y-4">
+    {coupons.map((cupon) => (
+      <div key={cupon._id} className="flex bg-grayUbi rounded-md overflow-hidden h-[120px]">
+        <div className="w-[100px] h-full overflow-hidden flex-shrink-0">
+          <img 
+            src={cupon.imagen || "/test/imagen4.svg"} 
+            alt="" 
+            className="w-full h-full object-cover" 
+          />
+        </div>
+        <div className="flex flex-col m-2 justify-between">
+          <div className="flex flex-col gap-y-2">
+            <p className="text-sm leading-none">
+              {cupon.descuento}% {cupon.codigo} <span className="font-bold">{cupon.nombreUsuario}</span>
+            </p>
+            <p className="text-sm">
+              <span className="font-bold">Fecha de vencimiento:</span> {cupon.fechaExpiracion}
+            </p>
+          </div>
+          <button className="text-xs self-start text-white bg-graySearch py-1 px-2 rounded-md">Usar cupón</button>
+        </div>
+      </div>
+    ))}
         </div>
       </section>
     </div>
