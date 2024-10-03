@@ -23,7 +23,7 @@ import Coupons from './pages/Coupons'
 function App() {
   return (
     <Router>
-<Routes>
+      <Routes>
         <Route path='/' element={<Start />} />
         <Route path='/init-register' element={<Init_register />} />
         <Route path='/init-login' element={<Init_login />} />
@@ -43,7 +43,7 @@ function App() {
         <Route path='/Comprado' element={<ProtectedRoute><CompraRealizada  /></ProtectedRoute>} />
         <Route path='/Tiendas' element={<ProtectedRoute><Tiendas/></ProtectedRoute>} />
         <Route path='/Favorites' element={<ProtectedRoute><Favorites/></ProtectedRoute>} />
-        <Route path='/Cupones' element={<ProtectedRoute><Coupons/></ProtectedRoute>} />
+        <Route path='/Redeem' element={<ProtectedRoute><Coupons/></ProtectedRoute>} />
       </Routes>
     </Router>
   )

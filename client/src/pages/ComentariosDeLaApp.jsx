@@ -3,6 +3,17 @@ import React from 'react';
 const ComentariosDeLaApp = () =>{
 return(
     <>
+    <section>
+        <div className="flex relative items-center justify-center w-full py-5">
+          <div className="left absolute top-0 left-0">
+            <a href="/home" className="flex items-center">
+              <img src='/left-arrow.svg' alt="Left Arrow" className="w-10" />
+            </a>
+          </div>
+          <p className="font-bold w-20 text-center">Comentarios a la app</p>
+          <img src="/category/rectangle.svg" alt="" className="w-14 absolute z-[-1]" />
+        </div>
+    </section>
     <div className='w-[100vw]'>
     <p className='mt-5 mx-5'>Problemas frecuentes</p>
     <div className='bg-gray-200 h-[40px] rounded-md p-2 mx-5 mb-4 flex items-center'>

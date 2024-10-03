@@ -163,7 +163,7 @@ const Carrito = () => {
     };
 
     const irACupones = () => {
-        navigate('/Cupones');
+        navigate('/Redeem');
     };
 
     return (
