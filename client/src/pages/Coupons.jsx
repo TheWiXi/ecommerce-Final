@@ -43,7 +43,7 @@ const Coupons = () => {
       <section className="mx-6 my-4">
         <div className="flex flex-col gap-y-4">
           {coupons.map((cupon) => (
-            <div key={cupon._id} className="flex bg-grayUbi rounded-md overflow-hidden">
+            <div key={cupon._id} className="flex bg-grayUbi rounded-md overflow-hidden ">
               <div className="w-[250px] h-[110px] overflow-hidden">
                 <img src={cupon.imagen || "/test/imagen4.svg"} alt="" className="w-full h-full object-cover" />
               </div>
