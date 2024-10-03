@@ -6,7 +6,7 @@ const CompraRealizada = () => {
       <div className="w-[100vw]">
 
       <div className="flex justify-center mt-5">
-      <img src="/public/buying/check.svg" alt="Ícono" className="w-[215px] h-[215px] " />
+      <img src="/public/buying/check.svg" alt="Ícono" className="w-[208px] h-[208px] " />
 </div>
 <div className="flex justify-center">
 

@@ -17,7 +17,7 @@ const Tiendas = () => {
     return (
         <>
             <Header />
-            <div className="w-[100vw]">
+            <div className="w-[100vw]" >
                 <div className="flex items-center justify-between mx-auto w-full mt-4 mb-6">
                     <img src="/public/tiendas/Rectangle 35.png" alt="Ícono" className='mr-2 w-9 h-12' />
                     <div className="flex flex-col flex-grow px-4">
@@ -26,8 +26,13 @@ const Tiendas = () => {
                     </div>
                     <img src="/public/tiendas/graph.svg" alt="Ícono" className='ml-2 mr-3 w-9 h-10' />
                 </div>
+                <div className="relative">
+
+
+</div>
             </div>
-            <div className='w-full px-4'>
+            <div className='w-full px-4 '>
+
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {tiendas.map((tienda, index) => (
                         <div key={index} className="w-40 mb-4">
@@ -35,14 +40,14 @@ const Tiendas = () => {
                                 <p className="text-xs font-bold">{tienda.nombre}</p>
                                 <h2 className="text-xs">{tienda.direccion}</h2>
                             </div>
-                            <div className="h-25 overflow-hidden rounded-b-lg  min-h-[120px] max-h-[120px] flex items-center justify-center">
-    <img 
-        src={tienda.fotoPerfil} 
-        alt={tienda.title} 
-        className="max-w-[100%] max-h-[100%] object-contain" 
-    />
-</div>
-                </div>
+                            <div className="h-25 overflow-hidden rounded-b-lg min-h-[120px] max-h-[120px] flex items-center justify-center bg-[#BFBFBF]">
+                                <img
+                                    src={tienda.fotoPerfil}
+                                    alt={tienda.title}
+                                    className="max-w-[100%] max-h-[100%] object-contain"
+                                />
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>
