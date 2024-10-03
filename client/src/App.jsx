@@ -33,7 +33,7 @@ function App() {
         <Route path='/workshop' element={<ProtectedRoute><Workshop /></ProtectedRoute>}/>
         <Route path='/infoworkshops' element={<ProtectedRoute><InfoWorkshops /></ProtectedRoute>}/>
         <Route path='/redeem' element={<ProtectedRoute> <Redeem /> </ProtectedRoute>}/>
-        <Route path='/register-workshop' element={<Register_workshop />}/>
+        <Route path='/register-workshop' element={<ProtectedRoute><Register_workshop /></ProtectedRoute>}/>
         <Route path='/discounts' element={<Discounts />}/>
       </Routes>
     </Router>
