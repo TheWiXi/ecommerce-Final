@@ -58,8 +58,6 @@ const Discounts = () => {
                         <img src="/discounts/dsc.svg" alt="" className="absolute -top-6 -left-6 w-16 z-[10]" />
                         <p className="absolute -top-1 -left-2 text-white z-[20] text-sm transform rotate-[20deg]">-35%</p>
                     </div>
-                    
-                    
                 </div>
             </section>
             <Footer />

@@ -14,14 +14,8 @@ import Workshop from './pages/Workshop';
 import InfoWorkshops from './pages/InfoWorkshops';
 import Register_workshop from './pages/Register_workshop';
 import Discounts from './pages/Discounts';
-import Product from './pages/Product'
-import Ajustes from './pages/Ajustes';
-import ComentariosDeLaApp from './pages/ComentariosDeLaApp'
-import AtencionAlCliente from './pages/AtencionAlCliente'
-import CompraRealizada  from './pages/CompraRealizada'
-import Tiendas from './pages/Tiendas'
 import Favorites from './pages/Favorites';
-import Coupons from './pages/Coupons'
+import Purchases from './pages/Purchases';
 function App() {
   return (
     <Router>
@@ -48,6 +42,9 @@ function App() {
         <Route path='/Redeem' element={<ProtectedRoute><Coupons/></ProtectedRoute>} />
         <Route path='/Register_workshop' element={<ProtectedRoute><Register_workshop/></ProtectedRoute>} />
         <Route path='/Discounts' element={<ProtectedRoute><Discounts/></ProtectedRoute>} />
+        <Route path='/discounts' element={<ProtectedRoute><Discounts /></ProtectedRoute>}/>
+        <Route path='/favorites' element={<ProtectedRoute><Favorites /></ProtectedRoute>}/>
+        <Route path='/purchases' element={<Purchases />}/>
       </Routes>
     </Router>
   )
