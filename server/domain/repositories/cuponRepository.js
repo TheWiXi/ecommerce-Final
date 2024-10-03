@@ -14,11 +14,38 @@ class CouponRepository{
 async getAllCouponRepository(){
         try {
             const coupon = new Coupon();
-            return await coupon.getAllCoupons();
+            const query = [
+                    {
+                      $lookup: {
+                        from: "usuario", 
+                        localField: "usuarioId", 
+                        foreignField: "_id", 
+                        as: "usuario_info" 
+                      }
+                    },
+                    {
+                      $unwind: "$usuario_info" 
+                    },
+                    {
+                      $project: {
+                        _id: 1,
+                        codigo: 1,
+                        descuento: 1,
+                        tipo: 1,
+                        fechaExpiracion: 1,
+                        imagen: 1,
+                        nombreUsuario: "$usuario_info.nombre", 
+                        correoUsuario: "$usuario_info.correo", 
+                       
+                      }
+                    }
+            ]
+            return await coupon.getAllCoupons(query);
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving coupons'}));
         }   
 }
+
 
 async saveCouponRepository(productData) {
     try {

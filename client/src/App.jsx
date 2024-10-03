@@ -16,6 +16,8 @@ import ComentariosDeLaApp from './pages/ComentariosDeLaApp'
 import AtencionAlCliente from './pages/AtencionAlCliente'
 import CompraRealizada  from './pages/CompraRealizada'
 import Tiendas from './pages/Tiendas'
+import Favorites from './pages/Favorites';
+import Coupons from './pages/Coupons'
 function App() {
   return (
     <Router>
@@ -36,6 +38,8 @@ function App() {
         <Route path='/Atencion' element={<ProtectedRoute><AtencionAlCliente /></ProtectedRoute>} />
         <Route path='/Comprado' element={<ProtectedRoute><CompraRealizada  /></ProtectedRoute>} />
         <Route path='/Tiendas' element={<ProtectedRoute><Tiendas/></ProtectedRoute>} />
+        <Route path='/Favorites' element={<ProtectedRoute><Favorites/></ProtectedRoute>} />
+        <Route path='/Cupones' element={<ProtectedRoute><Coupons/></ProtectedRoute>} />
       </Routes>
     </Router>
   )
