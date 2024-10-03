@@ -26,6 +26,10 @@ class User{
         return await user.findByIdAndUpdate(id,{ $addToSet: {favoritos: updateData.favoritos}}, { new: true, useFindAndModify: false}).exec(); 
     }
 
+    async findByIdAndDeleteCarrito(id) {
+        return await user.findByIdAndUpdate(id,{ $set: {compras: []}}, { new: true, useFindAndModify: false}).exec(); 
+    }
+
     async findByIdAndDelete(id) {
         return await user.findByIdAndDelete(id).exec();
     }

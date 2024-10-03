@@ -56,6 +56,15 @@ class userRepository {
         }
     }
 
+    async deleteUserCarritoById(id) {
+        try {
+            const user = new User();
+            return await user.findByIdAndDeleteCarrito(id, { upsert: true });
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 500, message: 'Error updating user'}));
+        }
+    }
+
     async deleteById(id) {
         try {
             const user = new User();
