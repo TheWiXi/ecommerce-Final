@@ -10,10 +10,19 @@ const productValidator = new ProductValidator();
 router.get("/searchAll",  productValidator.validateProductDataEmpty(), (req, res) => productController.getProducts(req, res))
 //router.get("/:artesanoId", productValidator.validateProductGroupedIdValidator(), (req,res)=>productController.getProductGroupedController(req,res));
 
+
+
+
+router.get("/descuentos",productValidator.getAllProductsWithDescuentoValidator(), (req,res) =>  productController.getAllProductsWithDescuentoController(req,res));
 router.get("/:artesanoId", productValidator.validateProductGroupedIdToFindByNameValidator(), (req, res) => productController.getProductsGroupedByArtesanoWithNameCOntroller(req, res));
+
 
 router.post("/",  productValidator.validateProductData(),(req, res) => productController.createProduct(req, res))
 router.put('/:id',  productValidator.validateProductUpdateDataByID(), (req, res) => productController.updateProduct(req, res));
 router.delete('/:id', productValidator.validateProductId(), (req, res) => productController.deleteProduct(req, res));
+
+
+
+
 
 module.exports = router;

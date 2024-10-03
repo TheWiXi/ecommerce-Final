@@ -122,6 +122,20 @@ class productController{
             res.status(errorObj.status).json({ message: errorObj.message });
         }
     }
+
+
+    async getAllProductsWithDescuentoController(req, res){
+        try{
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            const product = await this.productService.getAllProductsWithDescuentoService();
+            res.status(200).json(product);
+        }catch(error){
+            const errorObj = JSON.parse(error.message);
+            res.status(errorObj.status).json({ message: errorObj.message });
+        }
+    }
+
     
 }
 

@@ -80,7 +80,24 @@ class productRepository {
         }
     }
     
-    
-}      
+
+    async getAllProductsWithDescuentoRepository() {
+        try {
+            const product = new Product();
+            const query = [
+                {
+                    $match: {
+                        descuento: { $ne: "" } 
+                    }
+                }
+            ];
+          return await product.getAllproductsWithDescuento(query); 
+        } catch (error) {
+            throw new Error (JSON.stringify({status: 400, message: "Error fetching products with descuento:"}));   
+        }
+    }
+}   
+
+
 
 module.exports = productRepository;

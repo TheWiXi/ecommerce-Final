@@ -60,8 +60,16 @@ class productService {
         return product;
     }
     
-    
-    
+
+    async getAllProductsWithDescuentoService(){
+        const product = await this.productService.getAllProductsWithDescuentoRepository()
+        if(!product){
+            throw new Error(JSON.stringify({status:404, message:'Coupons not found'}))
+        }
+        return product
+    }
+     
 }
+
 
 module.exports = productService
