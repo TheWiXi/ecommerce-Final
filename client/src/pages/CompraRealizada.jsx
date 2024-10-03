@@ -25,7 +25,7 @@ const CompraRealizada = () => {
 <div className="flex flex-col items-center text-center mt-4">
     <p className="text-base font-bold">
         Gracias por apoyar a los artesanos <br />
-        peruanos, puedes revisar tu compra <br />
+        colombianos, puedes revisar tu compra <br />
         en la opción de
     </p>
 </div>

@@ -13,7 +13,7 @@ const Product = () => {
     const location = useLocation();
     const { product } = location.state || {};
     const [userData, setUserData] = useState(null);
-    const [isFavorite, setIsFavorite] = useState(false); // Estado para manejar el favorito
+    const [isFavorite, setIsFavorite] = useState(false);
 
     const precioOriginal = product?.precio?.$numberDecimal || product?.precio;
     const precioConDescuento = product?.descuento

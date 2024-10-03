@@ -153,7 +153,7 @@ const Carrito = () => {
             });
 
             if (response.ok) {
-                navigate('/home');
+                navigate('/Comprado');
             } else {
                 console.error('Error al realizar la compra');
             }

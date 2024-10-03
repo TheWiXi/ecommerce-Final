@@ -13,6 +13,15 @@ async getWorkshopId(id){
     return workshop
 }
 
+async getWhorkshopById(id){
+    const product = await this.workshopService.getByIdArtesano(id)
+    if(!product){
+        throw new Error(JSON.stringify({status: 404, message: 'Product not found'}));
+    }
+    return product
+}
+
+
     // async getWorshops(){
     //     const workshop = await this.workshopService.getAllW()
     //     if(!workshop){

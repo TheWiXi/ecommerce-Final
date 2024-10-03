@@ -54,6 +54,25 @@ async WorkshopUpdated(id, updateData){
     }
 }
 
+
+async getByIdArtesano(artesanoId) {
+    try {
+        const workshop = new Workshop();
+        const id = artesanoId
+        const query = [
+            {
+                $match: {
+                    artesanoId: new ObjectId(id)
+                }
+            }
+        ]
+        const result = await workshop.aggregate(query);
+        return result
+    } catch (error) {
+        throw new Error(JSON.stringify({status: 400, message: 'Error query'}));
+    }
+}   
+
 async getWAllWorkshopsWithTeacherNameRepository(){
     try {
         const workshop = new Workshop();
