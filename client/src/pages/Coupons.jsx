@@ -49,7 +49,10 @@ const Coupons = () => {
               </div>
               <div className="flex flex-col m-2">
                 <div className="flex flex-col gap-y-2">
-                  <p className="text-sm leading-none">{cupon.descuento}% de descuento en {cupon.codigo}</p>
+                <p className="text-sm leading-none">
+  {cupon.descuento}% {cupon.codigo} <span className="font-bold">{cupon.nombreUsuario}</span>
+</p>
+
                   <p className="text-sm"><span className="font-bold">Fecha de vencimiento:</span> {cupon.fechaExpiracion}</p>
                 </div>
                 <button className="text-xs self-start text-white bg-graySearch py-1 px-2 rounded-md">Usar cupón</button>
