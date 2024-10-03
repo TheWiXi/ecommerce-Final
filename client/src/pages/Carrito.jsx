@@ -162,10 +162,14 @@ const Carrito = () => {
         }
     };
 
+    const irACupones = () => {
+        navigate('/Cupones');
+    };
+
     return (
         <div>
             <Header />
-            <section className='mt-3 h-screen'>
+            <section className='mt-3 h-100%'>
                 <div>
                     <div className='flex items-center'>
                         <img src={triangleSVG} className='h-10' alt="triangle" />
@@ -220,7 +224,7 @@ const Carrito = () => {
                     </div>
                 </div>
                 <div className="flex items-center mt-5 justify-center">
-                    <button className="p-1 bg-zinc-300 rounded">Añadir cupón de descuento</button>
+                    <button onClick={irACupones} className="p-1 bg-zinc-300 rounded">Añadir cupón de descuento</button>
                 </div>
                 <div className="p-5 bg-white rounded">
                     <div className="flex justify-between pl-2 pt-2 pr-2 bg-zinc-300 rounded-t-lg">
@@ -236,7 +240,8 @@ const Carrito = () => {
                         <p>${total.toFixed(2)}</p>
                     </div>
                 </div>
-                <div className="flex justify-start ml-5">
+                <div className="flex justify-start ml-5 mb-5
+                ">
                     <button
                         onClick={realizarCompra}
                         className="p-2 bg-neutral-700 text-white rounded"

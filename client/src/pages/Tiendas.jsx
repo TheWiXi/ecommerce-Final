@@ -12,12 +12,10 @@ const Tiendas = () => {
             .catch(error => console.error('Error fetching workshops:', error));
     }, []);
 
-    console.log(tiendas);
-
     return (
         <>
             <Header />
-            <div className="w-[100vw]" >
+            <div className="w-full" >
                 <div className="flex items-center justify-between mx-auto w-full mt-4 mb-6">
                     <img src="/public/tiendas/Rectangle 35.png" alt="Ícono" className='mr-2 w-9 h-12' />
                     <div className="flex flex-col flex-grow px-4">

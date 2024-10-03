@@ -6,15 +6,8 @@ const Favorites = ()=>{
 return(
     <>
     <Categoria/>
- <div className="w-[100vw]" >
-
-
-
-
-
-
-
- </div>
+        <div className="w-[100vw]" >
+        </div>
 </>
 )
 

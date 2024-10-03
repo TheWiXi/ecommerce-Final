@@ -1,11 +1,9 @@
 import React from 'react';
-import Header2 from '../components/Header2';
 
 
 const Ajustes = () => {
   return (
     <>
-      <Header2 />
       <div className='w-[100vw]'>
         <p className='mt-5 mx-5'>Global</p>
         <div className='bg-gray-200 h-[125px] rounded-md p-2 mx-5 mb-7'>

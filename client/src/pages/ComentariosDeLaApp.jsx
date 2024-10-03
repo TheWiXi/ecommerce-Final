@@ -1,10 +1,8 @@
 import React from 'react';
-import Header3 from '../components/Header3';
 
 const ComentariosDeLaApp = () =>{
 return(
     <>
-    <Header3/>
     <div className='w-[100vw]'>
     <p className='mt-5 mx-5'>Problemas frecuentes</p>
     <div className='bg-gray-200 h-[40px] rounded-md p-2 mx-5 mb-4 flex items-center'>

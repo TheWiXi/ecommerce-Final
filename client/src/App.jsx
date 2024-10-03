@@ -12,7 +12,6 @@ import Profile from './pages/Profile'
 import Carrito from './pages/Carrito'
 import Workshop from './pages/Workshop';
 import InfoWorkshops from './pages/InfoWorkshops';
-import Redeem from './pages/Redeem';
 import Product from './pages/Product'
 import Ajustes from './pages/Ajustes';
 import ComentariosDeLaApp from './pages/ComentariosDeLaApp'
@@ -37,7 +36,6 @@ function App() {
         <Route path='/Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/workshop' element={<ProtectedRoute><Workshop /></ProtectedRoute>}/>
         <Route path='/infoworkshops' element={<ProtectedRoute><InfoWorkshops /></ProtectedRoute>}/>
-        <Route path='/redeem' element={<Redeem />}/>
         <Route path='/Product' element={<ProtectedRoute><Product /></ProtectedRoute>} />
         <Route path='/Ajustes' element={<ProtectedRoute><Ajustes /></ProtectedRoute>} />
         <Route path='/Comentarios' element={<ProtectedRoute><ComentariosDeLaApp /></ProtectedRoute>} />

@@ -1,10 +1,8 @@
 import React from 'react';
-import Header4 from '../components/Header4';
 
 const AtencionAlCliente = () =>{
 return(
     <>
- <Header4/>
  <div className='w-[100vw]'>
  <p className='mt-5 mx-5 mb-3'>Preguntas frecuentes</p>
  <div className='bg-gray-200 h-[40px] rounded-md p-2 mx-5 mb-4 flex items-center'>
