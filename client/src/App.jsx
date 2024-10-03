@@ -14,6 +14,7 @@ import Workshop from './pages/Workshop';
 import InfoWorkshops from './pages/InfoWorkshops';
 import Redeem from './pages/Redeem';
 import Register_workshop from './pages/Register_workshop';
+import Discounts from './pages/Discounts';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='/infoworkshops' element={<ProtectedRoute><InfoWorkshops /></ProtectedRoute>}/>
         <Route path='/redeem' element={<ProtectedRoute> <Redeem /> </ProtectedRoute>}/>
         <Route path='/register-workshop' element={<Register_workshop />}/>
+        <Route path='/discounts' element={<Discounts />}/>
       </Routes>
     </Router>
   )
