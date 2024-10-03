@@ -27,7 +27,6 @@ class Product{
             const result = await Producto.aggregate(query).exec();
             return result;
         } catch (error) {
-            // Manejo de errores
             throw new Error(JSON.stringify({ status: 500, message: "Error al ejecutar la agregación", error: error.message }));
         }
     }
