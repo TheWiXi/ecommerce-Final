@@ -8,8 +8,8 @@ async getAnSpecificCoupon(id){
     }
 
     
-async getAllCoupons(){
-    return await Cupon.find({}).exec();
+async getAllCoupons(query){
+    return await Cupon.aggregate(query).exec();
 }
 
 async insertCoupons(productData) {
