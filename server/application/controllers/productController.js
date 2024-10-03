@@ -79,58 +79,14 @@ class productController{
         }
     }
 
-    async getProductGroupedController(req, res) {
+    async getProductsGroupedByArtesanoWithName(req, res) {  
         try {
             const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-    
-            const product = await this.productService.getProductGropedService(req.params.artesanoId);
-            return res.status(200).json(product);
-        } catch (error) {
-            console.error('Error details:', error);
-    
-            let errorResponse;
-            try {
-                errorResponse = JSON.parse(error.message);
-            } catch {
-                errorResponse = {
-                    status: 500,
-                    message: "An unexpected error occurred."
-                };
-            }
-    
-            return res.status(errorResponse.status || 500).json({ message: errorResponse.message || "An unexpected error occurred." });
-        }
-    }
-
-    async getProductsGroupedByArtesanoWithNameCOntroller(req, res) {
-        console.log('Received Params:', req.params);
-        console.log('Received Query:', req.query);
-    
-        try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log('Validation Errors:', errors.array());
-                return res.status(400).json({ errors: errors.array() });
-            }
-    
-            const { artesanoId } = req.params;
-            const searchTerm = req.query.searchTerm || '';
-    
-            console.log('Artensano ID:', artesanoId);
-            console.log('Search Term:', searchTerm);
-    
-            const product = await this.productService.getProductsGroupedByArtesanoWithNamesService(artesanoId, searchTerm);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            const product = await this.productService.getProductsGroupedByArtesanoWithNames(req.params.id);
             res.status(200).json(product);
         } catch (error) {
-            let errorObj;
-            try {
-                errorObj = JSON.parse(error.message);
-            } catch {
-                errorObj = { status: 500, message: 'Internal server error' };
-            }
+            const errorObj = JSON.parse(error.message);
             res.status(errorObj.status).json({ message: errorObj.message });
         }
     }

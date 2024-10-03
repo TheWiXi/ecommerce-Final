@@ -101,7 +101,7 @@ async updatingWorkshops(req, res) {
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
         
         const result = await this.workshopService.updateAWorkshop(req.params.id, req.body);
-        res.status(200).json(result);  // Send the success message and updated workshop as response
+        res.status(200).json(result); 
     } catch (error) {
         const errorObj = JSON.parse(error.message);
         res.status(errorObj.status).json({ message: errorObj.message });

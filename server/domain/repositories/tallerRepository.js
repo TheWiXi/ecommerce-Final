@@ -57,7 +57,35 @@ async WorkshopUpdated(id, updateData){
 async getWAllWorkshopsWithTeacherNameRepository(){
     try {
         const workshop = new Workshop();
-        return await workshop.getWAllWorkshopsWithTeacherNameModel();
+        const query = [
+            {
+              $lookup: {
+                from: "usuario",
+                localField: "artesanoId",
+                foreignField: "_id",
+                as: "artesanoInfo"
+              }
+            },
+            {
+              $unwind: "$artesanoInfo"
+            },
+            {
+              $project: {
+                nombre: 1,
+                descripcion: 1,
+                modalidad: 1,
+                fechaInicio: 1,
+                duracion: 1,
+                materialesProporcionados: 1,
+                materialesRequeridos: 1,
+                documental: 1,
+                imagen: 1,
+                "artesanoNombre": "$artesanoInfo.nombre",
+                publico: 1
+              }
+            }
+          ]
+        return await workshop.aggregate(query);
     } catch (error) {
         throw new Error(JSON.stringify({status: 400, message: 'Error retrieving Wokshops with teachers names'}));
     }
