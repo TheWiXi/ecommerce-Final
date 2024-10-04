@@ -1,68 +1,292 @@
 # Ecommerce App
 
-Este proyecto es una aplicación web de ecommerce enfocada en móviles que implementa la arquitectura hexagonal. La aplicación permite a los usuarios registrarse y loguearse tanto de manera local como mediante Google, Facebook e Instagram. Además, cuenta con una pasarela de pagos simulada, un chat de atención al cliente en tiempo real, y la opción de cambiar entre modo claro y oscuro.
+Este proyecto es una aplicación web de ecommerce enfocada en móviles que implementa la arquitectura hexagonal. La aplicación permite a los usuarios registrarse y loguearse tanto de manera local como mediante Google, Facebook e Instagram. Además, cuenta con una pasarela de pagos simulada y un chat de atención al cliente en tiempo real.
 
 ## Tecnologías
 
-- **Frontend**: React (Vite)
+- **Frontend**: React (Vite) y Tailwind CSS
 - **Backend**: Express.js
-- **Base de datos**: MongoDB
+- **Base de datos**: MongoDB alojada en AWS
 - **Autenticación**: Local, Google, Facebook, Instagram
 - **Arquitectura**: Hexagonal
-- **Estilos**: CSS/SCSS (Modo claro/oscuro)
 - **Pasarela de pagos**: Simulada con una API de ejemplo
-- **Chat en tiempo real**: WebSockets o solución similar
+- **Chat en tiempo real**: WebSockets (socket.io)
 - **HTTPS**: Implementado con un certificado SSL
 
 ## Características principales
 
-- **Registro y Login local**: Permite a los usuarios crear una cuenta y loguearse.
-- **Login social**: Opción de login mediante Google, Facebook e Instagram.
-- **Pasarela de pagos simulada**: Integración de un sistema que simula el proceso de pago.
-- **Chat en tiempo real**: Atención al cliente en línea para resolver preguntas y dudas.
-- **Modo claro y oscuro**: Alterna entre modo claro y oscuro para mejorar la experiencia de usuario.
-- **Seguridad**: HTTPS y autenticación segura mediante JWT y cookies.
+- **Registro y Login local**: Permite a los usuarios crear una cuenta y loguearse
+- **Login social**: Opción de login mediante Google, Facebook e Instagram
+- **Pasarela de pagos simulada**: Integración de un sistema que simula el proceso de pago
+- **Chat en tiempo real**: Atención al cliente en línea para resolver preguntas y dudas
+- **Seguridad**: HTTPS y autenticación segura mediante JWT y cookies
+
+## Instrucciones de Instalación
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone https://github.com/TheWiXi/ecommerce-Final.git
+   cd ecommerce-Final
+   ```
+2. Instala las dependencias del proyecto raíz y de los workspaces:
+
+   ```bash
+   npm install
+   ```
+3. Configura las variables de entorno (ver sección siguiente).
+4. Inicia la aplicación:
+
+   ```bash
+   npm run dev        # Inicia cliente y servidor (sin respuestas al chat en consola)
+   npm run dev:server # Inicia solo el servidor
+   npm run dev:client # Inicia solo el cliente
+   ```
+
+## Configuración del Entorno (.env)
+
+Crea un archivo `.env` en la carpeta `/server` con las siguientes variables:
+
+```env
+KEY_SECRET=your_jwt_secret_key_here
+EXPRESS_EXPIRE=3600 # tiempo de expiración de las sesiones (ej: 3600 segundos)
+EXPRESS_PORT=3000
+EXPRESS_HOST="localhost"
+
+MONGO_ACCESS=remote_access # si accedes de manera remota o local
+MONGO_USER=your_mongodb_username_here
+MONGO_PWD=your_mongodb_password_here
+MONGO_HOST=your_mongodb_host_here # ejemplo: "cluster0.mongodb.net"
+MONGO_PORT=27017
+MONGO_DB_NAME=your_database_name_here
+
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+
+GITHUB_CLIENT_ID=your_github_client_id_here
+GITHUB_CLIENT_SECRET=your_github_client_secret_here
+
+DISCORD_CLIENT_ID=your_discord_client_id_here
+DISCORD_CLIENT_SECRET=your_discord_client_secret_here
+
+```
+
+## Ejemplos de Uso
+
+### Registro de Usuario
+
+```javascript
+// Cliente (React)
+const registerUser = async () => {
+  const response = await fetch('/api/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: 'usuario@ejemplo.com',
+      password: 'contraseña123',
+      name: 'Usuario Ejemplo'
+    }),
+  });
+  const data = await response.json();
+  console.log(data); // { userId: '123', token: 'jwt_token' }
+};
+```
+
+### Compra de Producto
+
+```javascript
+// Cliente (React)
+const purchaseProduct = async (productId) => {
+  const response = await fetch('/api/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      productId,
+      quantity: 1
+    }),
+  });
+  const order = await response.json();
+  console.log(order); // { orderId: '456', status: 'pending' }
+};
+```
+
+## Documentación de la API
+
+### Autenticación
+
+#### Registro de Usuario
+
+- **POST** `/api/auth/register`
+
+  ```json
+  {
+    "email": "string",
+    "password": "string",
+    "name": "string"
+  }
+  ```
+
+  Respuesta: `201 Created`
+  ```json
+  {
+    "userId": "string",
+    "token": "string"
+  }
+  ```
+
+#### Login
+
+- **POST** `/api/auth/login`
+
+  ```json
+  {
+    "email": "string",
+    "password": "string"
+  }
+  ```
+
+  Respuesta: `200 OK`
+  ```json
+  {
+    "token": "string"
+  }
+  ```
+
+### Productos
+
+#### Obtener Productos
+
+- **GET** `/api/products`
+
+  Parámetros de query:
+
+  - `page` (número, opcional)
+  - `limit` (número, opcional)
+  - `category` (string, opcional)
+
+  Respuesta: `200 OK`
+
+  ```json
+  {
+    "products": [
+      {
+        "id": "string",
+        "name": "string",
+        "price": "number",
+        "description": "string",
+        "imageUrl": "string"
+      }
+    ],
+    "totalPages": "number",
+    "currentPage": "number"
+  }
+  ```
+
+### Órdenes
+
+#### Crear Orden
+
+- **POST** `/api/orders`
+
+  ```json
+  {
+    "productId": "string",
+    "quantity": "number"
+  }
+  ```
+
+  Respuesta: `201 Created`
+  ```json
+  {
+    "orderId": "string",
+    "status": "string",
+    "total": "number"
+  }
+  ```
+
+### Chat
+
+#### Iniciar Chat
+
+- **WebSocket** `/ws/chat`
+
+  Eventos:
+
+  - `message`: Enviar/recibir mensajes
+
+  ```json
+  {
+    "type": "message",
+    "content": "string",
+    "timestamp": "string"
+  }
+  ```
+
+## Scripts disponibles
+
+- `npm run dev`: Inicia tanto el servidor como el cliente en modo desarrollo. Nota: No muestra logs en la consola.
+- `npm run dev:server`: Inicia solo el servidor en modo desarrollo
+- `npm run dev:client`: Inicia solo el cliente en modo desarrollo
+
+## Configuración de Workspaces
+
+Este proyecto utiliza workspaces de npm para manejar un monorepo. Los workspaces están configurados en el package.json raíz:
+
+```json
+{
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
+```
 
 ## Estructura del Proyecto
 
-```bash
-/ecommerce-Final
+```
+ /ecommerce-Final
 │
-├── /src
-│   ├── /domain              # Núcleo de la lógica de negocio
-│   │   ├── /entities        # Entidades del dominio (User, Order, Product)
-│   │   ├── /services        # Servicios de negocio (user registration, payment, etc.)
-│   │   └── /repositories    # Interfaces de persistencia de datos
-│   │
-│   ├── /application         # Capa de aplicación (maneja los casos de uso)
-│   │   ├── /useCases        # Coordinadores de lógica (registerUser, makeOrder, etc.)
-│   │   └── /ports           # Definición de los puertos o interfaces para adaptadores externos (controllers, APIs, etc.)
-│   │
+├── /client                  # Aplicación del lado del cliente (React + Tailwind)
+│   ├── /node_modules
+│   ├── /public
+│   ├── /src
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.js
+│
+├── /server
 │   ├── /adapters            # Adaptadores de entrada/salida
-│   │   ├── /http            # Controladores HTTP para la API REST
-│   │   ├── /database        # Implementación de repositorios utilizando MongoDB
-│   │   ├── /auth            # Adaptadores de autenticación (Google, Facebook, Instagram)
-│   │   └── /chat            # Adaptador para chat de atención al cliente
+│   │   └── /database        # Schemas de MongoDB
 │   │
-│   ├── /infrastructure      # Código específico del framework (Express.js, configuración MongoDB, etc.)
-│   │   ├── /server          # Configuración del servidor Express
-│   │   ├── /config          # Configuraciones generales (MongoDB, middlewares)
-│   │   └── /security        # Configuración de HTTPS, CORS, Helmet
-│
-├── /client                  # Aplicación del lado del cliente (React)
-│   ├── /components          # Componentes reutilizables
-│   ├── /pages               # Páginas del sitio (Login, Registro, Carrito, etc.)
-│   ├── /services            # Llamadas a APIs (axios o fetch)
-│   ├── /styles              # Estilos globales y configuración de ChakraUI para modo claro/oscuro
-│   └── /hooks               # Hooks personalizados (manejo de autenticación, carrito, etc.)
-│
-├── /test                    # Pruebas unitarias e integración
-│
-├── /public                  # Archivos estáticos (íconos, imágenes)
-│
-├── .env                     # Variables de entorno (MongoDB URI, claves OAuth)
-├── package.json             # Dependencias y scripts de npm
-├── webpack.config.js        # Configuración de Webpack (para React)
-└── README.md                # Documentación del proyecto
-
+│   ├── /application         # Capa de aplicación
+│   │   ├── /controllers     # Controladores para diferentes rutas
+│   │   ├── /middlewares     # Middlewares de autenticación
+│   │   └── /routes          # Definición de rutas
+│   │
+│   ├── /domain              # Núcleo de la lógica de negocio
+│   │   ├── /models          # Modelos de datos
+│   │   ├── /repositories    # Interfaces de repositorio
+│   │   ├── /services        # Servicios de dominio
+│   │   └── /validators      # Validadores de datos
+│   │
+│   ├── /infrastructure      # Configuración y utilidades
+│   │   ├── /database        # Conexión a MongoDB
+│   │   ├── /middlewares     # Middlewares generales
+│   │   └── /server          # Configuración del servidor
+│   │       └── /socket      # Configuración de WebSockets
+│   │
+│   ├── .env
+│   ├── .env.template        # Plantilla de variables de entorno
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
 ```
