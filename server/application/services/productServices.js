@@ -13,13 +13,22 @@ class productService {
         return product
     }
 
-    async getProductCategory(id){
-        const product = await this.productService.getByCategory(id)
+    async getProductCategory(category){
+        const product = await this.productService.getByCategory(category)
         if(!product){
             throw new Error(JSON.stringify({status: 404, message: 'Product not found'}));
         }
         return product
     }
+
+    async getProductsDiscounts(category){
+        const product = await this.productService.getByCategoryDiscounts(category)
+        if(!product){
+            throw new Error(JSON.stringify({status: 404, message: 'Product not found'}));
+        }
+        return product
+    }
+
 
     async getAllProduct(){
         const product = await this.productService.getAll()

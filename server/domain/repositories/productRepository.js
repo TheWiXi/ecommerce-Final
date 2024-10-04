@@ -94,6 +94,60 @@ class productRepository {
         }
     }
 
+    async getByCategoryDiscounts(body) {
+        try {
+            const product = new Product();
+            let { categoria } = body;
+    
+            const query = [
+                {
+                    $match: { 
+                        categoria: { $regex: new RegExp(categoria, 'i') },
+                        descuento: { $gt: 0 } // Asegurarse de que solo devuelva productos con descuento mayor a 0
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'usuario', // Nombre de la colección de usuarios
+                        localField: 'artesanoId', // Campo en tu colección de productos que referencia al ID del artesano
+                        foreignField: '_id', // Campo en la colección de usuarios que es el ID
+                        as: 'artesano' // Nombre del nuevo campo que contendrá los datos del artesano
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$artesano',
+                        preserveNullAndEmptyArrays: true 
+                    }
+                },
+                {
+                    $project: {
+                        _id: 1, 
+                        categoria: 1, 
+                        nombreArtesano: '$artesano.nombre', 
+                        correo: '$artesano.correo', 
+                        fotoPerfil: '$artesano.fotoPerfil', 
+                        direccion: '$artesano.direccion',
+                        telefono: '$artesano.telefono',
+                        nombre: 1, 
+                        precio: 1, 
+                        descripcion: 1,
+                        foto: 1,
+                        stock: 1,
+                        descuento: 1,
+                        dimensiones: 1
+                    }
+                }
+            ];
+            const result = await product.aggregate(query);
+            return result;
+        } catch (error) {
+            throw new Error(JSON.stringify({ status: 400, message: 'Error retrieving category' }));
+        }
+    }
+    
+
+
     async getProductNamesGroupByArtesanoId(artesanoId) {
         try {
             const product = new Product();
