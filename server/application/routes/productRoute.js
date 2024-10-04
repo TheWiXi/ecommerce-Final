@@ -10,6 +10,7 @@ const productValidator = new ProductValidator();
 router.get("/searchAll", productValidator.validateProductDataEmpty(), (req, res) => productController.getProductsAll(req, res))
 router.get("/:id", (req, res) => productController.getProductsGroupedByArtesanoWithName(req, res));
 router.get("/searchById/:id",  productValidator.validateProductDataEmpty(), (req, res) => productController.getproduct(req, res))
+router.post("/searchDiscounts", productValidator.validateProductCategory(), (req, res) => productController.getproductForDiscounts(req, res))
 router.post("/", productValidator.validateProductData(), (req, res) => productController.createProduct(req, res))
 router.post("/searchCategory", productValidator.validateProductCategory(), (req, res) => productController.getproductForcategory(req, res))
 router.post("/searchFavorite", productValidator.validateProductCategory(), (req, res) => productController.getproductForcategoryAndFavorite(req, res))
