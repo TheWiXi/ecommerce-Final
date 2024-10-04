@@ -23,6 +23,9 @@ import Register_workshop from './pages/Register_workshop';
 import Discounts from './pages/Discounts';
 import Favorites from './pages/Favorites';
 import Purchases from './pages/Purchases';
+
+import ChatComponent from './pages/ChatComponent'
+
 function App() {
   return (
     <Router>
@@ -50,6 +53,7 @@ function App() {
         <Route path='/Discounts' element={<ProtectedRoute><Discounts/></ProtectedRoute>} />
         <Route path='/Favorites' element={<ProtectedRoute><Favorites /></ProtectedRoute>}/>
         <Route path='/Purchases' element={<ProtectedRoute><Purchases /></ProtectedRoute>}/>
+        <Route path='/Chat' element={<ProtectedRoute><ChatComponent /></ProtectedRoute>} />
       </Routes>
     </Router>
   )
