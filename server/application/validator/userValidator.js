@@ -220,104 +220,86 @@ class UserValidator {
             // Validar _id en la URL
             param('id').custom((value) => {
                 if (!ObjectId.isValid(value)) {
-                    throw new Error('Envía un ID válido'); // ❌ ID no válido
+                    throw new Error('Envía un ID válido');
                 }
-                return true; // ✔️ Validación exitosa
+                return true;
             }),
-
+    
             body('nombre')
                 .optional()
-                .isString()
-                .withMessage('El nombre debe ser un string'), // 🟡 Debe ser string
-
+                .isString().withMessage('El nombre debe ser un string'),
+    
             body('correo')
                 .optional()
-                .isEmail()
-                .withMessage('Envía un correo electrónico válido'), // 🟡 Debe ser un email válido
+                .isEmail().withMessage('Envía un correo electrónico válido'),
 
             body('fotoPerfil')
                 .optional()
-                .isURL()
-                .withMessage('La URL de la foto de perfil no es válida'), // 🟡 Debe ser una URL válida
-
+                .isURL().withMessage('La URL de la foto de perfil no es válida'),
+    
             body('direccion')
                 .optional()
-                .isString()
-                .withMessage('La dirección debe ser un string'), // 🟡 Debe ser string
-
+                .isString().withMessage('La dirección debe ser un string'),
+    
             body('telefono')
                 .optional()
-                .isString()
-                .withMessage('El teléfono debe ser un string'), // 🟡 Debe ser string
-
+                .isString().withMessage('El teléfono debe ser un string'),
+    
             body('tipo')
                 .optional()
-                .isString()
-                .withMessage('El tipo de usuario debe ser un string') // 🟡 Debe ser string
+                .isString().withMessage('El tipo de usuario debe ser un string')
                 .custom((value) => {
                     const validTypes = ['comprador', 'artesano'];
-                    if (!validTypes.includes(value)) {
-                        throw new Error(`Los tipos válidos de usuario son: ${validTypes.join(', ')}`); // ❌ Tipos válidos
+                    if (value && !validTypes.includes(value)) {
+                        throw new Error(`Los tipos válidos de usuario son: ${validTypes.join(', ')}`);
                     }
-                    return true; // ✔️ Validación exitosa
+                    return true;
                 }),
-
+    
             body('favoritos')
                 .optional()
-                .isArray()
-                .withMessage('Los favoritos deben ser un arreglo de ObjectIds') // 🟡 Debe ser un arreglo
+                .isArray().withMessage('Los favoritos deben ser un arreglo de ObjectIds')
                 .custom((value) => {
                     if (!value.every(ObjectId.isValid)) {
-                        throw new Error('Todos los favoritos deben ser ObjectIds válidos'); // ❌ ObjectIds válidos
+                        throw new Error('Todos los favoritos deben ser ObjectIds válidos');
                     }
-                    return true; // ✔️ Validación exitosa
+                    return true;
                 }),
-
+    
             body('compras')
                 .optional()
-                .isArray()
-                .withMessage('Las compras deben ser un arreglo de ObjectIds') // 🟡 Debe ser un arreglo
+                .isArray().withMessage('Las compras deben ser un arreglo de ObjectIds')
                 .custom((value) => {
                     if (!value.every(ObjectId.isValid)) {
-                        throw new Error('Todas las compras deben ser ObjectIds válidos'); // ❌ ObjectIds válidos
+                        throw new Error('Todas las compras deben ser ObjectIds válidos');
                     }
-                    return true; // ✔️ Validación exitosa
+                    return true;
                 }),
-
             body('talleresInscritos')
                 .optional()
-                .isArray()
-                .withMessage('Los talleres inscritos deben ser un arreglo de ObjectIds') // 🟡 Debe ser un arreglo
+                .isArray().withMessage('Los talleres inscritos deben ser un arreglo de ObjectIds')
                 .custom((value) => {
                     if (!value.every(ObjectId.isValid)) {
-                        throw new Error('Todos los talleres inscritos deben ser ObjectIds válidos'); // ❌ ObjectIds válidos
+                        throw new Error('Todos los talleres inscritos deben ser ObjectIds válidos');
                     }
-                    return true; // ✔️ Validación exitosa
+                    return true;
                 }),
-
+    
             body('cupones')
                 .optional()
-                .isArray()
-                .withMessage('Los cupones deben ser un arreglo de ObjectIds') // 🟡 Debe ser un arreglo
+                .isArray().withMessage('Los cupones deben ser un arreglo de ObjectIds')
                 .custom((value) => {
                     if (!value.every(ObjectId.isValid)) {
-                        throw new Error('Todos los cupones deben ser ObjectIds válidos'); // ❌ ObjectIds válidos
+                        throw new Error('Todos los cupones deben ser ObjectIds válidos');
                     }
-                    return true; // ✔️ Validación exitosa
+                    return true;
                 }),
-
+    
             query().custom((value, { req }) => {
                 if (Object.keys(req.query).length > 0) {
-                    throw new Error(`No envíes nada en la URL`); // ❌ No enviar parámetros en la URL
+                    throw new Error('No envíes parámetros en la URL');
                 }
-                return true; // ✔️ Validación exitosa
-            }),
-
-            body().custom((value, { req }) => {
-                if (Object.keys(req.body).length > 0) {
-                    throw new Error('No envíes nada en el cuerpo'); // ❌ No enviar en el cuerpo
-                }
-                return true; // ✔️ Validación exitosa
+                return true;
             })
         ];
     };
