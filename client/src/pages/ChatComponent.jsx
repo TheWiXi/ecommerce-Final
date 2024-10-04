@@ -14,9 +14,7 @@ const Chat = () => {
     const messagesEndRef = useRef(null);
     const socketRef = useRef();
     const chatContainerRef = useRef(null);
-    // const data = useLoaderData();
     const navigate = useNavigate();
-
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -27,37 +25,6 @@ const Chat = () => {
         const cookie = cookies.find(row => row.startsWith(cookieName + '='));
         return cookie ? cookie.split('=')[1] : null;
     };
-
-    useEffect(() => {
-        const token = getCookieValue('token');
-        if (token) {
-            const decodedToken = jwtDecode(token);
-            setUserData(decodedToken);
-
-            // Cargar historial de mensajes
-            fetchMessageHistory(decodedToken.id);
-        }
-
-        socketRef.current = io('http://localhost:3000');
-
-        socketRef.current.on('message', (message) => {
-            setMessages(prevMessages => [...prevMessages, message]);
-        });
-
-        socketRef.current.on('recievedMessage', (serverMessage) => {
-            setMessages(prevMessages => [...prevMessages, serverMessage]);
-        });
-
-        return () => {
-            socketRef.current.disconnect();
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!isLoading) {
-            scrollToBottom();
-        }
-    }, [messages, isLoading]);
 
     const fetchMessageHistory = async (userId) => {
         try {
@@ -75,13 +42,69 @@ const Chat = () => {
         }
     };
 
+    useEffect(() => {
+        const initializeChat = async () => {
+            const token = getCookieValue('token');
+            if (!token) {
+                setIsLoading(false);
+                return;
+            }
+
+            try {
+                // Inicializar datos de usuario
+                const decodedToken = jwtDecode(token);
+                setUserData(decodedToken);
+
+                // Inicializar socket
+                socketRef.current = io('http://localhost:3000');
+
+                // Configurar listeners del socket
+                socketRef.current.on('message', handleNewMessage);
+                socketRef.current.on('recievedMessage', handleNewMessage);
+
+                // Cargar historial de mensajes
+                await fetchMessageHistory(decodedToken._id);
+            } catch (error) {
+                console.error('Error initializing chat:', error);
+                setIsLoading(false);
+            }
+        };
+
+        initializeChat();
+
+        // Cleanup function
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.off('message', handleNewMessage);
+                socketRef.current.off('recievedMessage', handleNewMessage);
+                socketRef.current.disconnect();
+            }
+        };
+    }, []);
+
+    // Función para manejar nuevos mensajes
+    const handleNewMessage = (message) => {
+        setMessages(prevMessages => {
+            const newMessages = [...prevMessages, message];
+            // El scroll se manejará automáticamente por el useEffect siguiente
+            return newMessages;
+        });
+    };
+
+    // Efecto para manejar el scroll
+    useEffect(() => {
+        if (!isLoading) {
+            scrollToBottom();
+        }
+    }, [messages, isLoading]);
+
     const sendMessage = (e) => {
         e.preventDefault();
         if (messageInput.trim() && userData) {
             const messageData = {
                 text: messageInput,
                 username: userData.nombre,
-                userId: userData.id,
+                userId: userData._id,
                 timestamp: new Date()
             };
             socketRef.current.emit('message', messageData);
@@ -96,7 +119,6 @@ const Chat = () => {
             </div>
         );
     }
-
     return (
         <div className='h-[100dvh] relative overflow-x-hidden'>
             <div className='sticky top-0 z-10'>
@@ -110,12 +132,13 @@ const Chat = () => {
             <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 relative px-[20px] py-[30px] min-h-[75%]">
                 {messages.map((message, index) => (
                     <div key={index} 
-                         className={`flex ${message.transmitter === 'server' ? 'justify-start' : 'justify-end'}`}>
+                         className={`flex ${message.username === 'Soporte' ? 'justify-start' : 'justify-end'}`}>
                         <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                            message.transmitter === 'server' 
+                            message.username === 'Soporte' 
                                 ? 'bg-[#3D3D3D] text-white' 
                                 : 'bg-[#D9D9D9] text-black'
                         }`}>
+                            {console.log(message)}
                             <p className="text-sm">{message.text || message.texto}</p>
                             <p className="text-xs mt-1 opacity-70">
                                 {message.transmitter === 'server' ? 'Soporte' : message.username}

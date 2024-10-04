@@ -18,6 +18,8 @@ module.exports = (io) => {
                     timestamp: messageData.timestamp,
                     userId: messageData.userId
                 };
+                console.log(`Mensaje recibido: ${message.username}: ${message.text}`);
+                
                 
                 // Guardar el mensaje en la base de datos
                 await chatService.saveMessage(message);
@@ -52,7 +54,7 @@ module.exports = (io) => {
                 transmitter: 'server',
                 clientid: userId
             };
-            
+            console.log(userId)
             io.emit("recievedMessage", serverMessage);
             
             try {
