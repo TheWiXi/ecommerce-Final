@@ -2,17 +2,26 @@ const { body, query, param } = require('express-validator');
 const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
-class OrderValidator{
-
+/**
+ * Validator class for Order.
+ */
+class OrderValidator {
+    
+    /**
+     * Validate that no data is sent in the request body or query parameters.
+     * @returns {Array} - Array of validation middleware.
+     */
     validateOrderDataEmpty = () => {
         return [
             body().custom((value, { req }) => {
+                // ⛔️ Do not send anything in the body
                 if (Object.keys(req.body).length > 0) {
                     throw new Error('Do not send anything in the body');
                 }
                 return true;
             }),
             query().custom((value, { req }) => {
+                // ⛔️ Don't send anything in the url
                 if (Object.keys(req.query).length > 0) {
                     throw new Error(`Don't send anything in the url`);
                 }
@@ -21,21 +30,28 @@ class OrderValidator{
         ];
     };
 
+    /**
+     * Validate order data by ID.
+     * @returns {Array} - Array of validation middleware.
+     */
     validateOrderById = () => {
         return [
             param('id').custom((value, { req }) => {
+                // 🛑 Validate that the provided ID is valid
                 if (!ObjectId.isValid(value)) {
                     throw new Error('Submit a valid ID');
                 }
                 return true;
             }),
             query().custom((value, { req }) => {
+                // ⛔️ Don't send anything in the url
                 if (Object.keys(req.query).length > 0) {
                     throw new Error(`Don't send anything in the url`);
                 }
                 return true;
             }),
             body().custom((value, { req }) => {
+                // ⛔️ Do not send anything in the body
                 if (Object.keys(req.body).length > 0) {
                     throw new Error('Do not send anything in the body');
                 }
@@ -44,6 +60,10 @@ class OrderValidator{
         ];
     };
 
+    /**
+     * Validate order data including usuarioId, productos, total, estado, and fecha.
+     * @returns {Array} - Array of validation middleware.
+     */
     validateOrderData = () => {
         return [
             body('usuarioId')
@@ -56,12 +76,15 @@ class OrderValidator{
                 .notEmpty().withMessage('El array de productos no puede estar vacío')
                 .custom((productos) => {
                     productos.forEach((producto, index) => {
+                        // 🛑 Validate productoId
                         if (!producto.productoId || typeof producto.productoId !== 'string' || producto.productoId.length !== 24) {
                             throw new Error(`El producto en la posición ${index} debe tener un productoId válido`);
                         }
+                        // 🛑 Validate cantidad
                         if (!producto.cantidad || typeof producto.cantidad !== 'number' || producto.cantidad < 1) {
                             throw new Error(`La cantidad del producto en la posición ${index} debe ser un número mayor o igual a 1`);
                         }
+                        // 🛑 Validate precio
                         if (typeof producto.precio !== 'number' || isNaN(producto.precio)) {
                             throw new Error(`El precio del producto en la posición ${index} debe ser un número válido`);
                         }
@@ -72,6 +95,7 @@ class OrderValidator{
             body('total')
                 .notEmpty().withMessage('El campo total es obligatorio')
                 .custom(value => {
+                    // 🛑 Validate total
                     if (typeof value !== 'number' || isNaN(value)) {
                         throw new Error('El campo total debe ser un número válido');
                     }
@@ -90,21 +114,28 @@ class OrderValidator{
         ];
     };
 
+    /**
+     * Validate that an order can be deleted by ID.
+     * @returns {Array} - Array of validation middleware.
+     */
     validateDeleteOrderById = () => {
         return [
             param('id').custom((value, { req }) => {
+                // 🛑 Validate that the provided ID is valid
                 if (!ObjectId.isValid(value)) {
                     throw new Error('Submit a valid ID');
                 }
                 return true;
             }),
             query().custom((value, { req }) => {
+                // ⛔️ Don't send anything in the url
                 if (Object.keys(req.query).length > 0) {
                     throw new Error(`Don't send anything in the url`);
                 }
                 return true;
             }),
             body().custom((value, { req }) => {
+                // ⛔️ Do not send anything in the body
                 if (Object.keys(req.body).length > 0) {
                     throw new Error('Do not send anything in the body');
                 }
@@ -113,6 +144,10 @@ class OrderValidator{
         ];
     };
 
+    /**
+     * Validate data for updating an order.
+     * @returns {Array} - Array of validation middleware.
+     */
     validateOrderDataUpdate = () => {
         return [
             // Validación de usuarioId
@@ -120,7 +155,7 @@ class OrderValidator{
                 .notEmpty().withMessage('El usuarioId es obligatorio')
                 .isString().withMessage('El usuarioId debe ser un string')
                 .custom((value) => {
-                    // Validar si el ID tiene el formato correcto de ObjectId (24 caracteres hexadecimales)
+                    // 🛑 Validar si el ID tiene el formato correcto de ObjectId (24 caracteres hexadecimales)
                     const objectIdRegex = /^[a-f\d]{24}$/i;
                     if (!objectIdRegex.test(value)) {
                         throw new Error('El usuarioId debe ser un ObjectId válido');
@@ -171,6 +206,7 @@ class OrderValidator{
     
             // Validación de que no se envíen parámetros en la URL
             query().custom((value, { req }) => {
+                // ⛔️ Don't send anything in the url
                 if (Object.keys(req.query).length > 0) {
                     throw new Error('No envíes parámetros en la URL');
                 }
@@ -178,7 +214,7 @@ class OrderValidator{
             }),
         ];
     };
-    
+
 }
 
-module.exports = OrderValidator
+module.exports = OrderValidator;
