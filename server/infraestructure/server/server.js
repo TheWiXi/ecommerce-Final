@@ -68,12 +68,12 @@ const createServer = () => {
     app.use('/workshops',tallerRoute)
 
     app.use('/chat', chatRoutes);
-
-    return server;
     app.use('/coupons', couponRoute)
     app.use('/messages',messageRoute)
     app.use('/orders', orderRoute);
-    return app;
+
+    return server;
+
 };
 
 module.exports = createServer;

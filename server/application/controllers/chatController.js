@@ -1,3 +1,5 @@
+const chatService = require('../services/chatService');
+
 class ChatController {
     /**
      * Obtiene el historial de mensajes para un usuario específico
