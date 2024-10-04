@@ -49,7 +49,7 @@ function App() {
         <Route path='/Register_workshop' element={<ProtectedRoute><Register_workshop/></ProtectedRoute>} />
         <Route path='/Discounts' element={<ProtectedRoute><Discounts/></ProtectedRoute>} />
         <Route path='/Favorites' element={<ProtectedRoute><Favorites /></ProtectedRoute>}/>
-        <Route path='/Purchases' element={<Purchases />}/>
+        <Route path='/Purchases' element={<ProtectedRoute><Purchases /></ProtectedRoute>}/>
       </Routes>
     </Router>
   )

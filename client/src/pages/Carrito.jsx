@@ -135,16 +135,19 @@ const Carrito = () => {
     const realizarCompra = async () => {
         const userId = userData._id;
         const compraData = {
-            userId,
+            usuarioId: userId,
             productos: productos.map(producto => ({
-                id: producto._id,
+                productoId: producto._id,   
                 cantidad: producto.cantidad,
+                precio: producto.precio,
             })),
             total,
+            fecha: new Date().toISOString(),
+            estado: "pendiente"
         };
-
+    
         try {
-            const response = await fetch(`http://localhost:3000/users/carrito/${userId}`, {
+            const response2 = await fetch(`http://localhost:3000/users/carrito/${userId}`, {
                 method: 'PUT', 
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,7 +155,15 @@ const Carrito = () => {
                 body: JSON.stringify(compraData),
             });
 
-            if (response.ok) {
+            const response = await fetch('http://localhost:3000/orders/postingNewOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(compraData),
+            });
+    
+            if (response.ok && response2.ok) {
                 navigate('/Comprado');
             } else {
                 console.error('Error al realizar la compra');

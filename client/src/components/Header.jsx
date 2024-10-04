@@ -99,8 +99,8 @@ const Header = () => {
                             )}
                             </div>
                             <div className='m-4'>
-                                <a href='#'><div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/favorite.svg" className="w-[60%]"/>Lista de favoritos</div></a>
-                                <a href='/Carrito'><div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/bagstore.svg" className="w-[60%]"/>Compras</div></a>
+                                <a href='/Favorites'><div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/favorite.svg" className="w-[60%]"/>Lista de favoritos</div></a>
+                                <a href='/Purchases'><div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/bagstore.svg" className="w-[60%]"/>Compras</div></a>
                                 <a href='/workshops'><div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/talleres.svg" className="w-[60%]"/>Talleres</div></a>
                                 <a href='/Redeem'><div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/cupon.svg" className="w-[60%]"/>Canjear cupón</div></a>
                             </div>

@@ -21,6 +21,15 @@ class productService {
         return product
     }
 
+    async getProductCategoryAndFavorite(category){
+        const product = await this.productService.getByCategoryAndFavorite(category)
+        if(!product){
+            throw new Error(JSON.stringify({status: 404, message: 'Product not found'}));
+        }
+        return product
+    }
+
+
     async getProductsDiscounts(category){
         const product = await this.productService.getByCategoryDiscounts(category)
         if(!product){

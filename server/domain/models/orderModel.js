@@ -24,7 +24,9 @@ class Orders{
         return await Order.findByIdAndUpdate(id, updateData, { new: true, upsert: true }).exec(); 
     }
 
-    
+    async aggregate(query) {
+        return await Order.aggregate(query).exec();
+    }
 
 }
 

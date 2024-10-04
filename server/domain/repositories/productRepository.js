@@ -94,6 +94,32 @@ class productRepository {
         }
     }
 
+
+    async getByCategoryAndFavorite(body) {
+        try {
+            const product = new Product();
+            const { categoria, favoritos } = body;
+            const favoriteIds = favoritos.map(fav => new ObjectId(fav));
+            const query = [
+                {
+                    $match: {
+                        _id: {
+                            $in: favoriteIds
+                        },
+                        categoria: { $regex: new RegExp(categoria, 'i') }
+                    }
+                }
+            ];
+    
+            const result = await product.aggregate(query);
+            return result;
+        } catch (error) {
+            throw new Error(JSON.stringify({ status: 400, message: 'Error retrieving category' }));
+        }
+    }
+    
+    
+
     async getByCategoryDiscounts(body) {
         try {
             const product = new Product();
@@ -146,8 +172,6 @@ class productRepository {
         }
     }
     
-
-
     async getProductNamesGroupByArtesanoId(artesanoId) {
         try {
             const product = new Product();

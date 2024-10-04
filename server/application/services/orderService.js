@@ -14,6 +14,13 @@ class OrderService{
         return orders
     }
 
+    async getOrderByIdUser(id){
+        const orders= await this.orderService.getOrderById(id)
+        if(!orders){
+            throw new Error(JSON.stringify({status: 404, message: 'Order not found'}));
+        }
+        return orders
+    }
 
     async getAllOrderService(){
         const orders = await this.orderService.getAllOrdersRepository()

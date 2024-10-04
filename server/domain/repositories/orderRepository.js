@@ -1,4 +1,5 @@
 const Orders = require("../models/orderModel")
+const {ObjectId} = require('mongodb')
 
 class OrderRepository{
 
@@ -7,6 +8,21 @@ class OrderRepository{
             const orders= new Orders();
             return await orders.
             getOrdersById(id);
+        } catch (error) {
+            throw new Error(JSON.stringify({status: 400, message: 'Error retrieving the Order'}));
+        }
+    }
+
+    async getOrderById(userid) {
+        try {
+            const orders= new Orders();
+            const id = userid
+            const query = [
+                {
+                    $match: { usuarioId: new ObjectId(id) }
+                }
+            ];
+            return await orders.aggregate(query);
         } catch (error) {
             throw new Error(JSON.stringify({status: 400, message: 'Error retrieving the Order'}));
         }
