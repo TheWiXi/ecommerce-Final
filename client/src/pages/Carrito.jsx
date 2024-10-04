@@ -95,7 +95,7 @@ const Carrito = () => {
     };
 
     const eliminarProducto = async (id) => {
-        if (!userData) return; // Asegúrate de que userData esté disponible
+        if (!userData) return;
 
         const compraData = {
             compras: [id],

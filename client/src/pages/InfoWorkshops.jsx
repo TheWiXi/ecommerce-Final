@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 
 const InfoWorkshops = () => {
     const location = useLocation();
-    const tienda = location.state?.tienda; // Obtener información de la tienda
-    const [workshopInfo, setWorkshopInfo] = useState(null); // Estado para almacenar la información del taller
-    const [loading, setLoading] = useState(true); // Estado de carga
+    const tienda = location.state?.tienda; 
+    const [workshopInfo, setWorkshopInfo] = useState(null); 
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const fetchWorkshopInfo = async () => {
@@ -15,14 +15,14 @@ const InfoWorkshops = () => {
                     const data = await response.json();
 
                     if (response.ok && data.length > 0) {
-                        setWorkshopInfo(data[0]); // Almacenar la primera información del taller
+                        setWorkshopInfo(data[0]); 
                     } else {
                         console.error("Error fetching workshop info:", data);
                     }
                 } catch (error) {
                     console.error("Error fetching workshop info:", error);
                 } finally {
-                    setLoading(false); // Cambiar estado de carga al finalizar
+                    setLoading(false); 
                 }
             }
         };
@@ -31,7 +31,7 @@ const InfoWorkshops = () => {
     }, [tienda]);
 
     if (loading) {
-        return <p>Loading...</p>; // Muestra un loading mientras se obtienen los datos
+        return <p>Loading...</p>; 
     }
 
     if (!workshopInfo) {

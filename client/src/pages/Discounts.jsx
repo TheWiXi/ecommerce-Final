@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";  // Importa useNavigate
+import { useNavigate } from "react-router-dom"; 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -8,8 +8,7 @@ const Discounts = () => {
     = useState("Textileria")
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();  // Inicializa useNavigate
-
+    const navigate = useNavigate();  
     const categories = [
         "Textileria", "Ceramica", "Orfebreria", "Talla en piedra", "Talla en madera",
         "Bordado", "Joyeria", "Hojalateria", "Estampado", "Pintura tradicional"
@@ -20,7 +19,7 @@ const Discounts = () => {
     };
 
     const handleProductClick = (product) => {
-        navigate("/product", { state: { product } });  // Redirecciona a la vista del producto
+        navigate("/product", { state: { product } });  
     };
 
     useEffect(() => {
@@ -77,7 +76,7 @@ const Discounts = () => {
                                 <div
                                     key={product._id}
                                     className="w-[45%] relative cursor-pointer"
-                                    onClick={() => handleProductClick(product)}  // Añade el evento onClick
+                                    onClick={() => handleProductClick(product)} 
                                 >
                                     <div className="w-full h-[100px] rounded-t-md overflow-hidden">
                                         <img src={product.foto} alt={product.nombre} className="absolute w-full h-full z-[-1] rounded-t-md"/>

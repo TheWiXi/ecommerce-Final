@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Asegúrate de tener useNavigate
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Tiendas = () => {
     const [tiendas, setTiendas] = useState([]);
-    const navigate = useNavigate(); // Inicializa useNavigate
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         fetch('http://localhost:3000/users/getAllUsersTypeArtesano')

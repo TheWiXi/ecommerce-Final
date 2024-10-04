@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import leftSVG from '../../public/left-arrow.svg'
 
 function Login() {
-  // Estados para manejar los datos del formulario
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,10 +22,9 @@ function Login() {
 
         if (response.ok) {
             const data = await response.json();
-            document.cookie = `token=${data.token}; path=/`; // Almacena el token en las cookies
-            navigate('/home'); // Redirige a la página de inicio
+            document.cookie = `token=${data.token}; path=/`;
+            navigate('/home'); 
         } else {
-            // Manejar errores de autenticación
             const errorData = await response.json();
             console.error('Error:', errorData.message);
         }
@@ -69,7 +66,6 @@ function Login() {
         <h5 className="text-center text-black underline">
           <a href='#'>¿Olvidaste tu contraseña?</a>
         </h5>
-        {/* Mostrar mensajes de éxito o error */}
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {success && <p className="text-green-500 text-sm">{success}</p>}
       </form>

@@ -97,7 +97,7 @@ const Product = () => {
             if (response.ok) {
                 const data = await response.json();
                 setUserData(data); 
-                setIsFavorite(!isFavorite); // Cambia el estado de favorito
+                setIsFavorite(!isFavorite); 
             } else {
                 console.error('Error al actualizar los favoritos del usuario');
             }

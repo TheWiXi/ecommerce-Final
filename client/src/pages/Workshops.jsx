@@ -51,7 +51,7 @@ const Workshops = () => {
                                 </div>
                                 <div className="items-start bg-graySearch rounded px-2 py-1">
                                     <button 
-                                        onClick={() => handleWorkshopClick(workshop)} // Manejar clic en el botón
+                                        onClick={() => handleWorkshopClick(workshop)}
                                         className="text-xs text-white underline"
                                     >
                                         Entérate más sobre el taller aquí
