@@ -256,4 +256,5 @@ validateProductGroupedIdToFindByNameValidator = () => {
 
 }
 
-module.exports = new ProductValidator();
+module.exports = ProductValidator; // 📦 Exporta el validador de productos.
+
