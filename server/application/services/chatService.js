@@ -22,6 +22,15 @@ class ChatService {
             throw error;
         }
     }
+
+    async getMessageHistory(userId) {
+        try {
+            return await this.chatRepository.getMessageHistory(userId);
+        } catch (error) {
+            console.error('Error en ChatService.getMessageHistory:', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = new ChatService();

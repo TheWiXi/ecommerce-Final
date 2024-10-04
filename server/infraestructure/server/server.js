@@ -13,6 +13,7 @@ const cookieParser = require('cookie-parser')
 const http = require('http');
 const { Server } = require('socket.io');
 const socketSetup = require('../socket/socketServer');
+const chatRoutes = require('../../application/routes/chatRoute');
 
 
 const createServer = () => {
@@ -63,7 +64,7 @@ const createServer = () => {
     app.use('/users', userRoutes);
     app.use('/workshops',tallerRoute)
 
-    // app.use('/chat', chatController);
+    app.use('/chat', chatRoutes);
 
     return server;
 };
