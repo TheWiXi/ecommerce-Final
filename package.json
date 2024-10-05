@@ -38,6 +38,7 @@
     "lucide-react": "^0.447.0",
     "mongoose": "^8.6.3",
     "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",

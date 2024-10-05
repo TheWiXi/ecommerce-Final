@@ -100,6 +100,39 @@ router.get('/auth/github/callback', (req, res, next) => {
 });
 
 /**
+ * @route GET /auth/discord
+ * @group Authentication - Operations for authentication
+ * @returns {Object} 302 - Redirects to discord authentication
+ */
+router.get('/auth/discord', passport.authenticate('discord', { scope: ['identify', 'email'] }));
+
+/**
+ * @route GET /auth/discord/callback
+ * @group Authentication - Operations for authentication
+ * @returns {Object} 302 - Redirects to home after authentication
+ * @returns {Error}  500 - Internal server error
+ */
+router.get('/auth/discord/callback', (req, res, next) => {
+    passport.authenticate('discord', { session: false }, (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.redirect('http://localhost:5173/init-register'); 
+        }
+
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err); 
+            }
+            const token = generateToken(user); 
+            res.cookie('token', token, {maxAge: 30 * 60 * 1000 });
+            return res.redirect('http://localhost:5173/home'); 
+        });
+    })(req, res, next);
+});
+
+/**
  * @route POST /
  * @group Users - Operations about users
  * @param {User.model} user.body.required - User data to create

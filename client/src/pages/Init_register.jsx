@@ -14,7 +14,7 @@ const Init_register = () => {
             <p className="text-2xl">Regístrate ahora y obtén las mejores promociones en <span className="font-semibold">artesanías peruanas</span></p>
             <div className='flex flex-col gap-y-4'>
                 <a href='http://localhost:3000/users/auth/github'><Svgregistro svgUrl="/services/github.svg" text="Github"/></a>
-                <Svgregistro svgUrl="/services/instagram.svg" text="Instagram"/>
+                <a href='http://localhost:3000/users/auth/discord'><Svgregistro svgUrl="/services/discord.svg" text="Discord"/></a>
                 <a href='http://localhost:3000/users/auth/google'><Svgregistro svgUrl="/services/gmail.svg" text="Gmail"/></a>
                 <a href='/register'><Svgregistro svgUrl="/services/email.svg" text="correo"/></a>
                 <Svgregistro svgUrl="/services/phone.svg" text="celular"/>

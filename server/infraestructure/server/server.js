@@ -4,6 +4,7 @@ const session = require('express-session'); // Middleware para manejar sesiones
 const cors = require('cors'); // Middleware para habilitar CORS
 const googleStrategy = require('../../application/middlewares/authenticateGoogle'); // Estrategia de autenticación de Google
 const gitHubStrategy = require('../../application/middlewares/authenticateGit'); // Estrategia de autenticación de GitHub
+const discordStrategy = require('../../application/middlewares/authenticateDiscord') // Estrategia de autenticación de Discord
 const productRoutes = require('../../application/routes/productRoute'); // Rutas de productos
 const userRoutes = require('../../application/routes/userRoute'); // Rutas de usuarios
 const couponRoute = require('../../application/routes/couponRoute'); // Rutas de cupones
@@ -67,6 +68,10 @@ const createServer = () => {
     app.use(gitHubStrategy.initialize());
     app.use(gitHubStrategy.session());
 
+    // 🟡 Inicializa la estrategia de Discord para la autenticación.
+    app.use(discordStrategy.initialize())
+    app.use(gitHubStrategy.session());
+    
     // 🟡 Define las rutas de la aplicación.
     app.use('/products', productRoutes); // Rutas para productos.
     app.use('/users', userRoutes); // Rutas para usuarios.
