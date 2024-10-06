@@ -31,9 +31,9 @@ const CompraRealizada = () => {
 </div>
 
 <div className="flex justify-center mt-4">
-<button className="bg-[#A3A3A3] text-white font-bold py-1 px-3 rounded mx-5 text-base">
+<a href='/Purchases'><button className="bg-[#A3A3A3] text-white font-bold py-1 px-3 rounded mx-5 text-base">
     Compras
-</button>
+</button></a>
 </div>
 
 <div className="flex justify-center mt-5">
