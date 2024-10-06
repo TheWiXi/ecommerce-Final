@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Workshop = () => {
     const location = useLocation();
     const tienda = location.state?.tienda;
-    const [productos, setProductos] = useState([]);
+    const [products, setProductos] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -65,17 +65,17 @@ const Workshop = () => {
             {/* Sección de productos */}
             <section className="mx-6">
                 <div className="flex flex-wrap justify-between my-4 items-center gap-y-4">
-                    {productos.length > 0 ? (
-                        productos.map((producto, index) => (
-                            <div key={index} className="w-[45%] rounded-lg overflow-hidden">
+                    {products.length > 0 ? (
+                        products.map((product, index) => (
+                            <div key={index} className="w-[45%] rounded-lg overflow-hidden"onClick={() => navigate('/product', { state: { product } })}>
                                 <div className="w-[100%] h-[130px]">
-                                    <img src={producto.foto} alt={producto.nombre} className="w-[100%] h-full object-cover" />
+                                    <img src={product.foto} alt={product.nombre} className="w-[100%] h-full object-cover" />
                                 </div>
                                 <div className="bg-black text-white flex flex-col justify-between">
                                     <div className="m-2">
-                                        <p className="font-bold text-sm text-start ml-2 truncate">{producto.nombre}</p>
-                                        <p className="text-sm text-start ml-2">${producto.precio}</p>
-                                        <p className="text-sm text-start ml-2 truncate">{producto.descripcion}</p>
+                                        <p className="font-bold text-sm text-start ml-2 truncate">{product.nombre}</p>
+                                        <p className="text-sm text-start ml-2">${product.precio}</p>
+                                        <p className="text-sm text-start ml-2 truncate">{product.descripcion}</p>
                                     </div>
                                 </div>
                             </div>
