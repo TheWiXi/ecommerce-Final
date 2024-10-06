@@ -75,6 +75,14 @@ class UserService {
     async searchUsersByName(name) {
         return await this.userRepository.searchByName(name);
     }
+
+    async searchBarProductsAndUsersService(searchTerm) {
+        const results = await this.userRepository.searchBarProductsAndUsersRepository(searchTerm);
+        if (!results || results.length === 0) {
+            throw new Error(JSON.stringify({ status: 404, message: 'No products or users found' }));
+        }
+        return results;
+    }
 }
 
 module.exports = UserService;

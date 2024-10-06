@@ -66,10 +66,7 @@ class productService {
             throw new Error(JSON.stringify({ status: 404, message: 'Product name not found' }));
         }
         return product;
-    }
-    
-    
-    
+    } 
 }
 
 module.exports = productService

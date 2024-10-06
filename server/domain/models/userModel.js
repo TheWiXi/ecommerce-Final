@@ -33,6 +33,10 @@ class User{
     async aggregate(query) {
         return await user.aggregate(query).exec();
     }
+
+    async searchBarProductsAndUsersModel(query) {
+        return await this.aggregate(query);
+    }
 }
 
 module.exports = User;
