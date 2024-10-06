@@ -105,6 +105,10 @@ class User {
     async aggregate(query) {
         return await user.aggregate(query).exec(); // 🟡 Realiza una agregación sobre los usuarios y devuelve el resultado.
     }
+
+    async searchBarProductsAndUsersModel(query) {
+        return await this.aggregate(query);
+    }
 }
 
 module.exports = User; // 🟡 Exporta la clase User para su uso en otros módulos.

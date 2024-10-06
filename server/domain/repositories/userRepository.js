@@ -207,6 +207,68 @@ class userRepository {
         if (!isMatch) throw new Error(JSON.stringify({ status: 401, message: 'unauthorized' })); // 🟡 Lanza un error si la contraseña no coincide.
         return jwt.sign(user, process.env.KEY_SECRET, { expiresIn: `${process.env.EXPRESS_EXPIRE}ms` }); // 🟡 Devuelve un token JWT firmado.
     }
+
+
+
+    async searchBarProductsAndUsersRepository(searchTerm) {
+        try {
+            const query = [
+                {
+                    $match: {
+                        nombre: { $regex: searchTerm, $options: "i" },
+                        tipo: "artesano"
+                    }
+                },
+                {
+                    $project: {
+                        type: { $literal: "usuario" },
+                        _id: 1,
+                        nombre: 1,
+                        correo: 1,
+                        fotoPerfil: 1,
+                        direccion: 1,
+                        telefono: 1,
+                        createdAt: 1,
+                        updatedAt: 1
+                    }
+                },
+                {
+                    $unionWith: {
+                        coll: "producto",
+                        pipeline: [
+                            {
+                                $match: {
+                                    nombre: { $regex: searchTerm, $options: "i" }
+                                }
+                            },
+                            {
+                                $project: {
+                                    type: { $literal: "producto" },
+                                    _id: 1,
+                                    nombre: 1,
+                                    categoria: 1,
+                                    descripcion: 1,
+                                    precio: 1,
+                                    dimensiones: 1,
+                                    foto: 1,
+                                    stock: 1,
+                                    descuento: 1,
+                                    artesanoId: 1
+                                }
+                            }
+                        ]
+                    }
+                }
+            ];
+
+            const user = new User();
+            const result = await user.searchBarProductsAndUsersModel(query);
+            return result;
+        } catch (error) {
+            throw new Error(JSON.stringify({ status: 400, message: 'Error retrieving products and users' }));
+        }
+    }
+    
 }
 
 module.exports = userRepository; // 🟡 Exporta la clase userRepository.

@@ -257,7 +257,20 @@ class UserController {
             res.status(errorObj.status).json({ message: errorObj.message }); // Devuelve el error
         } 
     }
-
+    async searchBarProductsAndUsersController(req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            
+            const searchTerm = req.query.searchTerm; // Se obtiene el término de búsqueda
+            const users = await this.userService.searchBarProductsAndUsersService(searchTerm);
+            
+            res.status(200).json(users);
+        } catch (error) {
+            const errorObj = JSON.parse(error.message);
+            res.status(errorObj.status).json({ message: errorObj.message });
+        }
+    }
 }
 
 module.exports = UserController; // Exporta la clase UserController
