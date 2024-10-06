@@ -10,7 +10,7 @@ const router  = express.Router()
 const userController = new UserController();
 const userValidator = new UserValidator();
 
-
+router.get("/searchBar", userValidator.searchBarProductsAndUsersValidator(), (req, res) => userController.searchBarProductsAndUsersController(req, res))
 router.get("/getAllUsersTypeArtesano", userValidator.validateUserDataEmpty(), (req, res) => userController.getAllUsersController(req, res))
 router.get("/:id", auth, userValidator.validateUserDataEmpty(), (req, res) => userController.getUser(req, res))
 
@@ -55,7 +55,7 @@ router.get('/auth/github/callback', (req, res, next) => {
         });
     })(req, res, next);
 });
-router.get("/searchBar", userValidator.searchBarProductsAndUsersValidator(), (req, res) => userController.searchBarProductsAndUsersController(req, res))
+
 router.post("/", userValidator.validateUserData(), (req, res) => userController.createUser(req, res))
 router.post('/verifyEmail', userValidator.validateUserEmail(), (req, res) => userController.verifyUserForEmail(req, res))
 router.post('/login', cookieParser(), userValidator.validateUserLogin(), (req, res) => userController.verifyUserCookies(req, res))
