@@ -3,13 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode'; 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import {PurchaseConfirmation} from '../components/PurchaseConfirmation';
 import triangleSVG from '../../public/triangle.svg';
 import deleteSVG from '../../public/delete.svg'
+
 const Carrito = () => {
     const [userData, setUserData] = useState(null);
     const [productos, setProductos] = useState([]);
     const [gastosEnvio] = useState(5.99);
     const navigate = useNavigate();
+
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 
     const getCookieValue = (cookieName) => {
         const cookies = document.cookie.split('; ');
@@ -132,49 +137,16 @@ const Carrito = () => {
 
     const total = calcularSubtotal() + gastosEnvio;
 
-    const realizarCompra = async () => {
-        const userId = userData._id;
-        const compraData = {
-            usuarioId: userId,
-            productos: productos.map(producto => ({
-                productoId: producto._id,   
-                cantidad: producto.cantidad,
-                precio: producto.precio,
-            })),
-            total,
-            fecha: new Date().toISOString(),
-            estado: "pendiente"
-        };
-    
-        try {
-            const response2 = await fetch(`http://localhost:3000/users/carrito/${userId}`, {
-                method: 'PUT', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(compraData),
-            });
-
-            const response = await fetch('http://localhost:3000/orders/postingNewOrder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(compraData),
-            });
-    
-            if (response.ok && response2.ok) {
-                navigate('/Comprado');
-            } else {
-                console.error('Error al realizar la compra');
-            }
-        } catch (error) {
-            console.error('Error en la solicitud:', error);
-        }
-    };
-
     const irACupones = () => {
         navigate('/Redeem');
+    };
+
+    const handleOpenDialog = () => {
+        setIsDialogOpen(true); // Abre el diálogo
+    };
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false); // Cierra el diálogo
     };
 
     return (
@@ -254,11 +226,14 @@ const Carrito = () => {
                 <div className="flex justify-start ml-5 mb-5
                 ">
                     <button
-                        onClick={realizarCompra}
+                        onClick={handleOpenDialog}
                         className="p-2 bg-neutral-700 text-white rounded"
                     >
                         Realizar Compra
                     </button>
+                    {isDialogOpen && (
+                    <PurchaseConfirmation productos={productos} onClose={handleCloseDialog} userData={userData} total={total}/>
+                )}
                 </div>
             </section>
             <Footer />

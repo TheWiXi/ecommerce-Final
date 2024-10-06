@@ -3,6 +3,8 @@ import {jwtDecode} from 'jwt-decode';
 import Icons from './Icons'
 import separadorSvg from '../../public/aside/separador.svg'
 import Campuslands from '../../public/aside/campuslands.png'
+import { Link } from "react-router-dom"
+
 
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +13,11 @@ const Header = () => {
     const [open, setOpen] = useState(false)
     const sidebarRef = useRef(null);
     const [userData, setUserData] = useState(null);
+
+    const [productData, setProductData] = useState([])
+    const [workshopData, setWorkshopData] = useState([])
+    const [filteredData, setFilteredData] = useState([...productData, ...workshopData])
+    const [estado, setEstado] = useState(false)
 
     const navigate = useNavigate();
 
@@ -51,6 +58,24 @@ const Header = () => {
             } catch (error) {
                 console.error('Error en la solicitud:', error);
             }
+
+            fetch('http://localhost:3000/products/searchAll', {credentials: "include", cache: "force-cache"})
+            .then(res => res.json())
+            .then(dat => {
+                setProductData(dat)
+                setFilteredData([...filteredData,dat])
+            })
+            fetch('http://localhost:3000/workshops/getWorkshopWithArtesanoName', {credentials: "include", cache: "force-cache"})
+                .then(res => res.json())
+                .then(res => {
+                    setWorkshopData(res)
+                    setFilteredData([...filteredData,...res])
+                })
+
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
         };
 
         const token = getCookieValue('token');
@@ -77,19 +102,73 @@ const Header = () => {
 
     }, []);
 
+    const search = (e) => {
+        let termino = e.target.value
+        let newProducts = productData.filter(func => func.nombre.toUpperCase().includes(termino.toUpperCase()) ||
+            func.categoria.toUpperCase().includes(termino.toUpperCase())
+        )
+        let newWorkshops = workshopData.filter(func => func.nombre.toUpperCase().includes(termino.toUpperCase())
+    )
+        return setFilteredData([...newProducts, ...newWorkshops])
+    }
+
     return (
             <section className='bg-black flex flex-row p-4 justify-between gap-x-4'>
                 <button onClick={() => setOpen(true)}>
                     <img src="/searchbar/menu.svg" alt="svg" className='w-10' />
                 </button>
                 <div className='bg-graySearch flex w-[100%] px-2 py-1 gap-x-3 items-center rounded'>
-                    <img src="/searchbar/search.svg" alt="svg" className='w-4' />
+                    <svg
+                    className="w-6 h-6 text-gray-500 mr-2"
+                    viewBox="0 0 62 75"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                        <rect
+                            x="1.26633"
+                            y="34.3498"
+                            width="34.5626"
+                            height="34.5626"
+                            rx="6"
+                            transform="rotate(-75 1.26633 34.3498)"
+                            stroke="#FFFFFF"
+                            strokeWidth="4"
+                        />
+                        <path
+                            d="M33.3945 40.7812L55.6657 72.6541"
+                            stroke="#FFFFFF"
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                        />
+                    </svg>
                     <input
                         type="text"
                         className="text-white text-opacity-50 text-xs bg-transparent  placeholder:text-opacity-50 w-[100%]"
                         placeholder="Buscar producto o tienda..."
+                        onFocus={() => setEstado(true)}
+                        onMouseLeave={() => setEstado(false)}
+                        onChange={search}
                     />
+                    {console.log(filteredData)}
                 </div>
+                {
+                estado && filteredData.length && (
+                    <div className=" overflow-y-scroll flex flex-col z-[10] top-[70px] absolute h-max w-full bg-[white] p-[10px] gap-[15px] rounded-xl rounded-tl-none rounded-tr-none">
+                        {
+                            filteredData && filteredData.map(({ _id, nombre, categoria, img, imagen }) => (
+                                <Link className={'bg-2E1108 p-4 rounded-2xl'}  key={_id} to={`${ img ? `/product/${_id}` : `/workshop/details/${_id}` }`}>
+                                    <div className="flex gap-[10px] items-center" >
+                                        <img className="w-[100px] h-[100px] object-cover rounded-xl" src={ img ? img : imagen} alt={ img ? nombre : nombre } />
+                                        <div>
+                                            <p className="text-black"><strong>{ img ? nombre : nombre}</strong></p>
+                                            <p className="text-black bg-letrasGrises w-max p-[3px] rounded-full"><small>{categoria}</small></p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))
+                        }
+                    </div>
+                )
+            }
 
                 <div className={`${!open && "hidden"} bg-gray-600/50 min-h-screen w-full fixed top-0 left-0 rigth-0 z-10`}>
                     <div
