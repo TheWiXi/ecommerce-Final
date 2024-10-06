@@ -1,7 +1,20 @@
-import React from 'react';
+
+import React, {useState, useEffect, useRef} from 'react';
+import {jwtDecode} from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+
 
 const AtencionAlCliente = () =>{
+  const navigate = useNavigate();
+const handleNavigateToChat = () => {
+  navigate('/Chat');
+};
 return(
+  
     <>
     <section>
         <div className="flex relative items-center justify-center w-full py-5">
@@ -44,7 +57,7 @@ return(
 <div className='bg-gray-200 h-[40px] rounded-md p-2 mx-5 mb-4 flex items-center'>
 <div className='flex items-center'>
   <img src="/public/customerAtention/globe.svg" alt="Ícono" className='mr-2 w-6 h-6' />
-  <p className='text-xs'>Empieza un chat</p>
+  <p onClick={ handleNavigateToChat }className='text-xs'>Empieza un chat</p>
 </div>
 </div>
 

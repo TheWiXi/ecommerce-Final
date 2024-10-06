@@ -15,9 +15,15 @@ const Header = () => {
     const navigate = useNavigate();
 
     // Función que redirige al chat cuando se hace clic
-    const handleNavigateToChat = () => {
-        navigate('/Chat');
+    const handleNavigateAtencion = () => {
+        navigate('/Atencion');
     };
+    const handleNavigateToAjustes = () =>{
+        navigate('/Ajustes');
+    }
+    const handleNavigateTocomentarios = () =>{
+        navigate('/Comentarios');
+    }
 
     const getCookieValue = (cookieName) => {
         const cookies = document.cookie.split('; ');
@@ -119,9 +125,9 @@ const Header = () => {
                                 <img className='' src={separadorSvg}></img>
                             </div>
                             <div className='m-4'>
-                                <div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/settings.svg" className="w-[60%]"/>Ajustes</div>
-                                <div className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/comments.svg" className="w-[60%]"/>Comentarios </div>
-                                <div onClick={handleNavigateToChat}  className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/atention.svg" className="w-[60%]"/>Atención al cliente</div>
+                                <div onClick={handleNavigateToAjustes}className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/settings.svg" className="w-[60%]"/>Ajustes</div>
+                                <div onClick={ handleNavigateTocomentarios}className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/comments.svg" className="w-[60%]"/>Comentarios </div>
+                                <div onClick={handleNavigateAtencion}  className='text-left text-white text-xl py-3 m-2 ml-3 flex items-center gap-3'><Icons svgUrl="/aside/atention.svg" className="w-[60%]"/>Atención al cliente</div>
                              </div>
                              <div className='w-full h-10'>
                                 <img className='w-full h-full object-contain' src={Campuslands}></img>
