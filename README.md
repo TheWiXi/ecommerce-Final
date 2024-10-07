@@ -278,11 +278,11 @@ Este proyecto utiliza workspaces de npm para manejar un monorepo. Los workspaces
 │   │   └── /validators      # Validadores de datos
 │   │
 │   ├── /infrastructure      # Configuración y utilidades
-│   │   ├── /database        # Conexión a MongoDB
-│   │   ├── /middlewares     # Middlewares generales
-│   │   └── /server          # Configuración del servidor
-│   │       └── /socket      # Configuración de WebSockets
-│   │
+│      ├── /database        # Conexión a MongoDB
+│      ├── /middlewares     # Middlewares generales
+│      ├── /server          # Configuración del servidor
+│      └── /socket      # Configuración de WebSockets
+│   
 ├── .env
 ├── .env.template        # Plantilla de variables de entorno
 ├── .gitignore
