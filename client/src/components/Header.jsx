@@ -153,11 +153,17 @@ const Header = () => {
                                 const imageUrl = isProduct ? item.foto : (item.img || item.imagen);
                                 
                                 return (
-                                    <Link 
-                                        className='bg-2E1108 p-4 rounded-2xl' 
-                                        key={item._id} 
-                                        to={isProduct ? `/product/${item._id}` : `/workshop/details/${item._id}`}
-                                    >
+                                        <div 
+                                            key={item._id}
+                                            className='bg-2E1108 p-4 rounded-2xl cursor-pointer' 
+                                            onClick={() => {
+                                                if (isProduct) {
+                                                    navigate('/product', { state: { product: item } });
+                                                } else {
+                                                    navigate('/Register_workshop', { state: { workshop: item } });
+                                                }
+                                            }}
+                                        >
                                         <div className="flex gap-[10px] items-center">
                                             <img 
                                                 className="w-[100px] h-[100px] object-cover rounded-xl" 
@@ -175,7 +181,7 @@ const Header = () => {
                                                 )}
                                             </div>
                                         </div>
-                                    </Link>
+                                    </div>
                                 );
                             })
                         }
