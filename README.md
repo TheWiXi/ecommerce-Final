@@ -283,10 +283,10 @@ Este proyecto utiliza workspaces de npm para manejar un monorepo. Los workspaces
 │   │   └── /server          # Configuración del servidor
 │   │       └── /socket      # Configuración de WebSockets
 │   │
-│   ├── .env
-│   ├── .env.template        # Plantilla de variables de entorno
-│   ├── .gitignore
-│   ├── package-lock.json
-│   ├── package.json
-│   └── README.md
+├── .env
+├── .env.template        # Plantilla de variables de entorno
+├── .gitignore
+├── package-lock.json
+├── package.json
+└── README.md
 ```
