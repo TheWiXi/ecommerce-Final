@@ -140,7 +140,6 @@ const Header = () => {
                         onMouseLeave={() => setEstado(false)}
                         onChange={search}
                     />
-                    {console.log(filteredData)}
                 </div>
                 {
                 estado && filteredData.length > 0 && (

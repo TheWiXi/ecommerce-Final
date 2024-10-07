@@ -6,6 +6,18 @@ class WorkshopController {
         this.workshopService = new WorkshopService();
     }
 
+    async getWorkshoForIdUser(req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            const product = await this.workshopService.getWhorkshopById(req.params.id);
+            res.status(200).json(product);
+        } catch (error) {
+            const errorObj = JSON.parse(error.message);
+            res.status(errorObj.status).json({ message: errorObj.message });
+        }
+    }
+
     async getAspecificWorkshop(req, res) {
         try {
             const errors = validationResult(req);
