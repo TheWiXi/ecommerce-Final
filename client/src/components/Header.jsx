@@ -8,29 +8,26 @@ import { Link } from "react-router-dom"
 
 import { useNavigate } from 'react-router-dom';
 
-
 const Header = () => {
     const [open, setOpen] = useState(false)
     const sidebarRef = useRef(null);
     const [userData, setUserData] = useState(null);
-
-    const [productData, setProductData] = useState([])
-    const [workshopData, setWorkshopData] = useState([])
-    const [filteredData, setFilteredData] = useState([...productData, ...workshopData])
-    const [estado, setEstado] = useState(false)
+    const [allData, setAllData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [estado, setEstado] = useState(false);
 
     const navigate = useNavigate();
 
-    // Función que redirige al chat cuando se hace clic
+    // Navigation functions remain the same
     const handleNavigateAtencion = () => {
         navigate('/Atencion');
     };
-    const handleNavigateToAjustes = () =>{
+    const handleNavigateToAjustes = () => {
         navigate('/Ajustes');
-    }
-    const handleNavigateTocomentarios = () =>{
+    };
+    const handleNavigateTocomentarios = () => {
         navigate('/Comentarios');
-    }
+    };
 
     const getCookieValue = (cookieName) => {
         const cookies = document.cookie.split('; ');
@@ -39,6 +36,24 @@ const Header = () => {
     };
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [productsResponse, workshopsResponse] = await Promise.all([
+                    fetch('http://localhost:3000/products/searchAll', {credentials: "include"}),
+                    fetch('http://localhost:3000/workshops/getWorkshopWithArtesanoName', {credentials: "include"})
+                ]);
+
+                const products = await productsResponse.json();
+                const workshops = await workshopsResponse.json();
+
+                const combinedData = [...products, ...workshops];
+                setAllData(combinedData);
+                setFilteredData(combinedData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         const fetchUserData = async (email) => {
             try {
                 const response = await fetch('http://localhost:3000/users/verifyEmail', {
@@ -52,43 +67,23 @@ const Header = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUserData(data);
-                } else {
-                    console.error('Error al obtener los datos del usuario');
                 }
             } catch (error) {
-                console.error('Error en la solicitud:', error);
+                console.error('Error fetching user data:', error);
             }
-
-            fetch('http://localhost:3000/products/searchAll', {credentials: "include", cache: "force-cache"})
-            .then(res => res.json())
-            .then(dat => {
-                setProductData(dat)
-                setFilteredData([...filteredData,dat])
-            })
-            fetch('http://localhost:3000/workshops/getWorkshopWithArtesanoName', {credentials: "include", cache: "force-cache"})
-                .then(res => res.json())
-                .then(res => {
-                    setWorkshopData(res)
-                    setFilteredData([...filteredData,...res])
-                })
-
-            document.addEventListener("mousedown", handleClickOutside);
-            return () => {
-                document.removeEventListener("mousedown", handleClickOutside);
-            };
         };
 
         const token = getCookieValue('token');
-
         if (token) {
             try {
                 const decodedToken = jwtDecode(token);
-                const userEmail = decodedToken.correo;
-                fetchUserData(userEmail);
+                fetchUserData(decodedToken.correo);
             } catch (error) {
-                console.error('Token inválido', error);
+                console.error('Invalid token:', error);
             }
         }
+
+        fetchData();
 
         const handleClickOutside = (event) => {
             if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -99,18 +94,16 @@ const Header = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-
     }, []);
 
     const search = (e) => {
-        let termino = e.target.value
-        let newProducts = productData.filter(func => func.nombre.toUpperCase().includes(termino.toUpperCase()) ||
-            func.categoria.toUpperCase().includes(termino.toUpperCase())
-        )
-        let newWorkshops = workshopData.filter(func => func.nombre.toUpperCase().includes(termino.toUpperCase())
-    )
-        return setFilteredData([...newProducts, ...newWorkshops])
-    }
+        const termino = e.target.value.toUpperCase();
+        const newFilteredData = allData.filter(item => 
+            item.nombre.toUpperCase().includes(termino) ||
+            (item.categoria && item.categoria.toUpperCase().includes(termino))
+        );
+        setFilteredData(newFilteredData);
+    };
 
     return (
             <section className='bg-black flex flex-row p-4 justify-between gap-x-4'>
@@ -151,20 +144,40 @@ const Header = () => {
                     {console.log(filteredData)}
                 </div>
                 {
-                estado && filteredData.length && (
-                    <div className=" overflow-y-scroll flex flex-col z-[10] top-[70px] absolute h-max w-full bg-[white] p-[10px] gap-[15px] rounded-xl rounded-tl-none rounded-tr-none">
+                estado && filteredData.length > 0 && (
+                    <div className="overflow-y-scroll flex flex-col z-[10] top-[70px] absolute h-max w-full bg-[white] p-[10px] gap-[15px] rounded-xl rounded-tl-none rounded-tr-none">
                         {
-                            filteredData && filteredData.map(({ _id, nombre, categoria, img, imagen }) => (
-                                <Link className={'bg-2E1108 p-4 rounded-2xl'}  key={_id} to={`${ img ? `/product/${_id}` : `/workshop/details/${_id}` }`}>
-                                    <div className="flex gap-[10px] items-center" >
-                                        <img className="w-[100px] h-[100px] object-cover rounded-xl" src={ img ? img : imagen} alt={ img ? nombre : nombre } />
-                                        <div>
-                                            <p className="text-black"><strong>{ img ? nombre : nombre}</strong></p>
-                                            <p className="text-black bg-letrasGrises w-max p-[3px] rounded-full"><small>{categoria}</small></p>
+                            filteredData.map((item) => {
+                                // Correct way to check if 'foto' property exists in item
+                                const isProduct = 'foto' in item;
+                                const imageUrl = isProduct ? item.foto : (item.img || item.imagen);
+                                
+                                return (
+                                    <Link 
+                                        className='bg-2E1108 p-4 rounded-2xl' 
+                                        key={item._id} 
+                                        to={isProduct ? `/product/${item._id}` : `/workshop/details/${item._id}`}
+                                    >
+                                        <div className="flex gap-[10px] items-center">
+                                            <img 
+                                                className="w-[100px] h-[100px] object-cover rounded-xl" 
+                                                src={imageUrl} 
+                                                alt={item.nombre} 
+                                            />
+                                            <div>
+                                                <p className="text-black">
+                                                    <strong>{item.nombre}</strong>
+                                                </p>
+                                                {item.categoria && (
+                                                    <p className="text-black bg-letrasGrises w-max p-[3px] rounded-full">
+                                                        <small>{item.categoria}</small>
+                                                    </p>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            ))
+                                    </Link>
+                                );
+                            })
                         }
                     </div>
                 )
