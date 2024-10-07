@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import Category from "../components/Category";
 import leftSVG from '../../public/left-arrow.svg';
+import { useNavigate } from 'react-router-dom';
+
 
 const Favorites = () => {
     const [selectedCategory, setSelectedCategory] = useState("Textileria");
     const [userData, setUserData] = useState(null);
     const [favoriteProducts, setFavoriteProducts] = useState([]);
+
+    const navigate = useNavigate();
 
     const getCookieValue = (cookieName) => {
         const cookies = document.cookie.split("; ");
@@ -149,7 +153,7 @@ const Favorites = () => {
             <section className="m-6">
                 <div className="flex flex-wrap justify-between">
                     {favoriteProducts.map((product) => (
-                        <div key={product._id} className="w-[45%] mt-4 relative">
+                        <div key={product._id} className="w-[45%] mt-4 relative" onClick={() => {navigate('/product', { state: { product: product } });}}>
                             <div className="rounded-t-lg border-x border-t">
                                 <img src={product.foto} alt={product.nombre} />
                             </div>

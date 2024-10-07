@@ -3,7 +3,6 @@ import {jwtDecode} from 'jwt-decode';
 import Icons from './Icons'
 import separadorSvg from '../../public/aside/separador.svg'
 import Campuslands from '../../public/aside/campuslands.png'
-import { Link } from "react-router-dom"
 
 
 import { useNavigate } from 'react-router-dom';
